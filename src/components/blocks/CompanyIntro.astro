@@ -1,5 +1,7 @@
 ---
-// Ported from template-parts/block/company-intro.php
+// Ported from template-parts/block/company-intro.php, extended with an optional left
+// photo — the odoo-erp landing page uses a variant with a large left image that
+// isn't in the original ACF block source (hand-authored Gutenberg content on that page).
 import Cta from './Cta.astro';
 import { blockImg } from '../../lib/img';
 export interface Props {
@@ -7,23 +9,30 @@ export interface Props {
   logo?: string;
   title?: string;
   cta?: { label?: string; url?: string; newTab?: boolean };
+  leftImage?: string;
+  variantClass?: string;
 }
-const { badges = [], logo, title, cta } = Astro.props;
+const { badges = [], logo, title, cta, leftImage, variantClass = '' } = Astro.props;
 ---
-<section class="odoo-intro-section">
+<section class={`odoo-intro-section ${variantClass}`}>
   <div class="container">
     <div class="row">
-      <div class="col-lg-4 col-md-4 col-sm-6 col-12">
-        <div class="badge-oodo-img d-flex align-items-center">
-          {badges.length > 0 && (
-            <div class="badge-img d-flex align-items-center">
-              {badges.map(b => <img src={blockImg(b)} alt="">)}
-            </div>
-          )}
-          {logo && <div class="img-odoo"><img src={blockImg(logo)} alt=""></div>}
+      {leftImage && (
+        <div class="col-lg-5 col-md-5 col-sm-6 col-12">
+          <div class="left-img black-overlay"><img src={blockImg(leftImage)} alt=""></div>
         </div>
-      </div>
-      <div class="col-lg-8 col-md-8 col-sm-6 col-12 odoo-intro-content">
+      )}
+      <div class={`${leftImage ? 'col-lg-7 col-md-7' : 'col-lg-8 col-md-8'} col-sm-6 col-12 odoo-intro-content`}>
+        {(badges.length > 0 || logo) && (
+          <div class="badge-oodo-img d-flex align-items-center">
+            {badges.length > 0 && (
+              <div class="badge-img d-flex align-items-center">
+                {badges.map(b => <img src={blockImg(b)} alt="">)}
+              </div>
+            )}
+            {logo && <div class="img-odoo"><img src={blockImg(logo)} alt=""></div>}
+          </div>
+        )}
         {title && <h3>{title}</h3>}
         {cta && <Cta label={cta.label} url={cta.url} newTab={cta.newTab} />}
       </div>

@@ -253,6 +253,8 @@ const blocksField = fields.array(
         logo: imageField('Logo', 'blocks'),
         title: fields.text({ label: 'Titre' }),
         cta: fields.object(ctaFields, { label: 'CTA' }),
+        leftImage: imageField('Image gauche (optionnel)', 'blocks'),
+        variantClass: fields.text({ label: 'Classe variante (optionnel)' }),
       }, { label: 'Company intro' }),
       methodologies: fields.object({
         bgClass: fields.text({ label: 'Classe fond (optionnel)' }),

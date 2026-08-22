@@ -276,7 +276,9 @@
 
   /* Odoo intro (company-intro block) */
   .odoo-intro-section { padding: 5.5rem 0; background: var(--white); }
+  .odoo-intro-section .left-img { position: relative; }
   .odoo-intro-section .left-img img { border-radius: 16px; width: 100%; height: 380px; object-fit: cover; }
+  .odoo-intro-section .left-img.black-overlay::after { content:''; position:absolute; inset:0; background: rgba(20,20,20,0.15); border-radius: 16px; }
   .odoo-intro-content h3 { font-size: 1.6rem; margin: 1.5rem 0 1.5rem; }
 
   /* Methodology */
