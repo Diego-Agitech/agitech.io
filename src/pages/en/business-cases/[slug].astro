@@ -14,7 +14,9 @@ export async function getStaticPaths() {
   );
   return entries
     .filter(({ entry }) => entry && entry.lang === 'en')
-    .map(({ slug, entry }) => ({ params: { slug }, props: { entry } }));
+    // Stored as "<slug>-en" to avoid colliding with the FR entry of the same case
+    // (one flat collection shared by both languages) — stripped back for the URL.
+    .map(({ slug, entry }) => ({ params: { slug: slug.replace(/-en$/, '') }, props: { entry } }));
 }
 
 const { entry } = Astro.props;
