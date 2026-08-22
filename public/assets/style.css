@@ -56,6 +56,23 @@
   @media (max-width: 900px) {
     .row > [class*="col-lg-"] { flex: 0 0 100%; max-width: 100%; }
   }
+  /* Several blocks give their own .row a bespoke `display:grid` (why-section, talk-section,
+     credite-section, odoo-expertise-content, our-services-content, help-fields,
+     key-features-section .row, custom-development-section .content). Their children still
+     carry the ported col-lg-* classes for markup fidelity, but the col-lg-N percentage
+     max-width above would then shrink each child to N% of its own already-N%-wide grid
+     track (e.g. 25% of a 25% track = ~6% of the page) — double-constrained. Neutralize the
+     fallback's sizing inside those containers so the grid's own track sizing wins. */
+  .why-section .row > [class*="col-"],
+  .talk-section .row > [class*="col-"],
+  .credite-section .row > [class*="col-"],
+  .odoo-expertise-content > [class*="col-"],
+  .our-services-content > [class*="col-"],
+  .help-fields > [class*="col-"],
+  .key-features-section .row > [class*="col-"],
+  .custom-development-section .content > [class*="col-"] {
+    max-width: none; flex-basis: auto; width: 100%;
+  }
   h1,h2,h3,h4,h5,h6 { font-family: var(--font-display); font-weight: 300; letter-spacing: -0.01em; }
   .eyebrow { font-size: 0.8rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--violet); margin-bottom: 0.75rem; }
 
