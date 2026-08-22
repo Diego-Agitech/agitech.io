@@ -10,7 +10,7 @@ const { title, steps = [] } = Astro.props;
   <div class="container-sm">
     <div class="row">
       <div class="col-lg-4 col-md-12 col-sm-12 col-12">
-        <div class="left-content">{title && <h3>{title}</h3>}</div>
+        <div class="left-content">{title && <h3 set:html={title} />}</div>
       </div>
       <div class="col-lg-8 col-md-12 col-sm-12 col-12 right-content">
         {steps.map((s, i) => (

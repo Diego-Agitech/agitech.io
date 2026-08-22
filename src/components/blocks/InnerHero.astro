@@ -20,7 +20,7 @@ const { logo, title, subTitle, cta, image, bottomLine = false, logoAtBottom = fa
         <div class={`text ${logoAtBottom ? 'logo-bottom' : ''}`}>
           {logo && <div class="at-odoo-logo"><img src={blockImg(logo)} alt=""></div>}
           {title && <h6>{title}</h6>}
-          {subTitle && <h2>{subTitle}</h2>}
+          {subTitle && <h2 set:html={subTitle} />}
           {cta && <Cta label={cta.label} url={cta.url} newTab={cta.newTab} wrapClass="light-btn" />}
         </div>
       </div>
