@@ -35,7 +35,7 @@ Le bon niveau dépend de votre activité. Une société de négoce avec des acha
 
 Un workflow ne doit jamais reposer sur une seule personne sans solution de continuité. Si le valideur est absent, la commande critique ne peut pas rester bloquée une semaine. Définissez qui approuve, qui remplace, et dans quelles limites.
 
-Cette règle paraît évidente, mais elle est souvent oubliée lors du paramétrage. Les droits Odoo, les [rôles utilisateurs](https://agitech.io/guide-selection-modules-odoo-pme/) et les procédures internes doivent raconter la même histoire. Sinon, l’équipe achat finit par exporter un PDF et demander un accord par e-mail, ce qui annule le bénéfice de la traçabilité.
+Cette règle paraît évidente, mais elle est souvent oubliée lors du paramétrage. Les droits Odoo, les [rôles utilisateurs](/guide-selection-modules-odoo-pme/) et les procédures internes doivent raconter la même histoire. Sinon, l’équipe achat finit par exporter un PDF et demander un accord par e-mail, ce qui annule le bénéfice de la traçabilité.
 
 ## Configurer le flux standard avant de développer
 
@@ -43,7 +43,7 @@ La première étape consiste à vérifier ce qu’Odoo couvre nativement dans vo
 
 Dans une configuration simple, l’acheteur crée la demande de prix, la complète avec les produits, le fournisseur et les conditions négociées, puis la soumet. Le responsable habilité la valide ou la renvoie pour correction. Une fois le bon de commande confirmé, les étapes de réception et de facturation suivent les règles habituelles de l’entreprise.
 
-Cette approche standard est souvent la meilleure décision initiale. Elle limite les [coûts de maintenance](https://agitech.io/retour-sur-investissement-erp-pme/), facilite les mises à jour et réduit la dépendance à du code spécifique. Une personnalisation ne devient pertinente que lorsqu’elle répond à une règle claire que le standard ne peut pas gérer proprement.
+Cette approche standard est souvent la meilleure décision initiale. Elle limite les [coûts de maintenance](/retour-sur-investissement-erp-pme/), facilite les mises à jour et réduit la dépendance à du code spécifique. Une personnalisation ne devient pertinente que lorsqu’elle répond à une règle claire que le standard ne peut pas gérer proprement.
 
 ## Quand un workflow sur mesure devient nécessaire
 
@@ -65,7 +65,7 @@ Il est également utile de décider qui peut annuler une commande confirmée et 
 
 Avant le déploiement, testez le circuit avec des cas représentatifs : une petite commande habituelle, une commande au-dessus du seuil, un nouveau fournisseur, une demande urgente, une modification après approbation et l’absence d’un valideur. Ce test doit être mené par des utilisateurs métier, pas seulement par l’équipe projet.
 
-L’objectif est de mesurer le temps nécessaire à [chaque décision](https://agitech.io/gouvernance-de-projet-qui-decide-quoi-dans-un-projet-odoo/) et d’identifier les ambiguïtés. Si un responsable ne sait pas pourquoi une commande lui est attribuée, le problème n’est pas sa formation : la règle est probablement mal définie. Si les acheteurs doivent contourner le flux pour tenir leurs délais, il faut revoir le niveau de contrôle ou les délégations.
+L’objectif est de mesurer le temps nécessaire à [chaque décision](/gouvernance-de-projet-qui-decide-quoi-dans-un-projet-odoo/) et d’identifier les ambiguïtés. Si un responsable ne sait pas pourquoi une commande lui est attribuée, le problème n’est pas sa formation : la règle est probablement mal définie. Si les acheteurs doivent contourner le flux pour tenir leurs délais, il faut revoir le niveau de contrôle ou les délégations.
 
 Après mise en service, suivez quelques indicateurs simples : délai moyen de validation, nombre de commandes bloquées, taux de modifications après approbation et volume des achats urgents. Ces données montrent rapidement si le processus protège réellement l’entreprise sans freiner son activité.
 

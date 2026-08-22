@@ -1,35 +1,73 @@
 ---
+// Ported from the live WP footer (footer.php via get_footer()) — newsletter signup,
+// tagline, real company address, ShiftingPact partner badge, social icons, nav, legal.
 export interface Props {
   lang: 'fr' | 'en';
 }
 const { lang } = Astro.props;
 const base = lang === 'en' ? '/en' : '';
 const strings = {
-  fr: { nav: 'Navigation', odoo: 'Odoo ERP', why: 'Pourquoi nous', industries: 'Industries', blog: 'Blog', contact: 'Contact', terms: 'Conditions générales', privacy: 'Politique de confidentialité', rights: `© ${new Date().getFullYear()} Agitech. Tous droits réservés.` },
-  en: { nav: 'Navigation', odoo: 'Odoo ERP', why: 'Why us', industries: 'Industries', blog: 'Blog', contact: 'Contact', terms: 'Terms & conditions', privacy: 'Privacy policy', rights: `© ${new Date().getFullYear()} Agitech. All rights reserved.` },
+  fr: {
+    newsletter: 'Abonnez-vous à notre newsletter', emailPlaceholder: 'Entrez votre email',
+    tagline: 'Solutions informatiques fiables, pour PME performantes.',
+    nav: 'Navigation',
+    odoo: 'Odoo ERP', dev: 'Développement', infra: 'Infrastructure IT', cases: 'Réalisations', recruitment: 'Recrutement',
+    rights: `© ${new Date().getFullYear()} Agitech. Tous droits réservés.`,
+    privacy: 'Politique de Confidentialité', terms: 'Termes et Conditions',
+  },
+  en: {
+    newsletter: 'Subscribe to our newsletter', emailPlaceholder: 'Enter your email',
+    tagline: 'Reliable IT solutions, for high-performing SMEs.',
+    nav: 'Navigation',
+    odoo: 'Odoo ERP', dev: 'Development', infra: 'IT Infrastructure', cases: 'Case Studies', recruitment: 'Recruitment',
+    rights: `© ${new Date().getFullYear()} Agitech. All rights reserved.`,
+    privacy: 'Privacy Policy', terms: 'Terms & Conditions',
+  },
 }[lang];
 ---
 <div class="brand-bar"></div>
 <footer>
   <div class="container">
     <div class="row main-row">
-      <div class="item">
+      <div class="item logo-sub">
         <a class="ft-logo" href={lang === 'en' ? '/en/' : '/'}>
-          <img src="/assets/img/agitech-logo-light.svg" alt="Agitech">
+          <img src="/assets/img/blocks/Agitech_LogoWhite_footer.svg" alt="Agitech">
         </a>
+        <div class="content">
+          <h6>{strings.newsletter}</h6>
+          <!-- Real submit endpoint (Formspree, like agifid) to be wired later. -->
+          <form class="tnp-subscription" action="https://formspree.io/f/xeajdqgr" method="POST">
+            <input class="tnp-email" type="email" name="email" placeholder={strings.emailPlaceholder} required>
+            <button class="tnp-submit" type="submit">→</button>
+          </form>
+        </div>
       </div>
-      <div class="item">
-        <div class="top-text"><h5>Odoo, adapté à votre PME. Pas l'inverse.</h5></div>
+      <div class="item company-location">
+        <div class="top-text"><h5>{strings.tagline}</h5></div>
+        <div class="content address-row">
+          <div class="address">
+            <h6>Agitech Belgium</h6>
+            <p>11 Clos Lucien Outers, 1160<br>Brussels, Belgium</p>
+          </div>
+          <a class="shiftingpact-logo" href="https://shiftingpact.be/agitech/" target="_blank" rel="noopener">
+            <img src="/assets/img/blocks/shiftingpackt-logo.png" alt="ShiftingPact">
+          </a>
+        </div>
       </div>
       <div class="item ft-links">
+        <div class="social-icons">
+          <a href="https://www.linkedin.com/company/agitechbelgium/" target="_blank" rel="noopener"><img src="/assets/img/blocks/linkedin.svg" alt="LinkedIn"></a>
+          <a href="https://www.youtube.com/@Agitech-OdooPartner" target="_blank" rel="noopener"><img src="/assets/img/blocks/youtube.svg" alt="YouTube"></a>
+          <a href="https://wa.me/32460241589" target="_blank" rel="noopener"><img src="/assets/img/blocks/whatsap.svg" alt="WhatsApp"></a>
+        </div>
         <div class="content">
           <h6>{strings.nav}</h6>
           <ul>
             <li><a href={`${base}/odoo-erp/`}>{strings.odoo}</a></li>
-            <li><a href={`${base}/why-odoo/`}>{strings.why}</a></li>
-            <li><a href={`${base}/industries/`}>{strings.industries}</a></li>
-            <li><a href={`${base}/blog/`}>{strings.blog}</a></li>
-            <li><a href={`${base}/contact-us/`}>{strings.contact}</a></li>
+            <li><a href={`${base}/development/`}>{strings.dev}</a></li>
+            <li><a href={`${base}/infrastructure-it/`}>{strings.infra}</a></li>
+            <li><a href={`${base}/case-study/`}>{strings.cases}</a></li>
+            <li><a href={`${base}/recruitment/`}>{strings.recruitment}</a></li>
           </ul>
         </div>
       </div>

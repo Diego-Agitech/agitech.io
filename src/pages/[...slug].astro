@@ -10,6 +10,7 @@ import BlockRenderer from '../components/BlockRenderer.astro';
 import { createReader } from '@keystatic/core/reader';
 import keystaticConfig from '../../keystatic.config';
 import Markdoc from '@markdoc/markdoc';
+import { addTocIds } from '../lib/toc';
 
 export async function getStaticPaths() {
   const reader = createReader(process.cwd(), keystaticConfig);
@@ -38,9 +39,13 @@ export async function getStaticPaths() {
 const { kind, entry } = Astro.props;
 
 let bodyHtml = '';
+let toc: { id: string; text: string }[] = [];
 if (kind === 'blog') {
   const { node } = await entry.body();
-  bodyHtml = Markdoc.renderers.html(Markdoc.transform(node));
+  const rendered = Markdoc.renderers.html(Markdoc.transform(node));
+  const withToc = addTocIds(rendered);
+  bodyHtml = withToc.html;
+  toc = withToc.toc;
 }
 ---
 {kind === 'page' ? (
@@ -68,12 +73,20 @@ if (kind === 'blog') {
           <div class="row header-area">
             <div class="col-12">
               {entry.category && <div class="categories-btn"><span class="purple-text">{entry.category}</span></div>}
-              <h3>{entry.title}</h3>
+              <h1>{entry.title}</h1>
               {entry.publishedAt && <div class="name-date"><p>{entry.publishedAt}</p></div>}
             </div>
           </div>
           <div class="row content-area">
-            <div class="col-12" set:html={bodyHtml} />
+            {toc.length > 1 && (
+              <aside class="col-lg-3 toc-sidebar">
+                <nav>
+                  <h6>Sommaire</h6>
+                  <ol>{toc.map(t => <li><a href={`#${t.id}`}>{t.text}</a></li>)}</ol>
+                </nav>
+              </aside>
+            )}
+            <div class={toc.length > 1 ? 'col-lg-9' : 'col-lg-12'} set:html={bodyHtml} />
           </div>
         </div>
       </section>
