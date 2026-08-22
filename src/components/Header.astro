@@ -5,11 +5,50 @@ export interface Props {
 const { lang } = Astro.props;
 
 const strings = {
-  fr: { odoo: 'Odoo ERP', why: 'Pourquoi nous', industries: 'Industries', blog: 'Blog', jobs: 'Jobs', contact: 'Contact' },
-  en: { odoo: 'Odoo ERP', why: 'Why us', industries: 'Industries', blog: 'Blog', jobs: 'Jobs', contact: 'Contact' },
+  fr: { odoo: 'Odoo ERP', why: 'Pourquoi nous', industries: 'Industries', services: 'Services', blog: 'Blog', jobs: 'Jobs', contact: 'Contact', allIndustries: 'Toutes les industries' },
+  en: { odoo: 'Odoo ERP', why: 'Why us', industries: 'Industries', services: 'Services', blog: 'Blog', jobs: 'Jobs', contact: 'Contact', allIndustries: 'All industries' },
 }[lang];
 
 const base = lang === 'en' ? '/en' : '';
+
+const industries = lang === 'en'
+  ? [
+      { label: 'E-Commerce', href: '/en/industries-e-commerce/' },
+      { label: 'Wholesale & B2B Sales', href: '/en/industries-wholesale-b2b-sales/' },
+      { label: 'Business Services', href: '/en/solution-business-services/' },
+      { label: 'Transport & Logistics', href: '/en/solution-transport-logistics/' },
+      { label: 'NGOs & International Associations', href: '/en/industries-ngos-international-associations/' },
+    ]
+  : [
+      { label: 'E-Commerce', href: '/industries-e-commerce/' },
+      { label: 'Grossiste & Vente B2B', href: '/industries-grossiste-vente-b2b/' },
+      { label: 'Construction & Bâtiment', href: '/industries-construction-batiment/' },
+      { label: 'Services aux Entreprises', href: '/industries-services-aux-entreprises/' },
+      { label: 'Transport & Logistique', href: '/solution-transport-logistique/' },
+      { label: 'Associations Internationales', href: '/industries-associations-internationales/' },
+    ];
+
+// "Comptabilité" hands off to AgiFid (sister company, separate site) rather than a page
+// on agitech.io. Formation/Support/Migration are the categories competitors (TSC Expert,
+// Eezee-IT, Nalios...) list alongside implementation — new lightweight pages, not migrated
+// WP content.
+const services = lang === 'en'
+  ? [
+      { label: 'Accounting (AgiFid)', href: 'https://agifid.be', external: true },
+      { label: 'Odoo Implementation', href: '/en/odoo-erp/' },
+      { label: 'Training', href: '/en/training/' },
+      { label: 'Support', href: '/en/support/' },
+      { label: 'Data Migration', href: '/en/migration/' },
+      { label: 'Custom Development', href: '/en/development/' },
+    ]
+  : [
+      { label: 'Comptabilité (AgiFid)', href: 'https://agifid.be', external: true },
+      { label: 'Implémentation Odoo', href: '/odoo-erp/' },
+      { label: 'Formation', href: '/formation/' },
+      { label: 'Support', href: '/support/' },
+      { label: 'Migration de données', href: '/migration/' },
+      { label: 'Développement sur mesure', href: '/development/' },
+    ];
 ---
 <header>
   <div class="container header-wrap">
@@ -20,7 +59,19 @@ const base = lang === 'en' ? '/en' : '';
       <ul>
         <li><a href={`${base}/odoo-erp/`}>{strings.odoo}</a></li>
         <li><a href={`${base}/why-odoo/`}>{strings.why}</a></li>
-        <li><a href={`${base}/industries/`}>{strings.industries}</a></li>
+        <li class="has-submenu">
+          <a href={`${base}/industries/`}>{strings.industries}</a>
+          <ul class="submenu">
+            {industries.map(i => <li><a href={i.href}>{i.label}</a></li>)}
+            <li class="submenu-all"><a href={`${base}/industries/`}>{strings.allIndustries}</a></li>
+          </ul>
+        </li>
+        <li class="has-submenu">
+          <a href={`${base}/odoo-erp/`}>{strings.services}</a>
+          <ul class="submenu">
+            {services.map(s => <li><a href={s.href} target={s.external ? '_blank' : undefined} rel={s.external ? 'noopener' : undefined}>{s.label}</a></li>)}
+          </ul>
+        </li>
         <li><a href={`${base}/blog/`}>{strings.blog}</a></li>
         <li><a href={`${base}/jobs/`}>{strings.jobs}</a></li>
       </ul>
