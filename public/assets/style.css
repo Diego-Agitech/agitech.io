@@ -397,6 +397,26 @@
   .affordable-video iframe { width: 100%; aspect-ratio: 16/9; height: auto; }
   @media (max-width: 900px) { .key-features-section .row { grid-template-columns: 1fr; } .key-features-section .logo-wrp { grid-template-columns: repeat(3, 1fr); } }
 
+  /* Feedback (client testimonial on business case pages) */
+  .feedback-section { padding: 4rem 0; background: var(--offwhite); }
+  .feedback-content { max-width: 720px; margin: 0 auto; text-align: center; }
+  .feedback-content h6 { color: var(--violet); font-size: 0.85rem; font-weight: 600; letter-spacing: 0.05em; margin-bottom: 1rem; }
+  .feedback-content h4 { font-size: 1.4rem; font-weight: 300; line-height: 1.5; margin-bottom: 1.75rem; }
+  .feedback-content .client-details { display: flex; align-items: center; justify-content: center; gap: 1rem; }
+  .feedback-content .client-details img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; }
+  .feedback-content .details { text-align: left; }
+  .feedback-content .details h5 { font-size: 1rem; margin-bottom: 0.1rem; }
+  .feedback-content .details p { color: var(--muted); font-size: 0.85rem; }
+
+  /* Case overview (metrics band on business case pages) */
+  .overview-section { padding: 3rem 0; border-bottom: 1px solid var(--border); }
+  .overview-section .items-wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1.5rem; }
+  .overview-section .item { text-align: center; flex: 1 1 auto; }
+  .overview-section .item h6 { color: var(--muted); font-size: 0.8rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 0.5rem; }
+  .overview-section .item h5 { font-family: var(--font-display); font-size: 1.5rem; }
+  .overview-section .item .counter { color: var(--violet); font-weight: 600; }
+  @media (max-width: 900px) { .overview-section .items-wrap { justify-content: flex-start; } .overview-section .item { flex: 0 0 45%; } }
+
   /* Case insights (business case detail pages) */
   .custom-development-section { padding: 4rem 0; }
   .custom-development-section .content { display: grid; grid-template-columns: 1fr 2fr; gap: 2.5rem; padding: 2.5rem 0; border-top: 1px solid var(--border); align-items: start; }
