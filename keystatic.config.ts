@@ -36,6 +36,7 @@ const blocksField = fields.array(
         { label: 'Nos services', value: 'ourServices' },
         { label: 'Company intro', value: 'companyIntro' },
         { label: 'Méthodologie', value: 'methodologies' },
+        { label: 'Key features (3 points numérotés)', value: 'keyFeatures' },
       ],
       defaultValue: 'heroHome',
     }),
@@ -258,6 +259,35 @@ const blocksField = fields.array(
           { label: 'Étapes', itemLabel: props => props.fields.heading.value || 'Étape' },
         ),
       }, { label: 'Méthodologie' }),
+      keyFeatures: fields.object({
+        subTitle: fields.text({ label: 'Sous-titre intro' }),
+        title: fields.text({ label: 'Titre intro' }),
+        features: fields.array(
+          fields.object({
+            title: fields.text({ label: 'Titre' }),
+            description: fields.text({ label: 'Description', multiline: true }),
+            pointLabel: fields.text({ label: 'Libellé avantage' }),
+            pointDescription: fields.text({ label: 'Description avantage' }),
+            blockToDisplay: fields.select({
+              label: 'Contenu affiché',
+              options: [
+                { label: 'Aucun', value: 'none' },
+                { label: 'Logos', value: 'logos' },
+                { label: 'Image', value: 'image' },
+                { label: 'Vidéo (oEmbed)', value: 'oembed' },
+              ],
+              defaultValue: 'none',
+            }),
+            logos: fields.array(
+              fields.object({ logo: imageField('Logo', 'blocks'), logoTitle: fields.text({ label: 'Nom' }) }),
+              { label: 'Logos', itemLabel: props => props.fields.logoTitle.value || 'Logo' },
+            ),
+            image: imageField('Image', 'blocks'),
+            embedUrl: fields.text({ label: 'URL embed vidéo' }),
+          }),
+          { label: 'Points clés', itemLabel: props => props.fields.title.value || 'Point' },
+        ),
+      }, { label: 'Key features' }),
     },
   ),
   { label: 'Contenu (blocs)', itemLabel: props => props.discriminant },

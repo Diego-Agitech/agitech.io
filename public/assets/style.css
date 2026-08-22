@@ -149,6 +149,26 @@
   .talk-section h4 { font-size: 1.75rem; margin-bottom: 1.1rem; }
   .talk-section p { color: var(--muted); margin-bottom: 1.75rem; max-width: 480px; }
 
+  /* Key features (why-odoo) */
+  .full-width-text-section { padding: 5.5rem 0 0; background: var(--white); }
+  .full-width-text-section h6 { color: var(--violet); font-size: 0.85rem; font-weight: 600; margin-bottom: 0.75rem; }
+  .full-width-text-section h3 { font-size: 1.9rem; }
+  .key-features-section { padding: 3rem 0 5.5rem; background: var(--white); }
+  .key-features-section .row { display: grid; grid-template-columns: 100px 1fr; gap: 1.5rem; padding: 2.5rem 0; border-top: 1px solid var(--border); align-items: start; }
+  .key-features-section .sr-number h2 { color: var(--violet); font-size: 2rem; }
+  .one-platform-content .title h5 { font-size: 1.3rem; margin-bottom: 0.75rem; }
+  .one-platform-content .title p { color: var(--muted); margin-bottom: 1rem; }
+  .one-platform-content .advantages p { font-size: 0.9rem; color: var(--muted); }
+  .one-platform-content .advantages strong { color: var(--ink); }
+  .key-features-section .logo-wrp { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1rem; margin-top: 1.5rem; }
+  .key-features-section .logo-wrp .item { background: var(--offwhite); border-radius: 12px; padding: 1rem; text-align: center; }
+  .key-features-section .logo-wrp .item img { height: 28px; width: auto; margin: 0 auto 0.5rem; }
+  .key-features-section .logo-wrp .item p { font-size: 0.72rem; color: var(--muted); }
+  .customization-step-image img { border-radius: 16px; width: 100%; margin-top: 1.5rem; }
+  .affordable-video { margin-top: 1.5rem; border-radius: 16px; overflow: hidden; }
+  .affordable-video iframe { width: 100%; aspect-ratio: 16/9; height: auto; }
+  @media (max-width: 900px) { .key-features-section .row { grid-template-columns: 1fr; } .key-features-section .logo-wrp { grid-template-columns: repeat(3, 1fr); } }
+
   /* Needs / case intro */
   .needs-section { padding: 5.5rem 0; background: var(--offwhite); }
   .needs-section .left-content h6 { color: var(--violet); font-size: 0.85rem; font-weight: 600; letter-spacing: 0.05em; margin-bottom: 1.25rem; }

@@ -1,0 +1,70 @@
+---
+// Ported from template-parts/block/key-features.php — outputs two sections at once
+// (intro text + numbered feature rows), same as the original WP block.
+import { blockImg } from '../../lib/img';
+export interface Props {
+  subTitle?: string;
+  title?: string;
+  features?: {
+    title?: string;
+    description?: string;
+    pointLabel?: string;
+    pointDescription?: string;
+    blockToDisplay?: 'logos' | 'image' | 'oembed';
+    logos?: { logo?: string; logoTitle?: string }[];
+    image?: string;
+    embedUrl?: string;
+  }[];
+}
+const { subTitle, title, features = [] } = Astro.props;
+const extraClass = (i: number) => i === 0 ? 'one-platform' : i === 1 ? 'unlimited-customization' : i === 2 ? 'affordable' : 'one-platform';
+---
+<section class="full-width-text-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-7 col-md-10 col-sm-12 col-12">
+        {subTitle && <h6>{subTitle}</h6>}
+        {title && <h3>{title}</h3>}
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="key-features-section">
+  <div class="container-sm">
+    {features.map((f, i) => (
+      <div class={`row ${extraClass(i)}`}>
+        <div class="col-lg-3 col-md-2 col-sm-1 col-12 sr-number">
+          <h2>{String(i + 1).padStart(2, '0')}</h2>
+        </div>
+        <div class="col-lg-9 col-md-10 col-sm-11 col-12 one-platform-content">
+          <div class="title">
+            {f.title && <h5>{f.title}</h5>}
+            {f.description && <Fragment set:html={f.description} />}
+            {(f.pointLabel || f.pointDescription) && (
+              <div class="advantages"><p><strong>{f.pointLabel}:</strong> {f.pointDescription}</p></div>
+            )}
+          </div>
+          {f.blockToDisplay === 'logos' && f.logos && (
+            <div class="logo-wrp">
+              {f.logos.map(l => (
+                <div class="item">
+                  {l.logo && <img src={blockImg(l.logo)} alt="">}
+                  <p>{l.logoTitle}</p>
+                </div>
+              ))}
+            </div>
+          )}
+          {f.blockToDisplay === 'image' && f.image && (
+            <div class="customization-step-image"><img src={blockImg(f.image)} alt=""></div>
+          )}
+          {f.blockToDisplay === 'oembed' && f.embedUrl && (
+            <div class="affordable-video">
+              <iframe src={f.embedUrl} width="640" height="360" frameborder="0" allowfullscreen title={f.title}></iframe>
+            </div>
+          )}
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
