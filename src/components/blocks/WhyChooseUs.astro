@@ -1,0 +1,46 @@
+---
+// Ported from template-parts/block/why-choose-us.php
+import Cta from './Cta.astro';
+export interface Props {
+  bgClass?: string;
+  title?: string;
+  badges?: { url: string; alt?: string }[];
+  logo?: { url: string; alt?: string };
+  image?: { url: string; alt?: string };
+  items?: { title?: string; content?: string }[];
+  cta?: { label?: string; url?: string; newTab?: boolean };
+}
+const { bgClass = '', title, badges = [], logo, image, items = [], cta } = Astro.props;
+---
+<section class={`why-section ${bgClass}`}>
+  <div class="container-sm">
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-12 why-title">{title && <h3>{title}</h3>}</div>
+      <div class="col-lg-6 col-md-6 col-sm-12 col-12 why-image">
+        {(badges.length > 0 || logo) && (
+          <div class="badge-oodo-img d-flex align-items-center">
+            {badges.length > 0 && (
+              <div class="badge-img d-flex align-items-center">
+                {badges.map(b => <img src={b.url} alt={b.alt ?? ''}>)}
+              </div>
+            )}
+            {logo && <div class="img-odoo"><img src={logo.url} alt={logo.alt ?? ''}></div>}
+          </div>
+        )}
+        <div class="why-img">{image && <img src={image.url} alt={image.alt ?? ''}>}</div>
+      </div>
+      {items.length > 0 && (
+        <div class="col-lg-6 col-md-6 col-sm-12 col-12 why-content">
+          {items.map((item, i) => (
+            <div class="item">
+              <h4>{String(i + 1).padStart(2, '0')}</h4>
+              {item.title && <h5>{item.title}</h5>}
+              {item.content && <Fragment set:html={item.content} />}
+            </div>
+          ))}
+          {cta && <Cta label={cta.label} url={cta.url} newTab={cta.newTab} />}
+        </div>
+      )}
+    </div>
+  </div>
+</section>

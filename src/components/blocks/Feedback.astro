@@ -1,0 +1,28 @@
+---
+// Ported from template-parts/block/feedback.php
+export interface Props {
+  feedbacks?: { title?: string; feedback?: string; userImage?: { url: string; alt?: string }; name?: string; role?: string }[];
+}
+const { feedbacks = [] } = Astro.props;
+---
+<section class="feedback-section">
+  <div class="container-sm">
+    {feedbacks.length > 0 && (
+      <div class="row">
+        {feedbacks.map(f => (
+          <div class="col-12 feedback-content">
+            {f.title && <h6>{f.title}</h6>}
+            {f.feedback && <h4>{f.feedback}</h4>}
+            <div class="client-details">
+              {f.userImage && <img src={f.userImage.url} alt={f.userImage.alt ?? 'User'}>}
+              <div class="details">
+                {f.name && <h5>{f.name}</h5>}
+                {f.role && <p>{f.role}</p>}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    )}
+  </div>
+</section>

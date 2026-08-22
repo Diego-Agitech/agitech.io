@@ -1,0 +1,47 @@
+---
+// Ported from template-parts/block/case-intro.php
+export interface Props {
+  bgClass?: string;
+  needsLabel?: string;
+  needs?: string[];
+  challengesLabel?: string;
+  challenge?: string;
+  solutionLabel?: string;
+  solution?: string;
+}
+const {
+  bgClass = '', needsLabel = 'Needs', needs = [],
+  challengesLabel = 'The Challenges', challenge,
+  solutionLabel = 'The Solution', solution,
+} = Astro.props;
+---
+<section class={`needs-section ${bgClass}`}>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 col-md-3 col-sm-12 col-12">
+        <div class="left-content">
+          <h6>{needsLabel}</h6>
+          {needs.length > 0 && (
+            <ul>{needs.map(n => <li>{n}</li>)}</ul>
+          )}
+        </div>
+      </div>
+      <div class="col-lg-8 col-md-9 col-sm-12 col-12">
+        <div class="right-content">
+          {challenge && (
+            <div class="challenges">
+              <h6>{challengesLabel}</h6>
+              <Fragment set:html={challenge} />
+            </div>
+          )}
+          {solution && (
+            <div class="solution">
+              <h6>{solutionLabel}</h6>
+              <Fragment set:html={solution} />
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

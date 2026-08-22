@@ -1,5 +1,193 @@
 import { config, fields, collection } from '@keystatic/core';
 
+// Shared sub-schemas ported from ACF field groups reused across blocks.
+const imageField = (label: string, dir: string) =>
+  fields.image({ label, directory: `public/assets/img/${dir}`, publicPath: `/assets/img/${dir}/` });
+
+const ctaFields = {
+  label: fields.text({ label: 'Texte du bouton' }),
+  url: fields.text({ label: 'Lien' }),
+  newTab: fields.checkbox({ label: 'Ouvrir dans un nouvel onglet', defaultValue: false }),
+};
+
+const blocksField = fields.array(
+  fields.conditional(
+    fields.select({
+      label: 'Type de bloc',
+      options: [
+        { label: 'Hero — Accueil', value: 'heroHome' },
+        { label: 'Hero — Page intérieure', value: 'innerHero' },
+        { label: 'Hero — Landing', value: 'landingHero' },
+        { label: 'Talk to us', value: 'talkToUs' },
+        { label: 'Trust on us (logos clients)', value: 'trustOnUs' },
+        { label: 'Applications utilisées', value: 'applicationsUsed' },
+        { label: 'Case intro (besoins/défi/solution)', value: 'caseIntro' },
+        { label: 'Expertise Odoo', value: 'odooExpertise' },
+        { label: 'Ideas into software', value: 'ideasIntoSoftware' },
+        { label: 'Hero image below', value: 'heroImageBelow' },
+        { label: 'Case overview (métriques)', value: 'caseOverview' },
+        { label: 'Case insights', value: 'caseInsights' },
+        { label: 'Feedback clients', value: 'feedback' },
+        { label: 'Why choose us', value: 'whyChooseUs' },
+        { label: 'Featured business cases', value: 'featuredCases' },
+      ],
+      defaultValue: 'heroHome',
+    }),
+    {
+      heroHome: fields.object({
+        title: fields.text({ label: 'Titre' }),
+        subTitle: fields.text({ label: 'Sous-titre' }),
+        cta: fields.object(ctaFields, { label: 'CTA' }),
+        bottomLine: fields.checkbox({ label: 'Ligne décorative bas', defaultValue: false }),
+      }, { label: 'Hero — Accueil' }),
+      innerHero: fields.object({
+        logo: imageField('Logo', 'blocks'),
+        title: fields.text({ label: 'Titre' }),
+        subTitle: fields.text({ label: 'Sous-titre' }),
+        cta: fields.object(ctaFields, { label: 'CTA' }),
+        image: imageField('Image droite', 'blocks'),
+        bottomLine: fields.checkbox({ label: 'Ligne décorative bas', defaultValue: false }),
+        logoAtBottom: fields.checkbox({ label: 'Logo en bas', defaultValue: false }),
+      }, { label: 'Hero — Page intérieure' }),
+      landingHero: fields.object({
+        kpis: fields.array(
+          fields.object({ heading: fields.text({ label: 'Chiffre' }), description: fields.text({ label: 'Description' }) }),
+          { label: 'KPIs', itemLabel: props => props.fields.heading.value || 'KPI' },
+        ),
+        title: fields.text({ label: 'Titre' }),
+        subTitle: fields.text({ label: 'Sous-titre' }),
+        cta: fields.object(ctaFields, { label: 'CTA' }),
+        bgImage: imageField('Image de fond', 'blocks'),
+        bottomLine: fields.checkbox({ label: 'Ligne décorative bas', defaultValue: false }),
+      }, { label: 'Hero — Landing' }),
+      talkToUs: fields.object({
+        bgClass: fields.text({ label: 'Classe fond (optionnel)' }),
+        image: imageField('Photo', 'blocks'),
+        title: fields.text({ label: 'Titre' }),
+        subTitle: fields.text({ label: 'Sous-titre' }),
+        contentDetails: fields.text({ label: 'Contenu', multiline: true }),
+        cta: fields.object(ctaFields, { label: 'CTA' }),
+      }, { label: 'Talk to us' }),
+      trustOnUs: fields.object({
+        title: fields.text({ label: 'Titre' }),
+        subTitle: fields.text({ label: 'Sous-titre' }),
+        logos: fields.array(imageField('Logo', 'blocks'), { label: 'Logos', itemLabel: () => 'Logo' }),
+        cta: fields.object(ctaFields, { label: 'CTA' }),
+      }, { label: 'Trust on us' }),
+      applicationsUsed: fields.object({
+        logo: imageField('Logo principal', 'blocks'),
+        title: fields.text({ label: 'Titre' }),
+        discoverCta: fields.object(ctaFields, { label: 'CTA' }),
+        logos: fields.array(
+          fields.object({ logo: imageField('Logo', 'blocks'), title: fields.text({ label: 'Nom' }) }),
+          { label: 'Applications', itemLabel: props => props.fields.title.value || 'Application' },
+        ),
+      }, { label: 'Applications utilisées' }),
+      caseIntro: fields.object({
+        bgClass: fields.text({ label: 'Classe fond (optionnel)' }),
+        needsLabel: fields.text({ label: 'Libellé "Besoins"', defaultValue: 'Needs' }),
+        needs: fields.array(fields.text({ label: 'Besoin' }), { label: 'Besoins', itemLabel: props => props.value || 'Besoin' }),
+        challengesLabel: fields.text({ label: 'Libellé "Défis"', defaultValue: 'The Challenges' }),
+        challenge: fields.text({ label: 'Défi', multiline: true }),
+        solutionLabel: fields.text({ label: 'Libellé "Solution"', defaultValue: 'The Solution' }),
+        solution: fields.text({ label: 'Solution', multiline: true }),
+      }, { label: 'Case intro' }),
+      odooExpertise: fields.object({
+        bgClass: fields.text({ label: 'Classe fond (optionnel)' }),
+        title: fields.text({ label: 'Titre' }),
+        items: fields.array(
+          fields.object({
+            logo: imageField('Icône', 'blocks'),
+            heading: fields.text({ label: 'Titre' }),
+            descriptionPoints: fields.text({ label: 'Description', multiline: true }),
+          }),
+          { label: 'Expertises', itemLabel: props => props.fields.heading.value || 'Expertise' },
+        ),
+      }, { label: 'Expertise Odoo' }),
+      ideasIntoSoftware: fields.object({
+        title: fields.text({ label: 'Titre' }),
+        subTitle: fields.text({ label: 'Sous-titre', multiline: true }),
+        ideas: fields.array(
+          fields.object({ heading: fields.text({ label: 'Titre' }), description: fields.text({ label: 'Description', multiline: true }) }),
+          { label: 'Idées', itemLabel: props => props.fields.heading.value || 'Idée' },
+        ),
+      }, { label: 'Ideas into software' }),
+      heroImageBelow: fields.object({
+        imageBelow: imageField('Image', 'blocks'),
+        bottomLine: fields.checkbox({ label: 'Ligne décorative bas', defaultValue: false }),
+      }, { label: 'Hero image below' }),
+      caseOverview: fields.object({
+        metrics: fields.array(
+          fields.object({
+            label: fields.text({ label: 'Libellé' }),
+            counter: fields.text({ label: 'Compteur (optionnel)' }),
+            value: fields.text({ label: 'Valeur' }),
+          }),
+          { label: 'Métriques', itemLabel: props => props.fields.label.value || 'Métrique' },
+        ),
+      }, { label: 'Case overview' }),
+      caseInsights: fields.object({
+        insights: fields.array(
+          fields.object({
+            heading: fields.text({ label: 'Titre' }),
+            content: fields.text({ label: 'Contenu', multiline: true }),
+            imageToDisplay: fields.select({
+              label: 'Image(s) à afficher',
+              options: [{ label: 'Aucune', value: '0' }, { label: 'Une image', value: '1' }, { label: 'Deux images', value: '2' }],
+              defaultValue: '0',
+            }),
+            image: imageField('Image', 'blocks'),
+            image1: imageField('Image 1', 'blocks'),
+            image2: imageField('Image 2', 'blocks'),
+          }),
+          { label: 'Insights', itemLabel: props => props.fields.heading.value || 'Insight' },
+        ),
+      }, { label: 'Case insights' }),
+      feedback: fields.object({
+        feedbacks: fields.array(
+          fields.object({
+            title: fields.text({ label: 'Titre' }),
+            feedback: fields.text({ label: 'Témoignage', multiline: true }),
+            userImage: imageField('Photo', 'blocks'),
+            name: fields.text({ label: 'Nom' }),
+            role: fields.text({ label: 'Rôle' }),
+          }),
+          { label: 'Témoignages', itemLabel: props => props.fields.name.value || 'Témoignage' },
+        ),
+      }, { label: 'Feedback clients' }),
+      whyChooseUs: fields.object({
+        bgClass: fields.text({ label: 'Classe fond (optionnel)' }),
+        title: fields.text({ label: 'Titre' }),
+        badges: fields.array(imageField('Badge', 'blocks'), { label: 'Badges', itemLabel: () => 'Badge' }),
+        logo: imageField('Logo', 'blocks'),
+        image: imageField('Image', 'blocks'),
+        items: fields.array(
+          fields.object({ title: fields.text({ label: 'Titre' }), content: fields.text({ label: 'Contenu', multiline: true }) }),
+          { label: 'Raisons', itemLabel: props => props.fields.title.value || 'Raison' },
+        ),
+        cta: fields.object(ctaFields, { label: 'CTA' }),
+      }, { label: 'Why choose us' }),
+      featuredCases: fields.object({
+        bgClass: fields.text({ label: 'Classe fond (optionnel)' }),
+        title: fields.text({ label: 'Titre' }),
+        subTitle: fields.text({ label: 'Sous-titre' }),
+        cta: fields.object(ctaFields, { label: 'CTA' }),
+        cases: fields.array(
+          fields.object({
+            title: fields.text({ label: 'Titre' }),
+            href: fields.text({ label: 'Lien' }),
+            image: imageField('Image', 'blocks'),
+            caseType: fields.text({ label: 'Type (optionnel)' }),
+            needs: fields.array(fields.text({ label: 'Besoin' }), { label: 'Besoins', itemLabel: props => props.value || 'Besoin' }),
+          }),
+          { label: 'Cases', itemLabel: props => props.fields.title.value || 'Case' },
+        ),
+      }, { label: 'Featured business cases' }),
+    },
+  ),
+  { label: 'Contenu (blocs)', itemLabel: props => props.discriminant },
+);
+
 export default config({
   storage:
     process.env.NODE_ENV === 'development'
@@ -79,7 +267,8 @@ export default config({
         }),
         seoTitle: fields.text({ label: 'Titre SEO' }),
         seoDescription: fields.text({ label: 'Description SEO', multiline: true }),
-        body: fields.markdoc({ label: 'Contenu' }),
+        blocks: blocksField,
+        body: fields.markdoc({ label: 'Contenu additionnel (optionnel)' }),
       },
     }),
   },

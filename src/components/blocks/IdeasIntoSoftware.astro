@@ -1,0 +1,30 @@
+---
+// Ported from template-parts/block/ideas-into-software.php
+export interface Props {
+  title?: string;
+  subTitle?: string;
+  ideas?: { heading?: string; description?: string }[];
+}
+const { title, subTitle, ideas = [] } = Astro.props;
+---
+<section class="odoo-expertise-section ideas-software-section lighten-bg dark-bg">
+  <div class="container">
+    {(title || subTitle) && (
+      <>
+        {title && <h6>{title}</h6>}
+        {subTitle && <h3 set:html={subTitle} />}
+      </>
+    )}
+    {ideas.length > 0 && (
+      <div class="row odoo-expertise-content">
+        {ideas.map((idea, i) => (
+          <div class="col-lg-6 col-md-6 col-sm-12 col-12 item">
+            <h4>{String(i + 1).padStart(2, '0')}</h4>
+            {idea.heading && <h5>{idea.heading}</h5>}
+            {idea.description && <Fragment set:html={idea.description} />}
+          </div>
+        ))}
+      </div>
+    )}
+  </div>
+</section>

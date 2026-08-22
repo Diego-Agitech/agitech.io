@@ -1,0 +1,15 @@
+---
+// Ported from template-parts/block/hero-image-below.php
+export interface Props {
+  imageBelow?: { url: string; alt?: string };
+  bottomLine?: boolean;
+}
+const { imageBelow, bottomLine = false } = Astro.props;
+---
+<section class={`ful-image-section black-overlay ${bottomLine ? 'bottom-line-img' : ''}`}>
+  <div class="Container-fluid">
+    <div class="img">
+      {imageBelow && <img src={imageBelow.url} alt={imageBelow.alt ?? ''}>}
+    </div>
+  </div>
+</section>

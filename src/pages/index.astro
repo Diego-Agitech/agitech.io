@@ -2,6 +2,27 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import BlockRenderer from '../components/BlockRenderer.astro';
+
+// Demo fixture — real content will come from the Keystatic `pages` collection
+// once the WP content is migrated. Proves the block-renderer wiring end to end.
+const blocks = [
+  {
+    discriminant: 'heroHome',
+    value: {
+      title: 'Partenaire Odoo',
+      subTitle: 'Agitech — implémentation, migration et support ERP',
+      cta: { label: 'Discutons de votre projet', url: '/contact-us/' },
+    },
+  },
+  {
+    discriminant: 'trustOnUs',
+    value: {
+      title: 'Ils nous font confiance',
+      logos: [],
+    },
+  },
+];
 ---
 <Layout
   lang="fr"
@@ -11,10 +32,7 @@ import Footer from '../components/Footer.astro';
 >
   <Header slot="header" lang="fr" />
   <main>
-    <section class="container">
-      <h1>Agitech — site en cours de migration vers Astro</h1>
-      <p>Contenu réel à brancher depuis les collections Keystatic (pages/blog/business-cases).</p>
-    </section>
+    <BlockRenderer blocks={blocks} />
   </main>
   <Footer slot="footer" lang="fr" />
 </Layout>

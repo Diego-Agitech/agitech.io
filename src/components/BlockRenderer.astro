@@ -1,0 +1,46 @@
+---
+// Dispatches a page's Keystatic `blocks` array onto the matching Astro block component.
+// Mirrors the WP ACF flexible-content pattern (my_acf_block_render_callback + template-parts/block/*.php).
+import HeroHome from './blocks/HeroHome.astro';
+import InnerHero from './blocks/InnerHero.astro';
+import LandingHero from './blocks/LandingHero.astro';
+import TalkToUs from './blocks/TalkToUs.astro';
+import TrustOnUs from './blocks/TrustOnUs.astro';
+import ApplicationsUsed from './blocks/ApplicationsUsed.astro';
+import CaseIntro from './blocks/CaseIntro.astro';
+import OdooExpertise from './blocks/OdooExpertise.astro';
+import IdeasIntoSoftware from './blocks/IdeasIntoSoftware.astro';
+import HeroImageBelow from './blocks/HeroImageBelow.astro';
+import CaseOverview from './blocks/CaseOverview.astro';
+import CaseInsights from './blocks/CaseInsights.astro';
+import Feedback from './blocks/Feedback.astro';
+import WhyChooseUs from './blocks/WhyChooseUs.astro';
+import FeaturedCases from './blocks/FeaturedCases.astro';
+
+const components: Record<string, any> = {
+  heroHome: HeroHome,
+  innerHero: InnerHero,
+  landingHero: LandingHero,
+  talkToUs: TalkToUs,
+  trustOnUs: TrustOnUs,
+  applicationsUsed: ApplicationsUsed,
+  caseIntro: CaseIntro,
+  odooExpertise: OdooExpertise,
+  ideasIntoSoftware: IdeasIntoSoftware,
+  heroImageBelow: HeroImageBelow,
+  caseOverview: CaseOverview,
+  caseInsights: CaseInsights,
+  feedback: Feedback,
+  whyChooseUs: WhyChooseUs,
+  featuredCases: FeaturedCases,
+};
+
+export interface Props {
+  blocks: { discriminant: string; value: Record<string, unknown> }[];
+}
+const { blocks = [] } = Astro.props;
+---
+{blocks.map(block => {
+  const Component = components[block.discriminant];
+  return Component ? <Component {...block.value} /> : null;
+})}

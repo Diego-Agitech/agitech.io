@@ -1,0 +1,21 @@
+---
+// Ported from template-parts/block/case-overview.php
+export interface Props {
+  metrics?: { label?: string; counter?: string; value?: string }[];
+}
+const { metrics = [] } = Astro.props;
+---
+<section class="overview-section">
+  <div class="container">
+    <div class="row">
+      <div class="items-wrap d-flex align-items-center justify-content-between">
+        {metrics.map(m => (
+          <div class="item">
+            <h6>{m.label}</h6>
+            <h5>{m.counter && <span class="counter">{m.counter}</span>}{m.value}</h5>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

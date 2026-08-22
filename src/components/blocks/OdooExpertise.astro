@@ -1,0 +1,25 @@
+---
+// Ported from template-parts/block/odoo-expertise.php
+export interface Props {
+  bgClass?: string;
+  title?: string;
+  items?: { logo?: { url: string; alt?: string }; heading?: string; descriptionPoints?: string }[];
+}
+const { bgClass = '', title, items = [] } = Astro.props;
+---
+<section class={`odoo-expertise-section ${bgClass}`}>
+  <div class="container">
+    {title && <h3>{title}</h3>}
+    {items.length > 0 && (
+      <div class="row odoo-expertise-content">
+        {items.map(item => (
+          <div class="col-lg-4 col-md-6 col-sm-6 col-12 item">
+            <div class="icon">{item.logo && <img src={item.logo.url} alt={item.logo.alt ?? ''}>}</div>
+            {item.heading && <h6>{item.heading}</h6>}
+            {item.descriptionPoints && <Fragment set:html={item.descriptionPoints} />}
+          </div>
+        ))}
+      </div>
+    )}
+  </div>
+</section>

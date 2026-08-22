@@ -1,0 +1,32 @@
+---
+// Ported from template-parts/block/applications-used.php
+import Cta from './Cta.astro';
+export interface Props {
+  logo?: { url: string; alt?: string };
+  title?: string;
+  discoverCta?: { label?: string; url?: string; newTab?: boolean };
+  logos?: { logo?: { url: string; alt?: string }; title?: string }[];
+}
+const { logo, title, discoverCta, logos = [] } = Astro.props;
+---
+<section class="applications-section lighter-gray-bg">
+  <div class="container-sm">
+    <div class="row">
+      <div class="col-lg-3 col-md-3 col-sm-12 col-12 left-content">
+        {logo && <div class="at-odoo-logo"><img src={logo.url} alt={logo.alt ?? 'logo'}></div>}
+        {title && <h3>{title}</h3>}
+        {discoverCta && <Cta label={discoverCta.label} url={discoverCta.url} newTab={discoverCta.newTab} wrapClass="dark-link" />}
+      </div>
+      <div class="col-lg-9 col-md-9 col-sm-12 col-12 right-content">
+        <div class="logo-wrp">
+          {logos.map(item => (
+            <div class="item">
+              {item.logo && <img src={item.logo.url} alt={item.logo.alt ?? 'logo'}>}
+              {item.title && <p>{item.title}</p>}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

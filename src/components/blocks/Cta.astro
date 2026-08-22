@@ -1,0 +1,15 @@
+---
+// Shared CTA button — mirrors the WP "button_group()" link field (label + internal/external url + target).
+export interface Props {
+  label?: string;
+  url?: string;
+  newTab?: boolean;
+  wrapClass?: string;
+}
+const { label, url, newTab = false, wrapClass = 'primary-btn' } = Astro.props;
+---
+{label && url && (
+  <div class={wrapClass}>
+    <a href={url} target={newTab ? '_blank' : undefined} rel={newTab ? 'noopener' : undefined}>{label}</a>
+  </div>
+)}
