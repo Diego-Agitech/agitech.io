@@ -227,6 +227,23 @@
   .contact-us-section .left-content ul { margin-bottom: 2rem; }
   .contact-us-section .left-content ul li { color: var(--muted); font-size: 0.95rem; margin-bottom: 0.6rem; padding-left: 1.4rem; position: relative; }
   .contact-us-section .left-content ul li::before { content: '✓'; position: absolute; left: 0; color: var(--violet); font-weight: 700; }
+  .contact-us-section .chat-with h6 { font-size: 1.1rem; margin-bottom: 0.4rem; }
+  .contact-us-section .chat-with p { color: var(--muted); margin-bottom: 1rem; }
+  .contact-us-section .chat-link { display: flex; align-items: center; gap: 1rem; }
+
+  /* Contact form (ported from agifid — was missing entirely, form rendered unstyled) */
+  .contact-card { background: var(--offwhite); border: 1px solid var(--border); border-radius: 16px; padding: 2.5rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .form-field { margin-bottom: 1.5rem; }
+  .form-field label { display: block; font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); margin-bottom: 0.5rem; }
+  .form-field input, .form-field textarea {
+    width: 100%; border: none; border-bottom: 1px solid var(--border); border-radius: 0;
+    padding: 0.5rem 0; font-family: var(--font-body); font-size: 0.95rem; color: var(--ink); background: transparent;
+  }
+  .form-field input:focus, .form-field textarea:focus { outline: none; border-color: var(--violet); }
+  .form-field textarea { resize: vertical; }
+  .contact-form button[type="submit"] { width: 100%; justify-content: center; border: none; cursor: pointer; margin-top: 0.5rem; }
+  @media (max-width: 560px) { .form-row { grid-template-columns: 1fr; } .contact-card { padding: 1.75rem; } }
   .chat-with h6 { font-size: 1.1rem; margin-bottom: 0.4rem; }
   .chat-with p { color: var(--muted); margin-bottom: 1rem; }
   .chat-link { display: flex; align-items: center; gap: 1rem; }
