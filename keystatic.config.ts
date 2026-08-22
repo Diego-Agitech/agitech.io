@@ -214,6 +214,7 @@ export default config({
           defaultValue: 'fr',
         }),
         publishedAt: fields.date({ label: 'Date de publication' }),
+        category: fields.text({ label: 'Catégorie' }),
         excerpt: fields.text({ label: 'Résumé (SEO/liste)', multiline: true }),
         coverImage: fields.image({
           label: 'Image de couverture',
