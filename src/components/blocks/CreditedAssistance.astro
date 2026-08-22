@@ -1,11 +1,12 @@
 ---
 // Ported from template-parts/block/credited-assistance.php
 import Cta from './Cta.astro';
+import { blockImg } from '../../lib/img';
 export interface Props {
   title?: string;
   subTitle?: string;
   cta?: { label?: string; url?: string; newTab?: boolean };
-  details?: { image?: { url: string; alt?: string }; title?: string }[];
+  details?: { image?: string; title?: string }[];
 }
 const { title, subTitle, cta, details = [] } = Astro.props;
 ---
@@ -24,7 +25,7 @@ const { title, subTitle, cta, details = [] } = Astro.props;
           <div class="range-area">
             {details.map(d => (
               <div class="item">
-                <div class="img">{d.image && <img src={d.image.url} alt={d.image.alt ?? ''} fetchpriority="high">}</div>
+                <div class="img">{d.image && <img src={blockImg(d.image)} alt="" fetchpriority="high">}</div>
                 <div class="text">{d.title && <p>{d.title}</p>}</div>
               </div>
             ))}

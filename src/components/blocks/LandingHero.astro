@@ -1,12 +1,13 @@
 ---
 // Ported from template-parts/block/landing-hero.php
 import Cta from './Cta.astro';
+import { blockImg } from '../../lib/img';
 export interface Props {
   kpis?: { heading?: string; description?: string }[];
   title?: string;
   subTitle?: string;
   cta?: { label?: string; url?: string; newTab?: boolean };
-  bgImage?: { url: string; alt?: string };
+  bgImage?: string;
   bottomLine?: boolean;
 }
 const { kpis = [], title, subTitle, cta, bgImage, bottomLine = false } = Astro.props;
@@ -33,5 +34,5 @@ const { kpis = [], title, subTitle, cta, bgImage, bottomLine = false } = Astro.p
       </div>
     </div>
   </div>
-  {bgImage && <div class="right-img bg-full-img"><img src={bgImage.url} alt={bgImage.alt ?? ''}></div>}
+  {bgImage && <div class="right-img bg-full-img"><img src={blockImg(bgImage)} alt=""></div>}
 </section>

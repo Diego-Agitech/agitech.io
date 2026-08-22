@@ -1,13 +1,14 @@
 ---
 // Ported from template-parts/block/case-insights.php
+import { blockImg } from '../../lib/img';
 export interface Props {
   insights?: {
     heading?: string;
     content?: string;
     imageToDisplay?: '1' | '2';
-    image?: { url: string; alt?: string };
-    image1?: { url: string; alt?: string };
-    image2?: { url: string; alt?: string };
+    image?: string;
+    image1?: string;
+    image2?: string;
   }[];
 }
 const { insights = [] } = Astro.props;
@@ -23,12 +24,12 @@ const { insights = [] } = Astro.props;
           <div class="right-content">
             {row.content && <div class="text" set:html={row.content} />}
             {row.imageToDisplay === '1' && row.image && (
-              <div class="img d-inline-flex"><img src={row.image.url} alt={row.image.alt ?? ''} class="devlopment-1"></div>
+              <div class="img d-inline-flex"><img src={blockImg(row.image)} alt="" class="devlopment-1"></div>
             )}
             {row.imageToDisplay === '2' && (row.image1 || row.image2) && (
               <div class="img d-inline-flex">
-                {row.image1 && <img src={row.image1.url} alt={row.image1.alt ?? ''} class="devlopment-2">}
-                {row.image2 && <img src={row.image2.url} alt={row.image2.alt ?? ''} class="devlopment-3">}
+                {row.image1 && <img src={blockImg(row.image1)} alt="" class="devlopment-2">}
+                {row.image2 && <img src={blockImg(row.image2)} alt="" class="devlopment-3">}
               </div>
             )}
           </div>

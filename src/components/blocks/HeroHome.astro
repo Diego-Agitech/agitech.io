@@ -1,12 +1,13 @@
 ---
 // Ported from template-parts/block/hero-home.php
 import Cta from './Cta.astro';
+import { blockImg } from '../../lib/img';
 export interface Props {
   title?: string;
   subTitle?: string;
   cta?: { label?: string; url?: string; newTab?: boolean };
   bottomLine?: boolean;
-  image?: { url: string; alt?: string };
+  image?: string;
 }
 const { title, subTitle, cta, bottomLine = false, image } = Astro.props;
 ---
@@ -25,6 +26,6 @@ const { title, subTitle, cta, bottomLine = false, image } = Astro.props;
     </div>
   </div>
   <div class="right-img">
-    {image && <img src={image.url} alt={image.alt ?? ''}>}
+    {image && <img src={blockImg(image)} alt="">}
   </div>
 </section>

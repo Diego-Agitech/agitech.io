@@ -3,12 +3,13 @@
 // Simplified: no owl-carousel JS (deferred), cases passed in already resolved
 // from the businessCases collection instead of the WP AJAX tab listing.
 import Cta from './Cta.astro';
+import { blockImg } from '../../lib/img';
 export interface Props {
   bgClass?: string;
   title?: string;
   subTitle?: string;
   cta?: { label?: string; url?: string; newTab?: boolean };
-  cases?: { title: string; href: string; image?: { url: string; alt?: string }; caseType?: string; needs?: string[] }[];
+  cases?: { title: string; href: string; image?: string; caseType?: string; needs?: string[] }[];
 }
 const { bgClass = '', title, subTitle, cta, cases = [] } = Astro.props;
 ---
@@ -24,7 +25,7 @@ const { bgClass = '', title, subTitle, cta, cases = [] } = Astro.props;
           <div class="item">
             <a href={c.href}>
               <div class="field">
-                <div class="img">{c.image && <img src={c.image.url} alt={c.image.alt ?? c.title}>}</div>
+                <div class="img">{c.image && <img src={blockImg(c.image)} alt={c.title}>}</div>
                 <div class="content">
                   {c.caseType && <div class="case_types"><span class="green-text">{c.caseType}</span></div>}
                   <h6>{c.title}</h6>

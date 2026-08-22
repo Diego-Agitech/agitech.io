@@ -1,12 +1,13 @@
 ---
 // Ported from template-parts/block/inner-hero.php
 import Cta from './Cta.astro';
+import { blockImg } from '../../lib/img';
 export interface Props {
-  logo?: { url: string; alt?: string };
+  logo?: string;
   title?: string;
   subTitle?: string;
   cta?: { label?: string; url?: string; newTab?: boolean };
-  image?: { url: string; alt?: string };
+  image?: string;
   bottomLine?: boolean;
   logoAtBottom?: boolean;
 }
@@ -17,7 +18,7 @@ const { logo, title, subTitle, cta, image, bottomLine = false, logoAtBottom = fa
     <div class="row">
       <div class="col-lg-12 col-md-12 col-sm-12 col-12">
         <div class={`text ${logoAtBottom ? 'logo-bottom' : ''}`}>
-          {logo && <div class="at-odoo-logo"><img src={logo.url} alt={logo.alt ?? ''}></div>}
+          {logo && <div class="at-odoo-logo"><img src={blockImg(logo)} alt=""></div>}
           {title && <h6>{title}</h6>}
           {subTitle && <h2>{subTitle}</h2>}
           {cta && <Cta label={cta.label} url={cta.url} newTab={cta.newTab} wrapClass="light-btn" />}
@@ -25,5 +26,5 @@ const { logo, title, subTitle, cta, image, bottomLine = false, logoAtBottom = fa
       </div>
     </div>
   </div>
-  {image && <div class="right-img"><img src={image.url} alt={image.alt ?? ''}></div>}
+  {image && <div class="right-img"><img src={blockImg(image)} alt=""></div>}
 </section>

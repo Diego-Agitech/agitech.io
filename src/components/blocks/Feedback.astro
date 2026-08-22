@@ -1,7 +1,8 @@
 ---
 // Ported from template-parts/block/feedback.php
+import { blockImg } from '../../lib/img';
 export interface Props {
-  feedbacks?: { title?: string; feedback?: string; userImage?: { url: string; alt?: string }; name?: string; role?: string }[];
+  feedbacks?: { title?: string; feedback?: string; userImage?: string; name?: string; role?: string }[];
 }
 const { feedbacks = [] } = Astro.props;
 ---
@@ -14,7 +15,7 @@ const { feedbacks = [] } = Astro.props;
             {f.title && <h6>{f.title}</h6>}
             {f.feedback && <h4>{f.feedback}</h4>}
             <div class="client-details">
-              {f.userImage && <img src={f.userImage.url} alt={f.userImage.alt ?? 'User'}>}
+              {f.userImage && <img src={blockImg(f.userImage)} alt="">}
               <div class="details">
                 {f.name && <h5>{f.name}</h5>}
                 {f.role && <p>{f.role}</p>}
