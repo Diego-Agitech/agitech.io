@@ -433,12 +433,11 @@ export default config({
         }),
         client: fields.text({ label: 'Client' }),
         industry: fields.text({ label: 'Secteur' }),
-        coverImage: fields.image({
-          label: 'Image de couverture',
-          directory: 'public/assets/img/business-cases',
-          publicPath: '/assets/img/business-cases/',
-        }),
-        body: fields.markdoc({ label: 'Contenu' }),
+        coverImage: imageField('Image de couverture', 'blocks'),
+        seoTitle: fields.text({ label: 'Titre SEO' }),
+        seoDescription: fields.text({ label: 'Description SEO', multiline: true }),
+        blocks: blocksField,
+        body: fields.markdoc({ label: 'Contenu additionnel (optionnel)' }),
       },
     }),
     pages: collection({
