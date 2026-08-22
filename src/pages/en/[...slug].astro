@@ -12,6 +12,15 @@ import Markdoc from '@markdoc/markdoc';
 export async function getStaticPaths() {
   const reader = createReader(process.cwd(), keystaticConfig);
 
+  // The `pages` collection is one flat folder shared by FR and EN — when an EN page's
+  // natural URL slug collides with an existing FR file (e.g. both want "industries"),
+  // the EN entry is stored under a disambiguated filename and mapped back to its real
+  // URL here.
+  const EN_SLUG_URL_OVERRIDES: Record<string, string> = {
+    'industries-en': 'industries',
+    'industries-e-commerce-en': 'industries-e-commerce',
+  };
+
   const pageSlugs = await reader.collections.pages.list();
   const pageEntries = await Promise.all(
     pageSlugs
@@ -20,7 +29,7 @@ export async function getStaticPaths() {
   );
   const pagePaths = pageEntries
     .filter(({ entry }) => entry && entry.lang === 'en')
-    .map(({ slug, entry }) => ({ params: { slug }, props: { kind: 'page', entry } }));
+    .map(({ slug, entry }) => ({ params: { slug: EN_SLUG_URL_OVERRIDES[slug] ?? slug }, props: { kind: 'page', entry } }));
 
   const blogSlugs = await reader.collections.blog.list();
   const blogEntries = await Promise.all(
