@@ -12,7 +12,11 @@ export interface Props {
 const {
   lang, title, description,
   canonical, ogLocale = lang === 'fr' ? 'fr_BE' : 'en_US',
-  jsonLd, robotsNoIndex = false,
+  jsonLd,
+  // Site not live yet — agitech.io (WP) is still the indexed site. Defaults to noindex
+  // everywhere so this preview never competes with it in search. Flip to false (or set
+  // per-page) only once this deployment actually replaces the live site.
+  robotsNoIndex = true,
 } = Astro.props;
 
 // FR = default locale (no prefix), EN under /en/ — matches current WP/Polylang URLs.
