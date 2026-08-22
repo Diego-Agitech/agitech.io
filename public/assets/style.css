@@ -201,6 +201,9 @@
   .our-services-content ul { margin-bottom: 1.75rem; }
   .our-services-content ul li { font-size: 0.87rem; color: var(--muted-onDark); margin-bottom: 0.55rem; }
   .light-page-link { font-family: var(--font-display); font-size: 1.3rem; font-weight: 600; color: var(--violet-light); padding-top: 1rem; border-top: 1px solid var(--border-onDark); }
+  .price-vat { font-size: 0.65rem; font-weight: 400; color: var(--muted-onDark); margin-left: 0.35rem; letter-spacing: 0.03em; vertical-align: middle; }
+  .our-services-content .tier-price { font-family: var(--font-display); font-size: 1.1rem; font-weight: 600; color: var(--white); padding-top: 1rem; border-top: 1px solid var(--border-onDark); }
+  .our-services-content .light-page-link { display: block; font-size: 0.85rem; font-weight: 500; border-top: none; padding-top: 0.5rem; }
 
   /* Full image */
   .ful-image-section { position: relative; }

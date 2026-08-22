@@ -3,7 +3,7 @@
 export interface Props {
   title?: string;
   subTitle?: string;
-  services?: { title?: string; link?: string; linkLabel?: string; points?: string[] }[];
+  services?: { title?: string; price?: string; link?: string; linkLabel?: string; features?: { included?: boolean; text?: string }[] }[];
 }
 const { title, subTitle, services = [] } = Astro.props;
 ---
@@ -20,8 +20,14 @@ const { title, subTitle, services = [] } = Astro.props;
             <div class="col-lg-4 col-md-4 col-sm-12 col-12 item">
               <a href={s.link ?? '#'} class="item-wrap">
                 {s.title && <h4>{s.title}</h4>}
-                {s.points && s.points.length > 0 && (
-                  <ul class="p-0">{s.points.map(p => <li>{p}</li>)}</ul>
+                {s.features && s.features.length > 0 && (
+                  <ul class="p-0">{s.features.map(f => <li>{f.included ? '✓' : '✗'} {f.text}</li>)}</ul>
+                )}
+                {s.price && (
+                  <div class="tier-price">
+                    {s.price}
+                    {s.price.includes('€') && <span class="price-vat">HTVA</span>}
+                  </div>
                 )}
                 <span class="light-page-link">{s.linkLabel}</span>
               </a>

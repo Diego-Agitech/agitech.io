@@ -242,14 +242,21 @@ const blocksField = fields.array(
         subTitle: fields.text({ label: 'Sous-titre' }),
         services: fields.array(
           fields.object({
-            title: fields.text({ label: 'Titre' }),
+            title: fields.text({ label: 'Nom de la formule' }),
+            price: fields.text({ label: 'Prix affiché (optionnel)', description: 'Vide = affiche "Nous consulter". Ex: 3 500 € / an' }),
             link: fields.text({ label: 'Lien' }),
             linkLabel: fields.text({ label: 'Texte du lien' }),
-            points: fields.array(fields.text({ label: 'Point' }), { label: 'Points', itemLabel: props => props.value || 'Point' }),
+            features: fields.array(
+              fields.object({
+                included: fields.checkbox({ label: 'Inclus (coché) ou non-inclus (décoché)', defaultValue: true }),
+                text: fields.text({ label: 'Texte' }),
+              }),
+              { label: 'Caractéristiques', itemLabel: props => props.fields.text.value || 'Ligne' },
+            ),
           }),
-          { label: 'Services', itemLabel: props => props.fields.title.value || 'Service' },
+          { label: 'Formules', itemLabel: props => props.fields.title.value || 'Formule' },
         ),
-      }, { label: 'Nos services' }),
+      }, { label: 'Nos services — même structure que les offres agifid' }),
       companyIntro: fields.object({
         badges: fields.array(imageField('Badge', 'blocks'), { label: 'Badges', itemLabel: () => 'Badge' }),
         logo: imageField('Logo', 'blocks'),
@@ -264,13 +271,12 @@ const blocksField = fields.array(
         description: fields.text({ label: 'Description', multiline: true }),
         methodologies: fields.array(
           fields.object({
-            heading: fields.text({ label: 'Titre' }),
-            subHeading: fields.text({ label: 'Sous-titre' }),
-            description: fields.text({ label: 'Description', multiline: true }),
+            heading: fields.text({ label: 'Titre de l\'étape' }),
+            description: fields.text({ label: 'Texte', multiline: true }),
           }),
-          { label: 'Étapes', itemLabel: props => props.fields.heading.value || 'Étape' },
+          { label: 'Étapes (numérotées automatiquement)', itemLabel: props => props.fields.heading.value || 'Étape' },
         ),
-      }, { label: 'Méthodologie' }),
+      }, { label: 'Méthodologie — même structure que l\'onboarding agifid' }),
       keyFeatures: fields.object({
         subTitle: fields.text({ label: 'Sous-titre intro' }),
         title: fields.text({ label: 'Titre intro' }),
