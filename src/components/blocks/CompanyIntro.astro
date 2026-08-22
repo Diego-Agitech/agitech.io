@@ -1,0 +1,32 @@
+---
+// Ported from template-parts/block/company-intro.php
+import Cta from './Cta.astro';
+import { blockImg } from '../../lib/img';
+export interface Props {
+  badges?: string[];
+  logo?: string;
+  title?: string;
+  cta?: { label?: string; url?: string; newTab?: boolean };
+}
+const { badges = [], logo, title, cta } = Astro.props;
+---
+<section class="odoo-intro-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 col-md-4 col-sm-6 col-12">
+        <div class="badge-oodo-img d-flex align-items-center">
+          {badges.length > 0 && (
+            <div class="badge-img d-flex align-items-center">
+              {badges.map(b => <img src={blockImg(b)} alt="">)}
+            </div>
+          )}
+          {logo && <div class="img-odoo"><img src={blockImg(logo)} alt=""></div>}
+        </div>
+      </div>
+      <div class="col-lg-8 col-md-8 col-sm-6 col-12 odoo-intro-content">
+        {title && <h3>{title}</h3>}
+        {cta && <Cta label={cta.label} url={cta.url} newTab={cta.newTab} />}
+      </div>
+    </div>
+  </div>
+</section>
