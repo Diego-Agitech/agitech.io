@@ -46,7 +46,13 @@ const altPath = canonical
 )}
 <link rel="icon" href="/assets/img/favicon.png">
 {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
-<link rel="stylesheet" href="/assets/style.css">
+<!-- Ported 1:1 from the WP theme's real enqueue order (library/primer.php lmh_scripts_and_styles):
+     bootstrap-min, owl-carousel, style, responsive. main.css/animate.css/jquery-ui.css were
+     registered in the theme but never enqueued — left out. -->
+<link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="/assets/css/owl.carousel.css">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="stylesheet" href="/assets/css/responsive.css">
 </head>
 <body>
 <slot name="header" />
