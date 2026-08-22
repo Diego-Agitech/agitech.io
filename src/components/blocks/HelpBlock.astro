@@ -1,0 +1,32 @@
+---
+// Ported from template-parts/block/help-block.php
+import Cta from './Cta.astro';
+export interface Props {
+  bgClass?: string;
+  title?: string;
+  headingTitle?: string;
+  cards?: { title?: string; subTitle?: string; link?: string; linkLabel?: string }[];
+  cta?: { label?: string; url?: string; newTab?: boolean };
+}
+const { bgClass = '', title, headingTitle, cards = [], cta } = Astro.props;
+---
+<section class={`help-section ${bgClass}`} id="help-section">
+  <div class="container">
+    {title && <h6>{title}</h6>}
+    {headingTitle && <h3>{headingTitle}</h3>}
+    {cards.length > 0 && (
+      <div class="row help-fields">
+        {cards.map(card => (
+          <div class="col-lg-3 col-md-6 field">
+            <a href={card.link ?? '#'} class="service-card">
+              {card.title && <h5>{card.title}</h5>}
+              {card.subTitle && <p>{card.subTitle}</p>}
+              <span class="page-link">{card.linkLabel}</span>
+            </a>
+          </div>
+        ))}
+        {cta && <Cta label={cta.label} url={cta.url} newTab={cta.newTab} />}
+      </div>
+    )}
+  </div>
+</section>

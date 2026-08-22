@@ -30,6 +30,10 @@ const blocksField = fields.array(
         { label: 'Feedback clients', value: 'feedback' },
         { label: 'Why choose us', value: 'whyChooseUs' },
         { label: 'Featured business cases', value: 'featuredCases' },
+        { label: 'Credited assistance (RDV)', value: 'creditedAssistance' },
+        { label: 'Help block (cartes services)', value: 'helpBlock' },
+        { label: 'Équipe (slider)', value: 'teamMembersScrollSlider' },
+        { label: 'Nos services', value: 'ourServices' },
       ],
       defaultValue: 'heroHome',
     }),
@@ -39,6 +43,7 @@ const blocksField = fields.array(
         subTitle: fields.text({ label: 'Sous-titre' }),
         cta: fields.object(ctaFields, { label: 'CTA' }),
         bottomLine: fields.checkbox({ label: 'Ligne décorative bas', defaultValue: false }),
+        image: imageField('Image droite', 'blocks'),
       }, { label: 'Hero — Accueil' }),
       innerHero: fields.object({
         logo: imageField('Logo', 'blocks'),
@@ -183,6 +188,55 @@ const blocksField = fields.array(
           { label: 'Cases', itemLabel: props => props.fields.title.value || 'Case' },
         ),
       }, { label: 'Featured business cases' }),
+      creditedAssistance: fields.object({
+        title: fields.text({ label: 'Titre' }),
+        subTitle: fields.text({ label: 'Sous-titre' }),
+        cta: fields.object(ctaFields, { label: 'CTA' }),
+        details: fields.array(
+          fields.object({ image: imageField('Image', 'blocks'), title: fields.text({ label: 'Texte' }) }),
+          { label: 'Détails', itemLabel: props => props.fields.title.value || 'Détail' },
+        ),
+      }, { label: 'Credited assistance' }),
+      helpBlock: fields.object({
+        bgClass: fields.text({ label: 'Classe fond (optionnel)' }),
+        title: fields.text({ label: 'Titre' }),
+        headingTitle: fields.text({ label: 'Titre principal' }),
+        cards: fields.array(
+          fields.object({
+            title: fields.text({ label: 'Titre' }),
+            subTitle: fields.text({ label: 'Sous-titre' }),
+            link: fields.text({ label: 'Lien' }),
+            linkLabel: fields.text({ label: 'Texte du lien' }),
+          }),
+          { label: 'Cartes', itemLabel: props => props.fields.title.value || 'Carte' },
+        ),
+        cta: fields.object(ctaFields, { label: 'CTA' }),
+      }, { label: 'Help block' }),
+      teamMembersScrollSlider: fields.object({
+        subHeading: fields.text({ label: 'Sous-titre' }),
+        mainHeading: fields.text({ label: 'Titre' }),
+        teamMembers: fields.array(
+          fields.object({
+            image: imageField('Photo', 'blocks'),
+            name: fields.text({ label: 'Nom' }),
+            role: fields.text({ label: 'Rôle' }),
+          }),
+          { label: 'Équipe', itemLabel: props => props.fields.name.value || 'Membre' },
+        ),
+      }, { label: 'Équipe (slider)' }),
+      ourServices: fields.object({
+        title: fields.text({ label: 'Titre' }),
+        subTitle: fields.text({ label: 'Sous-titre' }),
+        services: fields.array(
+          fields.object({
+            title: fields.text({ label: 'Titre' }),
+            link: fields.text({ label: 'Lien' }),
+            linkLabel: fields.text({ label: 'Texte du lien' }),
+            points: fields.array(fields.text({ label: 'Point' }), { label: 'Points', itemLabel: props => props.value || 'Point' }),
+          }),
+          { label: 'Services', itemLabel: props => props.fields.title.value || 'Service' },
+        ),
+      }, { label: 'Nos services' }),
     },
   ),
   { label: 'Contenu (blocs)', itemLabel: props => props.discriminant },

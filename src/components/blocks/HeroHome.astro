@@ -6,8 +6,9 @@ export interface Props {
   subTitle?: string;
   cta?: { label?: string; url?: string; newTab?: boolean };
   bottomLine?: boolean;
+  image?: { url: string; alt?: string };
 }
-const { title, subTitle, cta, bottomLine = false } = Astro.props;
+const { title, subTitle, cta, bottomLine = false, image } = Astro.props;
 ---
 <section class={`banner-sec home-banner dark-bg ${bottomLine ? 'bottom-line-img' : ''}`}>
   <div class="container">
@@ -17,10 +18,13 @@ const { title, subTitle, cta, bottomLine = false } = Astro.props;
           <div class="text">
             {title && <h6>{title}</h6>}
             {subTitle && <h2>{subTitle}</h2>}
-            {cta && <Cta label={cta.label} url={cta.url} newTab={cta.newTab} />}
+            {cta && <Cta label={cta.label} url={cta.url} newTab={cta.newTab} wrapClass="light-btn" />}
           </div>
         </div>
       )}
     </div>
+  </div>
+  <div class="right-img">
+    {image && <img src={image.url} alt={image.alt ?? ''}>}
   </div>
 </section>

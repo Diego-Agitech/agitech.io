@@ -1,0 +1,36 @@
+---
+// Ported from template-parts/block/credited-assistance.php
+import Cta from './Cta.astro';
+export interface Props {
+  title?: string;
+  subTitle?: string;
+  cta?: { label?: string; url?: string; newTab?: boolean };
+  details?: { image?: { url: string; alt?: string }; title?: string }[];
+}
+const { title, subTitle, cta, details = [] } = Astro.props;
+---
+<section class="credite-section">
+  <div class="container-sm">
+    <div class="row d-flex justify-content-between">
+      <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+        <div class="credite-content">
+          {title && <h6>{title}</h6>}
+          {subTitle && <h3>{subTitle}</h3>}
+          {cta && <Cta label={cta.label} url={cta.url} newTab={cta.newTab} />}
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+        {details.length > 0 && (
+          <div class="range-area">
+            {details.map(d => (
+              <div class="item">
+                <div class="img">{d.image && <img src={d.image.url} alt={d.image.alt ?? ''} fetchpriority="high">}</div>
+                <div class="text">{d.title && <p>{d.title}</p>}</div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  </div>
+</section>

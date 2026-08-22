@@ -1,0 +1,34 @@
+---
+// Ported from template-parts/block/our-services.php
+export interface Props {
+  title?: string;
+  subTitle?: string;
+  services?: { title?: string; link?: string; linkLabel?: string; points?: string[] }[];
+}
+const { title, subTitle, services = [] } = Astro.props;
+---
+<section class="our-services-section dark-bg">
+  <div class="container">
+    <div class="text-center">
+      <div class="title">
+        {title && <h2>{title}</h2>}
+        {subTitle && <h6>{subTitle}</h6>}
+      </div>
+      {services.length > 0 && (
+        <div class="row our-services-content">
+          {services.map(s => (
+            <div class="col-lg-4 col-md-4 col-sm-12 col-12 item">
+              <a href={s.link ?? '#'} class="item-wrap">
+                {s.title && <h4>{s.title}</h4>}
+                {s.points && s.points.length > 0 && (
+                  <ul class="p-0">{s.points.map(p => <li>{p}</li>)}</ul>
+                )}
+                <span class="light-page-link">{s.linkLabel}</span>
+              </a>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  </div>
+</section>
