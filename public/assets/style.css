@@ -126,31 +126,20 @@
   .lang-flag { font-size: 0.85rem; color: var(--muted-onDark); }
   .lang-flag .active { color: var(--white); font-weight: 600; }
 
-  /* Corner glow — every section start gets a soft mauve radial wash, agifid-style.
-     Light sections: barely-there tint. Dark sections: stronger. Non-home pages: top-right.
-     Homepage: top-left, the mirror of that (and of agifid's own top-right home glow) so
-     the accueil reads as visually distinct. */
-  main section { position: relative; overflow: hidden; z-index: 0; }
-  main section::before {
-    content: ''; position: absolute; width: 600px; height: 600px;
-    background: radial-gradient(circle, rgba(152,72,149,0.06) 0%, transparent 70%);
-    top: -200px; right: -150px; left: auto; pointer-events: none;
-    z-index: -1; /* behind this section's own content, without touching any child's stacking */
+  /* Corner glow — agifid pattern: hero only (not every section), two swept glows.
+     Agifid's home: teal top-right + mauve bottom-left. Agitech home: same spot, colors
+     swapped (mauve top-right + green bottom-left). Every other page: mauve only. */
+  .banner-sec { position: relative; overflow: hidden; z-index: 0; }
+  .banner-sec::after {
+    content: ''; position: absolute; width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(152,72,149,0.28) 0%, transparent 70%);
+    top: -220px; right: -180px; pointer-events: none; z-index: 0;
   }
-  main section[class~="dark-bg"]::before {
-    background: radial-gradient(circle, rgba(152,72,149,0.14) 0%, transparent 70%);
+  .is-home .banner-sec::before {
+    content: ''; position: absolute; width: 650px; height: 650px;
+    background: radial-gradient(circle, rgba(0,210,174,0.24) 0%, transparent 70%);
+    bottom: -260px; left: -200px; pointer-events: none; z-index: 0;
   }
-  .is-home main section::before {
-    background: radial-gradient(circle, rgba(152,72,149,0.1) 0%, transparent 70%);
-    left: -150px; right: auto;
-  }
-  .is-home main section[class~="dark-bg"]::before {
-    background: radial-gradient(circle, rgba(152,72,149,0.22) 0%, transparent 70%);
-    left: -150px; right: auto;
-  }
-  /* The blog article's sticky TOC sidebar needs an unclipped ancestor to stick — skip
-     the overflow:hidden here (glow still renders, just isn't corner-clipped). */
-  .blog-details-section { overflow: visible; }
 
   /* Hero */
   .home-banner, .banner-sec { background: var(--black); color: var(--white); padding: 6rem 0 7rem; }
