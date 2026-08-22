@@ -148,7 +148,9 @@ const blocks = [
 >
   <Header slot="header" lang="fr" />
   <main>
-    <BlockRenderer blocks={blocks} />
+    <BlockRenderer blocks={blocks.slice(0, 1)} />
+    <div class="brand-bar"></div>
+    <BlockRenderer blocks={blocks.slice(1)} />
   </main>
   <Footer slot="footer" lang="fr" />
 </Layout>
