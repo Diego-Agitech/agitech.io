@@ -61,16 +61,20 @@ const services = lang === 'en'
         <li><a href={`${base}/why-odoo/`}>{strings.why}</a></li>
         <li class="has-submenu">
           <a href={`${base}/industries/`}>{strings.industries}</a>
-          <ul class="submenu">
-            {industries.map(i => <li><a href={i.href}>{i.label}</a></li>)}
-            <li class="submenu-all"><a href={`${base}/industries/`}>{strings.allIndustries}</a></li>
-          </ul>
+          <div class="submenu">
+            <ul class="submenu-inner">
+              {industries.map(i => <li><a href={i.href}>{i.label}</a></li>)}
+              <li class="submenu-all"><a href={`${base}/industries/`}>{strings.allIndustries}</a></li>
+            </ul>
+          </div>
         </li>
         <li class="has-submenu">
           <a href={`${base}/odoo-erp/`}>{strings.services}</a>
-          <ul class="submenu">
-            {services.map(s => <li><a href={s.href} target={s.external ? '_blank' : undefined} rel={s.external ? 'noopener' : undefined}>{s.label}</a></li>)}
-          </ul>
+          <div class="submenu">
+            <ul class="submenu-inner">
+              {services.map(s => <li><a href={s.href} target={s.external ? '_blank' : undefined} rel={s.external ? 'noopener' : undefined}>{s.label}</a></li>)}
+            </ul>
+          </div>
         </li>
         <li><a href={`${base}/blog/`}>{strings.blog}</a></li>
         <li><a href={`${base}/jobs/`}>{strings.jobs}</a></li>

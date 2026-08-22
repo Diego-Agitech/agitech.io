@@ -104,9 +104,13 @@
   .main_menu ul a:hover { color: var(--white); }
   .has-submenu { position: relative; }
   .has-submenu .submenu {
-    display: none; position: absolute; top: 100%; left: -1rem; margin-top: 0.75rem;
+    display: none; position: absolute; top: 100%; left: -1rem; margin-top: 0;
+    padding-top: 0.75rem; background: none; border: none;
+    min-width: 240px; flex-direction: column; gap: 0; z-index: 50;
+  }
+  .has-submenu .submenu-inner {
     background: var(--dark2); border: 1px solid var(--border-onDark); border-radius: 12px;
-    padding: 0.5rem; min-width: 240px; flex-direction: column; gap: 0; z-index: 50;
+    padding: 0.5rem;
   }
   .has-submenu:hover .submenu { display: flex; }
   .has-submenu .submenu li { width: 100%; }
@@ -550,6 +554,7 @@
     .main_menu ul { flex-direction: column; gap: 1.25rem; }
     /* Hover doesn't exist on touch — submenus stay inline/expanded instead of popover. */
     .has-submenu .submenu { display: flex; position: static; background: none; border: none; padding: 0.75rem 0 0 1rem; margin-top: 0.5rem; min-width: 0; }
+    .has-submenu .submenu-inner { background: none; border: none; padding: 0; }
     .lines-button { display: flex; }
     .discuss-btn { margin-top: 1.5rem; }
     .why-section .row, .talk-section .row, .credite-section .row { grid-template-columns: 1fr; }
