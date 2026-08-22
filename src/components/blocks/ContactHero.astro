@@ -1,0 +1,62 @@
+---
+// Homepage-bottom contact section, ported from agifid's index.astro contact-hero pattern:
+// trust list + direct Calendly booking + a Formspree contact form side by side.
+import Cta from './Cta.astro';
+export interface Props {
+  titleBefore?: string;
+  titleHighlight?: string;
+  trustList?: string[];
+  directTitle?: string;
+  directText?: string;
+  calendlyUrl?: string;
+  formAction?: string;
+  formSubject?: string;
+  thankYouPath?: string;
+}
+const {
+  titleBefore, titleHighlight, trustList = [],
+  directTitle, directText,
+  calendlyUrl = 'https://calendly.com/sam-agitech/25-min-intro',
+  formAction = 'https://formspree.io/f/xeajdqgr',
+  formSubject = 'Nouvelle demande de contact - Agitech',
+  thankYouPath = '/merci-formulaire/',
+} = Astro.props;
+---
+<section class="contact-hero" id="contact">
+  <div class="container">
+    <div class="contact-hero-intro">
+      <h2>{titleBefore} <span>{titleHighlight}</span></h2>
+      {trustList.length > 0 && <ul class="trust-list">{trustList.map(t => <li>{t}</li>)}</ul>}
+      {directTitle && <h5>{directTitle}</h5>}
+      {directText && <p>{directText}</p>}
+    </div>
+  </div>
+  <div class="container contact-hero-row">
+    <div class="calendly-embed-wrap">
+      <div class="calendly-inline-widget" data-url={`${calendlyUrl}?hide_event_type_details=1&hide_gdpr_banner=1`} style="min-width:320px;height:700px;"></div>
+      <noscript>
+        <p class="calendly-fallback"><a href={calendlyUrl} target="_blank" rel="noopener">Réserver un créneau sur Calendly</a></p>
+      </noscript>
+    </div>
+    <div class="contact-card">
+      <h3>Échangez par email</h3>
+      <form class="contact-form" action={formAction} method="POST">
+        <div class="form-row">
+          <div class="form-field"><label for="ch-name">Nom*</label><input type="text" id="ch-name" name="name" required></div>
+          <div class="form-field"><label for="ch-company">Société*</label><input type="text" id="ch-company" name="company" required></div>
+        </div>
+        <div class="form-row">
+          <div class="form-field"><label for="ch-email">Email*</label><input type="email" id="ch-email" name="email" required></div>
+          <div class="form-field"><label for="ch-phone">Téléphone*</label><input type="tel" id="ch-phone" name="phone" required></div>
+        </div>
+        <div class="form-field form-field-full">
+          <label for="ch-message">Comment pouvons-nous vous aider ? (optionnel)</label>
+          <textarea id="ch-message" name="message" rows="4"></textarea>
+        </div>
+        <input type="hidden" name="_subject" value={formSubject}>
+        <input type="hidden" name="_next" value={thankYouPath}>
+        <button type="submit" class="btn btn-violet">Envoyer →</button>
+      </form>
+    </div>
+  </div>
+</section>

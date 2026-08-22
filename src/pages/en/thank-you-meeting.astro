@@ -1,0 +1,26 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+---
+<Layout
+  lang="en"
+  title="Meeting confirmed — Agitech"
+  description="Your meeting with an Agitech expert is confirmed. You'll receive a confirmation email."
+  robotsNoIndex
+>
+  <Header slot="header" lang="en" />
+  <main>
+    <section class="thank-you-section">
+      <div class="container-sm">
+        <div class="thank-you-box">
+          <div class="thank-you-icon">&#10003;</div>
+          <h1>Thanks, your meeting is confirmed</h1>
+          <p>You'll receive a confirmation email with the video call details. See you soon!</p>
+          <a class="btn btn-outline" href="/en/">Back to homepage</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer slot="footer" lang="en" />
+</Layout>

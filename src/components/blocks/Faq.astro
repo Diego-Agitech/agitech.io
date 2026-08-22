@@ -1,0 +1,26 @@
+---
+// Ported from agifid's faq-section (native <details> accordion). FAQPage JSON-LD is
+// built by the page from these same items — see index.astro.
+export interface Props {
+  title?: string;
+  subtitle?: string;
+  items?: { question?: string; answer?: string }[];
+}
+const { title, subtitle, items = [] } = Astro.props;
+---
+<section class="faq-section" id="faq">
+  <div class="container-sm">
+    <div class="title">
+      {title && <h3>{title}</h3>}
+      {subtitle && <p>{subtitle}</p>}
+    </div>
+    <div class="faq-list">
+      {items.map(item => (
+        <details class="faq-item">
+          <summary>{item.question}</summary>
+          <p>{item.answer}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>

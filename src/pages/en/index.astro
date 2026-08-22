@@ -10,6 +10,19 @@ const reader = createReader(process.cwd(), keystaticConfig);
 const page = await reader.collections.pages.read('accueil-en');
 if (!page) throw new Error('Missing Keystatic entry: pages/accueil-en');
 const blocks = page.blocks;
+
+const faqBlock = blocks.find((b) => b.discriminant === 'faq');
+const jsonLd = faqBlock
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: (faqBlock.value.items ?? []).map((item) => ({
+        '@type': 'Question',
+        name: item.question,
+        acceptedAnswer: { '@type': 'Answer', text: item.answer },
+      })),
+    }
+  : undefined;
 ---
 <Layout
   lang="en"
@@ -17,6 +30,8 @@ const blocks = page.blocks;
   description={page.seoDescription ?? ''}
   canonical="https://agitech.io/en/"
   bodyClass="is-home"
+  jsonLd={jsonLd}
+  includeContactScripts
 >
   <Header slot="header" lang="en" />
   <main>

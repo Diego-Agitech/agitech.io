@@ -1,0 +1,27 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+---
+<Layout
+  lang="en"
+  title="Thank you — Agitech"
+  description="Your message has been sent to Agitech. We'll get back to you shortly."
+  robotsNoIndex
+>
+  <Header slot="header" lang="en" />
+  <main>
+    <section class="thank-you-section">
+      <div class="container-sm">
+        <div class="thank-you-box">
+          <div class="thank-you-icon">&#10003;</div>
+          <h1>Thanks, your message has been sent</h1>
+          <p>A member of the Agitech team will get back to you shortly. In the meantime, you can also book a slot directly with an expert.</p>
+          <a class="btn btn-violet" href="/en/#contact">Book a slot</a>
+          <a class="btn btn-outline" href="/en/">Back to homepage</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer slot="footer" lang="en" />
+</Layout>

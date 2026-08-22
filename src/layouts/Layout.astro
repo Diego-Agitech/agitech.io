@@ -10,6 +10,9 @@ export interface Props {
   /** Set on the homepage only — flips the dark-section corner glow to the opposite
    * corner from every other page (see .is-home rules in style.css). */
   bodyClass?: string;
+  /** Calendly widget + the postMessage listener that redirects to the "merci-rdv"
+   * thank-you page on booking — only needed on pages with the Calendly embed. */
+  includeContactScripts?: boolean;
 }
 
 const {
@@ -21,7 +24,10 @@ const {
   // per-page) only once this deployment actually replaces the live site.
   robotsNoIndex = true,
   bodyClass,
+  includeContactScripts = false,
 } = Astro.props;
+
+const rdvThankYouPath = lang === 'en' ? '/en/thank-you-meeting/' : '/merci-rdv/';
 
 // FR = default locale (no prefix), EN under /en/ — matches current WP/Polylang URLs.
 const altPath = canonical
@@ -68,5 +74,53 @@ const altPath = canonical
   const mainMenu = document.getElementById('mainMenu');
   burgerBtn?.addEventListener('click', () => mainMenu?.classList.toggle('open'));
 </script>
+{includeContactScripts && (
+  <script is:inline define:vars={{ rdvThankYouPath }}>
+    // Calendly is a heavy third-party script only needed once the visitor reaches the
+    // contact section — loaded lazily on scroll-into-view instead of on every page load.
+    let calendlyPromise = null;
+    function loadCalendly() {
+      if (!calendlyPromise) {
+        calendlyPromise = new Promise((resolve) => {
+          const s = document.createElement('script');
+          s.src = 'https://assets.calendly.com/assets/external/widget.js';
+          s.onload = resolve;
+          document.body.appendChild(s);
+        });
+      }
+      return calendlyPromise;
+    }
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+      const observer = new IntersectionObserver((entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          loadCalendly();
+          observer.disconnect();
+        }
+      }, { rootMargin: '600px' });
+      observer.observe(contactSection);
+    }
+
+    window.addEventListener('message', (e) => {
+      if (e.origin !== 'https://calendly.com' || !e.data || !e.data.event) return;
+
+      // The embedded Calendly widget has its own confirmation inside the iframe: without
+      // this, a booking never goes through a thank-you page and is never tracked.
+      if (e.data.event === 'calendly.event_scheduled') {
+        window.location.href = rdvThankYouPath;
+      }
+
+      // Calendly defaults to a fixed height, which creates a scroll inside the iframe (a
+      // "page inside the page"). Resync the widget's height to its real content so only
+      // the page itself scrolls.
+      if (e.data.event === 'calendly.page_height') {
+        const widget = document.querySelector('.calendly-inline-widget');
+        if (widget && e.data.payload && e.data.payload.height) {
+          widget.style.height = e.data.payload.height + 'px';
+        }
+      }
+    });
+  </script>
+)}
 </body>
 </html>

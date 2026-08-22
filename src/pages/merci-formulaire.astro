@@ -1,0 +1,27 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+<Layout
+  lang="fr"
+  title="Merci — Agitech"
+  description="Votre message a bien été envoyé à Agitech. Nous revenons vers vous rapidement."
+  robotsNoIndex
+>
+  <Header slot="header" lang="fr" />
+  <main>
+    <section class="thank-you-section">
+      <div class="container-sm">
+        <div class="thank-you-box">
+          <div class="thank-you-icon">&#10003;</div>
+          <h1>Merci, votre message a bien été envoyé</h1>
+          <p>Un membre de l'équipe Agitech revient vers vous rapidement. En attendant, vous pouvez aussi réserver directement un créneau avec un expert.</p>
+          <a class="btn btn-violet" href="/#contact">Réserver un créneau</a>
+          <a class="btn btn-outline" href="/">Retour à l'accueil</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer slot="footer" lang="fr" />
+</Layout>
