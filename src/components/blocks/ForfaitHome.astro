@@ -1,0 +1,167 @@
+---
+// Homepage section: "Ce qu'on développe, et comment on le facture" — new for the
+// développement-au-forfait brief. Not ported from WP, built fresh. Locally scoped
+// styles only (no changes to public/assets/style.css), reuses existing CSS tokens.
+import Cta from './Cta.astro';
+export interface Props {
+  title?: string;
+  intro?: string;
+  cards?: { title?: string; text?: string; featured?: boolean }[];
+  tagsTitle?: string;
+  tags?: string[];
+  explainerTitle?: string;
+  explainerText?: string;
+  ctaPrimary?: { label?: string; url?: string };
+  ctaSecondary?: { label?: string; url?: string };
+}
+const { title, intro, cards = [], tagsTitle, tags = [], explainerTitle, explainerText, ctaPrimary, ctaSecondary } = Astro.props;
+---
+<section class="forfait-home">
+  <div class="container">
+    <div class="forfait-home-title">
+      {title && <h2>{title}</h2>}
+      {intro && <p>{intro}</p>}
+    </div>
+    {cards.length > 0 && (
+      <div class="forfait-cards">
+        {cards.map(c => (
+          <div class={`forfait-card ${c.featured ? 'is-featured' : ''}`}>
+            {c.title && <h3>{c.title}</h3>}
+            {c.text && <p>{c.text}</p>}
+          </div>
+        ))}
+      </div>
+    )}
+    {tags.length > 0 && (
+      <div class="forfait-tags">
+        {tagsTitle && <span class="forfait-tags-title">{tagsTitle}</span>}
+        <div class="forfait-tags-list">
+          {tags.map(t => <span class="forfait-tag">{t}</span>)}
+        </div>
+      </div>
+    )}
+    {(explainerTitle || explainerText) && (
+      <div class="forfait-explainer">
+        {explainerTitle && <h4>{explainerTitle}</h4>}
+        {explainerText && <p>{explainerText}</p>}
+      </div>
+    )}
+    {(ctaPrimary?.label || ctaSecondary?.label) && (
+      <div class="forfait-ctas">
+        <Cta label={ctaPrimary?.label} url={ctaPrimary?.url} wrapClass="primary-btn" />
+        <Cta label={ctaSecondary?.label} url={ctaSecondary?.url} wrapClass="forfait-outline-btn" />
+      </div>
+    )}
+  </div>
+</section>
+
+<style>
+  .forfait-home {
+    padding: 5.5rem 0;
+    background: var(--offwhite, #f7f7f7);
+  }
+  .forfait-home-title {
+    max-width: 640px;
+    margin: 0 auto 3rem;
+    text-align: center;
+  }
+  .forfait-home-title h2 {
+    font-size: clamp(1.6rem, 3.5vw, 2.1rem);
+    margin-bottom: 0.9rem;
+  }
+  .forfait-home-title p {
+    color: var(--muted, #6b6b6b);
+    font-size: 1rem;
+  }
+  .forfait-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+    margin-bottom: 3rem;
+  }
+  .forfait-card {
+    background: var(--white, #fff);
+    border: 1px solid var(--border, #e5e5e5);
+    border-radius: 16px;
+    padding: 1.75rem;
+  }
+  .forfait-card.is-featured {
+    border-color: var(--violet, #984895);
+    box-shadow: 0 0 0 1px var(--violet, #984895);
+  }
+  .forfait-card h3 {
+    font-size: 1.05rem;
+    margin-bottom: 0.65rem;
+  }
+  .forfait-card p {
+    font-size: 0.88rem;
+    color: var(--muted, #6b6b6b);
+    line-height: 1.5;
+  }
+  .forfait-tags {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  .forfait-tags-title {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--violet, #984895);
+    margin-bottom: 1rem;
+  }
+  .forfait-tags-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.6rem;
+  }
+  .forfait-tag {
+    font-size: 0.82rem;
+    padding: 0.45rem 1rem;
+    border-radius: 100px;
+    border: 1px solid var(--border, #e5e5e5);
+    background: var(--white, #fff);
+    color: var(--ink, #1d1d1d);
+  }
+  .forfait-explainer {
+    max-width: 720px;
+    margin: 0 auto 2.5rem;
+    text-align: center;
+  }
+  .forfait-explainer h4 {
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+  }
+  .forfait-explainer p {
+    color: var(--muted, #6b6b6b);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+  .forfait-ctas {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .forfait-ctas :global(.forfait-outline-btn a) {
+    display: inline-block;
+    border: 1px solid var(--violet, #984895);
+    color: var(--violet, #984895);
+    background: transparent;
+    padding: 0.85rem 1.8rem;
+    border-radius: 100px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: background 0.2s, color 0.2s;
+  }
+  .forfait-ctas :global(.forfait-outline-btn a:hover) {
+    background: var(--violet, #984895);
+    color: var(--white, #fff);
+  }
+  @media (max-width: 900px) {
+    .forfait-cards { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 560px) {
+    .forfait-cards { grid-template-columns: 1fr; }
+  }
+</style>

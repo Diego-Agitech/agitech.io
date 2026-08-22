@@ -1,0 +1,111 @@
+---
+// Empty content slots for the développement-au-forfait page: 3 case-study cards and
+// a screenshot gallery. Per brief: "ne rien inventer" — these render as visibly empty,
+// clearly-labelled placeholders until Agitech supplies the real content.
+export interface Props {
+  variant?: 'cases' | 'gallery';
+  title?: string;
+  intro?: string;
+  count?: number;
+}
+const { variant = 'cases', title, intro, count = 3 } = Astro.props;
+const caseFields = ['Contexte client', 'Le besoin', 'Coût estimé en 2024', 'Prix forfaitaire en 2026', 'Capture d\'écran du résultat'];
+---
+<!-- À COMPLÉTER par Agitech : aucun chiffre, nom de client ou capture n'est inventé ici. -->
+<section class="forfait-placeholder">
+  <div class="container">
+    {title && <h2>{title}</h2>}
+    {intro && <p class="forfait-placeholder-intro">{intro}</p>}
+    {variant === 'cases' ? (
+      <div class="forfait-placeholder-grid cases">
+        {Array.from({ length: count }).map(() => (
+          <div class="forfait-placeholder-card">
+            <span class="forfait-placeholder-tag">À compléter</span>
+            <ul>
+              {caseFields.map(f => <li>{f}</li>)}
+            </ul>
+          </div>
+        ))}
+      </div>
+    ) : (
+      <div class="forfait-placeholder-grid gallery">
+        {Array.from({ length: count }).map(() => (
+          <div class="forfait-placeholder-shot">
+            <span class="forfait-placeholder-tag">Capture à ajouter</span>
+          </div>
+        ))}
+      </div>
+    )}
+  </div>
+</section>
+
+<style>
+  .forfait-placeholder {
+    padding: 4rem 0;
+  }
+  .forfait-placeholder h2 {
+    font-size: clamp(1.5rem, 3vw, 1.9rem);
+    margin-bottom: 0.75rem;
+  }
+  .forfait-placeholder-intro {
+    color: var(--muted, #6b6b6b);
+    max-width: 640px;
+    margin-bottom: 2.5rem;
+  }
+  .forfait-placeholder-grid {
+    display: grid;
+    gap: 1.25rem;
+  }
+  .forfait-placeholder-grid.cases {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .forfait-placeholder-grid.gallery {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .forfait-placeholder-card,
+  .forfait-placeholder-shot {
+    border: 1px dashed var(--border, #d0d0d0);
+    border-radius: 14px;
+    padding: 1.5rem;
+    background: var(--offwhite, #f7f7f7);
+  }
+  .forfait-placeholder-shot {
+    aspect-ratio: 4 / 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .forfait-placeholder-tag {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--violet, #984895);
+    background: var(--white, #fff);
+    border: 1px solid var(--violet, #984895);
+    border-radius: 100px;
+    padding: 0.25rem 0.75rem;
+    margin-bottom: 1rem;
+  }
+  .forfait-placeholder-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .forfait-placeholder-card li {
+    font-size: 0.85rem;
+    color: var(--muted, #6b6b6b);
+    padding: 0.4rem 0;
+    border-top: 1px solid var(--border, #e5e5e5);
+  }
+  .forfait-placeholder-card li:first-child {
+    border-top: none;
+  }
+  @media (max-width: 900px) {
+    .forfait-placeholder-grid.cases,
+    .forfait-placeholder-grid.gallery { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 560px) {
+    .forfait-placeholder-grid.cases,
+    .forfait-placeholder-grid.gallery { grid-template-columns: 1fr; }
+  }
+</style>

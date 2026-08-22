@@ -33,6 +33,7 @@ export async function getStaticPaths() {
     'support-en': 'support',
     'migration-en': 'migration',
     'mise-a-niveau-version-en': 'mise-a-niveau-version',
+    'developpement-odoo-forfait-en': 'developpement-odoo-forfait',
   };
 
   const pageSlugs = await reader.collections.pages.list();
@@ -67,6 +68,19 @@ if (kind === 'blog') {
   bodyHtml = withToc.html;
   toc = withToc.toc;
 }
+
+const pageFaqBlock = kind === 'page' ? entry.blocks.find((b: any) => b.discriminant === 'faq') : undefined;
+const pageJsonLd = pageFaqBlock
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: (pageFaqBlock.value.items ?? []).map((item: any) => ({
+        '@type': 'Question',
+        name: item.question,
+        acceptedAnswer: { '@type': 'Answer', text: item.answer },
+      })),
+    }
+  : undefined;
 ---
 {kind === 'page' ? (
   <Layout
@@ -74,9 +88,13 @@ if (kind === 'blog') {
     title={entry.seoTitle || entry.title}
     description={entry.seoDescription ?? ''}
     canonical={`https://agitech.io/en/${Astro.params.slug}/`}
+    jsonLd={pageJsonLd}
   >
     <Header slot="header" lang="en" />
-    <main><BlockRenderer blocks={entry.blocks} /></main>
+    <main>
+      {Astro.params.slug === 'developpement-odoo-forfait' && <h1 class="visually-hidden-h1">{entry.title}</h1>}
+      <BlockRenderer blocks={entry.blocks} />
+    </main>
     <Footer slot="footer" lang="en" />
   </Layout>
 ) : (
@@ -114,3 +132,10 @@ if (kind === 'blog') {
     <Footer slot="footer" lang="en" />
   </Layout>
 )}
+
+<style>
+  .visually-hidden-h1 {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+  }
+</style>
