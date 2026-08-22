@@ -126,7 +126,7 @@
      Light sections: barely-there tint. Dark sections: stronger. Non-home pages: top-right.
      Homepage: top-left, the mirror of that (and of agifid's own top-right home glow) so
      the accueil reads as visually distinct. */
-  main section { position: relative; overflow: hidden; }
+  main section { position: relative; overflow: hidden; z-index: 0; }
   main section::before {
     content: ''; position: absolute; width: 600px; height: 600px;
     background: radial-gradient(circle, rgba(152,72,149,0.06) 0%, transparent 70%);
