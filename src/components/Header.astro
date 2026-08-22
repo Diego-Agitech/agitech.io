@@ -11,15 +11,12 @@ const strings = {
 
 const base = lang === 'en' ? '/en' : '';
 ---
+<div class="brand-bar"></div>
 <header>
   <div class="container header-wrap">
-    <div class="logo">
-      <h1>
-        <a href={lang === 'en' ? '/en/' : '/'}>
-          <img src="https://agitech.io/wp-content/uploads/2025/06/agitech-white-logo.svg" alt="Agitech">
-        </a>
-      </h1>
-    </div>
+    <a class="logo" href={lang === 'en' ? '/en/' : '/'}>
+      <img src="/assets/img/agitech-logo-light.svg" alt="Agitech">
+    </a>
     <nav class="main_menu" id="mainMenu">
       <ul>
         <li><a href={`${base}/odoo-erp/`}>{strings.odoo}</a></li>

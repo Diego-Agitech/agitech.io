@@ -5,16 +5,38 @@ export interface Props {
 const { lang } = Astro.props;
 const base = lang === 'en' ? '/en' : '';
 const strings = {
-  fr: { terms: 'Conditions générales', privacy: 'Politique de confidentialité' },
-  en: { terms: 'Terms & conditions', privacy: 'Privacy policy' },
+  fr: { nav: 'Navigation', odoo: 'Odoo ERP', why: 'Pourquoi nous', industries: 'Industries', blog: 'Blog', contact: 'Contact', terms: 'Conditions générales', privacy: 'Politique de confidentialité', rights: `© ${new Date().getFullYear()} Agitech. Tous droits réservés.` },
+  en: { nav: 'Navigation', odoo: 'Odoo ERP', why: 'Why us', industries: 'Industries', blog: 'Blog', contact: 'Contact', terms: 'Terms & conditions', privacy: 'Privacy policy', rights: `© ${new Date().getFullYear()} Agitech. All rights reserved.` },
 }[lang];
 ---
+<div class="brand-bar"></div>
 <footer>
   <div class="container">
-    <p>&copy; {new Date().getFullYear()} Agitech</p>
-    <ul>
-      <li><a href={`${base}/terms-conditions/`}>{strings.terms}</a></li>
-      <li><a href={`${base}/privacy-policy/`}>{strings.privacy}</a></li>
-    </ul>
+    <div class="row main-row">
+      <div class="item">
+        <a class="ft-logo" href={lang === 'en' ? '/en/' : '/'}>
+          <img src="/assets/img/agitech-logo-light.svg" alt="Agitech">
+        </a>
+      </div>
+      <div class="item">
+        <div class="top-text"><h5>Odoo, adapté à votre PME. Pas l'inverse.</h5></div>
+      </div>
+      <div class="item ft-links">
+        <div class="content">
+          <h6>{strings.nav}</h6>
+          <ul>
+            <li><a href={`${base}/odoo-erp/`}>{strings.odoo}</a></li>
+            <li><a href={`${base}/why-odoo/`}>{strings.why}</a></li>
+            <li><a href={`${base}/industries/`}>{strings.industries}</a></li>
+            <li><a href={`${base}/blog/`}>{strings.blog}</a></li>
+            <li><a href={`${base}/contact-us/`}>{strings.contact}</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="copy-right">
+      <p>{strings.rights}</p>
+      <p class="privacy-links"><a href={`${base}/privacy-policy/`}>{strings.privacy}</a>&nbsp;|&nbsp;<a href={`${base}/terms-conditions/`}>{strings.terms}</a></p>
+    </div>
   </div>
 </footer>
