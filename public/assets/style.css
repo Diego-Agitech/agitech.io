@@ -149,6 +149,22 @@
   .talk-section h4 { font-size: 1.75rem; margin-bottom: 1.1rem; }
   .talk-section p { color: var(--muted); margin-bottom: 1.75rem; max-width: 480px; }
 
+  /* Team members grid */
+  .our-team-section { padding: 5.5rem 0; background: var(--white); }
+  .our-team-section .left-content h6 { color: var(--violet); font-size: 0.85rem; font-weight: 600; }
+  .our-team-section .title h3 { font-size: 1.9rem; margin-bottom: 2rem; }
+  .our-team-section .items-wrap .item-wrap .img img { width: 100%; height: 240px; object-fit: cover; border-radius: 14px; margin-bottom: 1rem; }
+  .our-team-section .content h6 { font-size: 1.05rem; margin-bottom: 0.2rem; }
+  .our-team-section .content .role { color: var(--violet); font-size: 0.82rem; margin-bottom: 0.5rem; }
+  .our-team-section .content p { color: var(--muted); font-size: 0.88rem; }
+
+  /* Recruiting CTA */
+  .recruiting-section { padding: 5.5rem 0; background: var(--offwhite); }
+  .recruiting-section .content h6 { color: var(--violet); font-size: 0.85rem; font-weight: 600; }
+  .recruiting-section .content h4 { font-size: 1.6rem; margin: 0.75rem 0 1rem; }
+  .recruiting-section .content p { color: var(--muted); margin-bottom: 1.5rem; }
+  .recruiting-section img { border-radius: 16px; width: 100%; height: 320px; object-fit: cover; }
+
   /* Contact us section */
   .contact-us-section { padding: 5.5rem 0; background: var(--white); }
   .contact-us-section .left-content h2 { font-size: 2rem; margin-bottom: 1.5rem; }
