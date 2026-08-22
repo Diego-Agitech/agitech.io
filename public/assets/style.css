@@ -22,10 +22,40 @@
   html { scroll-behavior: smooth; }
   body { font-family: var(--font-body); color: var(--ink); background: var(--white); line-height: 1.6; overflow-x: hidden; }
   img { max-width: 100%; display: block; }
+  /* Raw WP editor images surfacing inside rich-text content blocks (case insights,
+     why-join, cms pages, etc) carry these WP classes — constrain them, they otherwise
+     render at native pixel size and blow out the layout. */
+  img[class*="wp-image"], img.aligncenter, img.alignleft, img.alignright,
+  img.size-large, img.size-full, img.size-medium {
+    height: auto; max-width: 100%; border-radius: 12px; margin: 1.5rem auto; display: block;
+  }
   a { color: inherit; text-decoration: none; }
   ul { list-style: none; }
   .container { max-width: 1240px; margin: 0 auto; padding: 0 2rem; }
   .container-sm { max-width: 1040px; margin: 0 auto; padding: 0 2rem; }
+
+  /* Minimal grid fallback for the ported WP markup's Bootstrap-style .row/.col-lg-*
+     classes (Bootstrap itself was dropped when moving to the agifid design system).
+     Blocks with a bespoke `display:grid` rule on their own .row (e.g. .why-section
+     .row) override this by selector specificity — this only fills the gap for blocks
+     that never got one, so their columns don't just stack full-width. */
+  .row { display: flex; flex-wrap: wrap; margin: 0 -0.75rem; }
+  .row > [class*="col-"] { padding: 0 0.75rem; box-sizing: border-box; width: 100%; }
+  .col-lg-1 { flex: 0 0 8.3333%; max-width: 8.3333%; }
+  .col-lg-2 { flex: 0 0 16.6667%; max-width: 16.6667%; }
+  .col-lg-3 { flex: 0 0 25%; max-width: 25%; }
+  .col-lg-4 { flex: 0 0 33.3333%; max-width: 33.3333%; }
+  .col-lg-5 { flex: 0 0 41.6667%; max-width: 41.6667%; }
+  .col-lg-6 { flex: 0 0 50%; max-width: 50%; }
+  .col-lg-7 { flex: 0 0 58.3333%; max-width: 58.3333%; }
+  .col-lg-8 { flex: 0 0 66.6667%; max-width: 66.6667%; }
+  .col-lg-9 { flex: 0 0 75%; max-width: 75%; }
+  .col-lg-10 { flex: 0 0 83.3333%; max-width: 83.3333%; }
+  .col-lg-11 { flex: 0 0 91.6667%; max-width: 91.6667%; }
+  .col-lg-12 { flex: 0 0 100%; max-width: 100%; }
+  @media (max-width: 900px) {
+    .row > [class*="col-lg-"] { flex: 0 0 100%; max-width: 100%; }
+  }
   h1,h2,h3,h4,h5,h6 { font-family: var(--font-display); font-weight: 300; letter-spacing: -0.01em; }
   .eyebrow { font-size: 0.8rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--violet); margin-bottom: 0.75rem; }
 
@@ -64,15 +94,30 @@
   .lang-flag { font-size: 0.85rem; color: var(--muted-onDark); }
   .lang-flag .active { color: var(--white); font-weight: 600; }
 
+  /* Corner glow — every dark section start gets a soft mauve radial wash, agifid-style.
+     Non-home pages: top-right, subtle. Homepage: top-left, the mirror of that (and of
+     agifid's own top-right home glow) so the accueil reads as visually distinct. */
+  [class~="dark-bg"] { position: relative; overflow: hidden; }
+  [class~="dark-bg"]::before {
+    content: ''; position: absolute; width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(152,72,149,0.14) 0%, transparent 70%);
+    top: -200px; right: -150px; left: auto; pointer-events: none;
+    z-index: -1; /* behind this section's own content, without touching any child's stacking */
+  }
+  .is-home [class~="dark-bg"]::before {
+    background: radial-gradient(circle, rgba(152,72,149,0.22) 0%, transparent 70%);
+    left: -150px; right: auto;
+  }
+
   /* Hero */
-  .home-banner, .banner-sec { background: var(--black); color: var(--white); padding: 6rem 0 7rem; position: relative; overflow: hidden; }
-  .home-banner::after, .banner-sec::after { content:''; position:absolute; width:600px; height:600px; background: radial-gradient(circle, rgba(152,72,149,0.18) 0%, transparent 70%); top:-200px; right:-150px; pointer-events:none; }
+  .home-banner, .banner-sec { background: var(--black); color: var(--white); padding: 6rem 0 7rem; }
   .banner-sec .row { position: relative; z-index: 2; }
   .banner-sec .text h6 { font-family: var(--font-body); color: var(--muted-onDark); font-size: 0.85rem; font-weight: 500; letter-spacing: 0.04em; margin-bottom: 1.25rem; }
   .banner-sec .text h2 { font-size: clamp(1.6rem, 5vw, 2.7rem); line-height: 1.12; max-width: 680px; margin-bottom: 2.25rem; }
-  .banner-sec .right-img img { position: absolute; right: 0; top: 0; height: 100%; opacity: 0.5; pointer-events: none; }
+  /* agifid's hero is text + gradient glow only, no side artwork — dropping the WP
+     decorative background SVGs (banner-bg-*.svg) kept in .right-img for brand consistency. */
+  .banner-sec .right-img { display: none; }
   .banner-sec.inner-pages-banner { padding: 4.5rem 0; }
-  .banner-sec.inner-pages-banner .right-img img { max-width: 420px; height: auto; position: static; opacity: 1; }
 
   /* Experts */
   .certified-experts-section { padding: 5rem 0; background: var(--white); }
@@ -254,6 +299,21 @@
   .affordable-video { margin-top: 1.5rem; border-radius: 16px; overflow: hidden; }
   .affordable-video iframe { width: 100%; aspect-ratio: 16/9; height: auto; }
   @media (max-width: 900px) { .key-features-section .row { grid-template-columns: 1fr; } .key-features-section .logo-wrp { grid-template-columns: repeat(3, 1fr); } }
+
+  /* Case insights (business case detail pages) */
+  .custom-development-section { padding: 4rem 0; }
+  .custom-development-section .content { display: grid; grid-template-columns: 1fr 2fr; gap: 2.5rem; padding: 2.5rem 0; border-top: 1px solid var(--border); align-items: start; }
+  .custom-development-section .left-content h6 { color: var(--violet); font-size: 0.85rem; font-weight: 600; letter-spacing: 0.05em; }
+  .custom-development-section .right-content .text { color: var(--muted); }
+  .custom-development-section .right-content .text p { margin-bottom: 1rem; }
+  .custom-development-section .right-content .text img { max-width: 100%; height: auto; border-radius: 12px; margin: 1rem 0; }
+  .custom-development-section .img { display: flex; gap: 1rem; margin-top: 1.5rem; }
+  .custom-development-section .img img { max-width: 320px; width: 100%; height: auto; border-radius: 12px; object-fit: cover; }
+  @media (max-width: 900px) {
+    .custom-development-section .content { grid-template-columns: 1fr; }
+    .custom-development-section .img { flex-direction: column; }
+    .custom-development-section .img img { max-width: 100%; }
+  }
 
   /* Needs / case intro */
   .needs-section { padding: 5.5rem 0; background: var(--offwhite); }

@@ -7,6 +7,9 @@ export interface Props {
   ogLocale?: string;
   jsonLd?: Record<string, unknown>;
   robotsNoIndex?: boolean;
+  /** Set on the homepage only — flips the dark-section corner glow to the opposite
+   * corner from every other page (see .is-home rules in style.css). */
+  bodyClass?: string;
 }
 
 const {
@@ -17,6 +20,7 @@ const {
   // everywhere so this preview never competes with it in search. Flip to false (or set
   // per-page) only once this deployment actually replaces the live site.
   robotsNoIndex = true,
+  bodyClass,
 } = Astro.props;
 
 // FR = default locale (no prefix), EN under /en/ — matches current WP/Polylang URLs.
@@ -55,7 +59,7 @@ const altPath = canonical
 <link rel="stylesheet" href="/assets/fonts.css">
 <link rel="stylesheet" href="/assets/style.css">
 </head>
-<body>
+<body class={bodyClass}>
 <slot name="header" />
 <slot />
 <slot name="footer" />
