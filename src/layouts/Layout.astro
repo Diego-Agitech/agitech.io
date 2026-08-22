@@ -1,0 +1,61 @@
+---
+export interface Props {
+  lang: 'fr' | 'en';
+  title: string;
+  description: string;
+  canonical?: string;
+  ogLocale?: string;
+  jsonLd?: Record<string, unknown>;
+  robotsNoIndex?: boolean;
+}
+
+const {
+  lang, title, description,
+  canonical, ogLocale = lang === 'fr' ? 'fr_BE' : 'en_US',
+  jsonLd, robotsNoIndex = false,
+} = Astro.props;
+
+// FR = default locale (no prefix), EN under /en/ — matches current WP/Polylang URLs.
+const altPath = canonical
+  ? (lang === 'fr' ? canonical.replace('https://agitech.io', 'https://agitech.io/en') : canonical.replace('/en', ''))
+  : undefined;
+---
+<!DOCTYPE html>
+<html lang={lang}>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+{robotsNoIndex && <meta name="robots" content="noindex, nofollow">}
+<title>{title}</title>
+<meta name="description" content={description}>
+{canonical && (
+  <>
+    <link rel="canonical" href={canonical}>
+    {altPath && <link rel="alternate" hreflang={lang === 'fr' ? 'en' : 'fr'} href={altPath}>}
+    <link rel="alternate" hreflang="x-default" href="https://agitech.io/">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content={ogLocale}>
+    <meta property="og:url" content={canonical}>
+    <meta property="og:site_name" content="Agitech">
+    <meta property="og:title" content={title}>
+    <meta property="og:description" content={description}>
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content={title}>
+    <meta name="twitter:description" content={description}>
+  </>
+)}
+<link rel="icon" href="/assets/img/favicon.png">
+{jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+<link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+<slot name="header" />
+<slot />
+<slot name="footer" />
+<script>
+  const burgerBtn = document.getElementById('burgerBtn');
+  const mainMenu = document.getElementById('mainMenu');
+  burgerBtn?.addEventListener('click', () => mainMenu?.classList.toggle('open'));
+</script>
+</body>
+</html>

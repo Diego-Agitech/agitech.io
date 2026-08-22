@@ -1,0 +1,20 @@
+---
+export interface Props {
+  lang: 'fr' | 'en';
+}
+const { lang } = Astro.props;
+const base = lang === 'en' ? '/en' : '';
+const strings = {
+  fr: { terms: 'Conditions générales', privacy: 'Politique de confidentialité' },
+  en: { terms: 'Terms & conditions', privacy: 'Privacy policy' },
+}[lang];
+---
+<footer>
+  <div class="container">
+    <p>&copy; {new Date().getFullYear()} Agitech</p>
+    <ul>
+      <li><a href={`${base}/terms-conditions/`}>{strings.terms}</a></li>
+      <li><a href={`${base}/privacy-policy/`}>{strings.privacy}</a></li>
+    </ul>
+  </div>
+</footer>

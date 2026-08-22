@@ -1,0 +1,38 @@
+---
+export interface Props {
+  lang: 'fr' | 'en';
+}
+const { lang } = Astro.props;
+
+const strings = {
+  fr: { odoo: 'Odoo ERP', why: 'Pourquoi nous', industries: 'Industries', blog: 'Blog', jobs: 'Jobs', contact: 'Contact' },
+  en: { odoo: 'Odoo ERP', why: 'Why us', industries: 'Industries', blog: 'Blog', jobs: 'Jobs', contact: 'Contact' },
+}[lang];
+
+const base = lang === 'en' ? '/en' : '';
+---
+<header>
+  <div class="container header-wrap">
+    <a class="logo" href={lang === 'en' ? '/en/' : '/'}>
+      <img src="/assets/img/logo-agitech.png" alt="Agitech">
+    </a>
+    <nav class="main_menu" id="mainMenu">
+      <ul>
+        <li><a href={`${base}/odoo-erp/`}>{strings.odoo}</a></li>
+        <li><a href={`${base}/why-odoo/`}>{strings.why}</a></li>
+        <li><a href={`${base}/industries/`}>{strings.industries}</a></li>
+        <li><a href={`${base}/blog/`}>{strings.blog}</a></li>
+        <li><a href={`${base}/jobs/`}>{strings.jobs}</a></li>
+      </ul>
+      <div class="lang-flag">
+        {lang === 'fr' ? (
+          <><span class="active">FR</span> / <a href="/en/">EN</a></>
+        ) : (
+          <><a href="/">FR</a> / <span class="active">EN</span></>
+        )}
+      </div>
+      <div class="discuss-btn"><a href={`${base}/contact-us/`}>{strings.contact}</a></div>
+    </nav>
+    <div class="lines-button" id="burgerBtn"><span class="lines"></span></div>
+  </div>
+</header>
