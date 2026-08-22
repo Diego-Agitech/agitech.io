@@ -1,0 +1,52 @@
+---
+// Ported from template-parts/block/contact-us-section.php.
+// The WP form was a Contact Form 7 shortcode (server-rendered PHP) — replaced with a
+// plain static form; wiring a real submit endpoint (Formspree, like agifid) is a follow-up.
+import Cta from './Cta.astro';
+import { blockImg } from '../../lib/img';
+export interface Props {
+  mainHeading?: string;
+  highlights?: string[];
+  ctaHeading?: string;
+  ctaSubHeading?: string;
+  profileImage?: string;
+  cta?: { label?: string; url?: string; newTab?: boolean };
+}
+const { mainHeading, highlights = [], ctaHeading, ctaSubHeading, profileImage, cta } = Astro.props;
+---
+<section class="contact-us-section" id="contact-us-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 col-md-6">
+        <div class="left-content">
+          {mainHeading && <h2>{mainHeading}</h2>}
+          {highlights.length > 0 && <ul>{highlights.map(h => <li>{h}</li>)}</ul>}
+          <div class="chat-with">
+            {ctaHeading && <h6>{ctaHeading}</h6>}
+            {ctaSubHeading && <p>{ctaSubHeading}</p>}
+            <div class="chat-link">
+              {profileImage && <img src={blockImg(profileImage)} alt="" class="btn-avatar">}
+              {cta && <Cta label={cta.label} url={cta.url} newTab={cta.newTab} />}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6">
+        <div class="right-content">
+          <form class="contact-card contact-form" action="https://formspree.io/f/xeajdqgr" method="POST">
+            <div class="form-row">
+              <div class="form-field"><label>Prénom</label><input type="text" name="first_name" required></div>
+              <div class="form-field"><label>Nom</label><input type="text" name="last_name" required></div>
+            </div>
+            <div class="form-row">
+              <div class="form-field"><label>Email</label><input type="email" name="email" required></div>
+              <div class="form-field"><label>Téléphone</label><input type="tel" name="phone"></div>
+            </div>
+            <div class="form-field"><label>Message</label><textarea name="message" rows="4"></textarea></div>
+            <button type="submit" class="btn btn-violet">Envoyer</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -149,6 +149,58 @@
   .talk-section h4 { font-size: 1.75rem; margin-bottom: 1.1rem; }
   .talk-section p { color: var(--muted); margin-bottom: 1.75rem; max-width: 480px; }
 
+  /* Contact us section */
+  .contact-us-section { padding: 5.5rem 0; background: var(--white); }
+  .contact-us-section .left-content h2 { font-size: 2rem; margin-bottom: 1.5rem; }
+  .contact-us-section .left-content ul { margin-bottom: 2rem; }
+  .contact-us-section .left-content ul li { color: var(--muted); font-size: 0.95rem; margin-bottom: 0.6rem; padding-left: 1.4rem; position: relative; }
+  .contact-us-section .left-content ul li::before { content: '✓'; position: absolute; left: 0; color: var(--violet); font-weight: 700; }
+  .chat-with h6 { font-size: 1.1rem; margin-bottom: 0.4rem; }
+  .chat-with p { color: var(--muted); margin-bottom: 1rem; }
+  .chat-link { display: flex; align-items: center; gap: 1rem; }
+  .btn-avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
+
+  /* Expertise */
+  .expertises-section { padding: 5.5rem 0; background: var(--white); }
+  .expertises-section .title h3 { font-size: 1.9rem; }
+  .expertises-content { padding: 1.5rem 0; }
+  .expertises-content .item .icon img { width: 36px; height: 36px; margin-bottom: 1rem; }
+  .expertises-content h5 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+  .expertises-content p { color: var(--muted); font-size: 0.9rem; }
+
+  /* Recruitment / why join */
+  .recruitment-section { padding: 5.5rem 0; background: var(--white); }
+  .recruitment-section .left-content h6 { color: var(--violet); font-size: 0.85rem; font-weight: 600; }
+  .recruitment-section .right-content h3 { font-size: 1.9rem; margin-bottom: 1rem; }
+  .lists-wrap { margin-top: 2rem; }
+  .perks-list { padding: 1.5rem 0; }
+  .perks-list .img img { height: 32px; margin-bottom: 0.75rem; }
+  .perks-list h6 { font-size: 1.05rem; margin-bottom: 0.5rem; }
+  .image-container img { width: 100%; border-radius: 16px; margin-top: 2rem; height: 380px; object-fit: cover; }
+
+  /* Open positions */
+  .open-positions-section { padding: 5.5rem 0; }
+  .open-positions-section h6 { color: var(--violet-light); font-size: 0.85rem; font-weight: 600; margin-bottom: 2rem; }
+  .open-positions-section .left-content h3 { color: var(--white); font-size: 1.9rem; }
+  .open-positions-section .right-content ul li { margin-bottom: 0.75rem; }
+  .open-positions-section .right-content ul li a { color: var(--white); border-bottom: 1px solid var(--border-onDark); display: block; padding-bottom: 0.75rem; }
+  .open-positions-section .right-content ul li a:hover { color: var(--violet-light); }
+
+  /* Selection process */
+  .selection-process-section { padding: 5.5rem 0; }
+  .selection-process-section .left-content h3 { font-size: 1.9rem; }
+  .selection-process-section .content { padding: 1.5rem 0; border-top: 1px solid var(--border); }
+  .selection-process-section .content h4 { color: var(--violet); }
+  .selection-process-section .content h6 { font-size: 1.05rem; margin-bottom: 0.5rem; }
+  .selection-process-section .content p { color: var(--muted); font-size: 0.9rem; }
+
+  /* CMS page (legal/plain text) */
+  .cms-wrp { padding: 5.5rem 0; }
+  .cms-wrp h1 { font-size: 2.2rem; margin-bottom: 2rem; }
+  .cms-wrp h3, .cms-wrp h4 { margin: 1.75rem 0 0.75rem; }
+  .cms-wrp p { color: var(--muted); margin-bottom: 1rem; max-width: 760px; }
+  .cms-wrp ul, .cms-wrp ol { color: var(--muted); margin: 0 0 1rem 1.25rem; }
+
   /* Key features (why-odoo) */
   .full-width-text-section { padding: 5.5rem 0 0; background: var(--white); }
   .full-width-text-section h6 { color: var(--violet); font-size: 0.85rem; font-weight: 600; margin-bottom: 0.75rem; }

@@ -1,0 +1,19 @@
+---
+// Ported from template-parts/block/cms-pages.php (and the sidebar-less branch of
+// two-col-content.php — both render identical markup when there's no section sidebar).
+export interface Props {
+  title?: string;
+  content?: string;
+}
+const { title, content } = Astro.props;
+---
+<section class="cms-wrp">
+  <div class="container">
+    <div class="row full-content">
+      <div class="col-md-12">
+        {title && <h1>{title}</h1>}
+        {content && <div><Fragment set:html={content} /></div>}
+      </div>
+    </div>
+  </div>
+</section>

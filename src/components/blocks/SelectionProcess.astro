@@ -1,0 +1,28 @@
+---
+// Ported from template-parts/block/selection-process.php
+export interface Props {
+  title?: string;
+  steps?: { heading?: string; description?: string }[];
+}
+const { title, steps = [] } = Astro.props;
+---
+<section class="selection-process-section">
+  <div class="container-sm">
+    <div class="row">
+      <div class="col-lg-4 col-md-12 col-sm-12 col-12">
+        <div class="left-content">{title && <h3>{title}</h3>}</div>
+      </div>
+      <div class="col-lg-8 col-md-12 col-sm-12 col-12 right-content">
+        {steps.map((s, i) => (
+          <div class="row content">
+            <div class="col-lg-2 col-md-1 col-1"><h4>{String(i + 1).padStart(2, '0')}</h4></div>
+            <div class="col-lg-10 col-md-11 col-11">
+              {s.heading && <h6>{s.heading}</h6>}
+              {s.description && <p>{s.description}</p>}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
