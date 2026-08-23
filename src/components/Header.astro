@@ -5,8 +5,8 @@ export interface Props {
 const { lang } = Astro.props;
 
 const strings = {
-  fr: { odoo: 'Odoo ERP', why: 'Pourquoi nous', industries: 'Industries', services: 'Services', blog: 'Blog', jobs: 'Jobs', contact: 'Contact', allIndustries: 'Toutes les industries' },
-  en: { odoo: 'Odoo ERP', why: 'Why us', industries: 'Industries', services: 'Services', blog: 'Blog', jobs: 'Jobs', contact: 'Contact', allIndustries: 'All industries' },
+  fr: { odoo: 'Odoo ERP', why: 'Pourquoi nous', industries: 'Solutions', services: 'Services', blog: 'Blog', jobs: 'Jobs', contact: 'Contact', allIndustries: 'Toutes les solutions' },
+  en: { odoo: 'Odoo ERP', why: 'Why us', industries: 'Solutions', services: 'Services', blog: 'Blog', jobs: 'Jobs', contact: 'Contact', allIndustries: 'All solutions' },
 }[lang];
 
 const base = lang === 'en' ? '/en' : '';
