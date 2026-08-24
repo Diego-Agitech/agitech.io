@@ -5,8 +5,8 @@ export interface Props {
 const { lang } = Astro.props;
 
 const strings = {
-  fr: { odoo: 'Odoo ERP', why: 'Pourquoi nous', industries: 'Solutions', services: 'Services', blog: 'Blog', jobs: 'Jobs', contact: 'Contact', allIndustries: 'Toutes les solutions' },
-  en: { odoo: 'Odoo ERP', why: 'Why us', industries: 'Solutions', services: 'Services', blog: 'Blog', jobs: 'Jobs', contact: 'Contact', allIndustries: 'All solutions' },
+  fr: { odoo: 'Odoo ERP', why: 'Pourquoi nous', industries: 'Solutions', services: 'Services', cases: 'Réalisations', blog: 'Blog', team: 'Équipe', contact: 'Contact', allIndustries: 'Toutes les solutions' },
+  en: { odoo: 'Odoo ERP', why: 'Why us', industries: 'Solutions', services: 'Services', cases: 'Case Studies', blog: 'Blog', team: 'Team', contact: 'Contact', allIndustries: 'All solutions' },
 }[lang];
 
 const base = lang === 'en' ? '/en' : '';
@@ -82,8 +82,9 @@ const services = lang === 'en'
             </ul>
           </div>
         </li>
+        <li><a href={`${base}/business-cases/`}>{strings.cases}</a></li>
         <li><a href={`${base}/blog/`}>{strings.blog}</a></li>
-        <li><a href={`${base}/jobs/`}>{strings.jobs}</a></li>
+        <li><a href={`${base}/jobs/`}>{strings.team}</a></li>
       </ul>
       <div class="lang-flag">
         {lang === 'fr' ? (
