@@ -6,81 +6,67 @@ seoDescription: 'AgiRealEstate : gestion immobilière locative sur Odoo. Biens, 
 blocks:
 - discriminant: innerHero
   value:
-    title: Votre parc locatif, piloté depuis Odoo
-    subTitle: AgiRealEstate — gestion immobilière locative développée par Agitech, biens, baux, loyers, impayés et rentabilité.
+    title: Notre solution pour le secteur
+    subTitle: Gestion Immobilière
     bottomLine: true
     image: banner-bg-10.svg
-- discriminant: expertise
+- discriminant: caseIntro
+  value:
+    bgClass: lighter-gray-bg
+    needsLabel: LES BESOINS
+    needs:
+    - Suivi des biens & des baux
+    - Facturation des loyers automatique
+    - Indexation légale des loyers
+    - Suivi de la rentabilité & du patrimoine
+    - Gestion des sinistres & incidents
+    challengesLabel: LES DÉFIS
+    challenge: '<p><strong>Suivi des baux & échéances :</strong> Sans système centralisé, les dates de fin de bail, les révisions et les états des lieux se perdent dans des dossiers papier ou des tableurs. Un oubli coûte cher : loyer non révisé, préavis manqué.</p><p><strong>Facturation manuelle des loyers :</strong> Générer chaque facture de loyer à la main, mois après mois, pour chaque bien, prend un temps disproportionné et laisse place aux erreurs et aux oublis.</p><p><strong>Indexation des loyers :</strong> Chaque bail a sa propre date anniversaire et sa propre référence d''indice. Calculer et appliquer l''indexation manuellement, bien par bien, est une source d''erreur récurrente.</p><p><strong>Rentabilité invisible :</strong> Sans tableau de bord unifié, impossible de savoir en temps réel quels biens sont réellement rentables une fois charges, emprunts et impayés pris en compte.</p><p><strong>Sinistres et incidents dispersés :</strong> Sans suivi centralisé, chaque sinistre ou incident technique se traite au cas par cas, sans historique ni lien avec le locataire ou le bien concerné.</p>'
+- discriminant: odooExpertise
   value:
     bgClass: white-bg
-    customList: true
-    title: Ce que fait AgiRealEstate
-    expertise:
-    - icon: cloud-servers-icon.svg
+    title: Notre solution pour la Gestion Immobilière
+    items:
+    - logo: cloud-servers-icon.svg
       heading: Biens & immeubles
-      subHeading: Création et suivi des biens immobiliers, regroupés par immeuble.
-      description: '<ul>
-
-        <li>Types de documents configurables : PEB, bail, état des lieux...</li>
-
-        <li>Vue carte pour les biens, immeubles, sinistres et incidents</li>
-
-        </ul>'
-    - icon: Material-icon.svg
+      descriptionPoints: '<p>Création et suivi des biens immobiliers, regroupés par immeuble.</p><ul><li>Types de documents configurables : PEB, bail, état des lieux...</li><li>Vue carte pour les biens, immeubles, sinistres et incidents</li></ul>'
+    - logo: Material-icon.svg
       heading: Baux & loyers
-      subHeading: Génération mensuelle des fiches de paiement.
-      description: '<ul>
-
-        <li>Indexation annuelle des loyers à l''anniversaire du bail (indice santé belge)</li>
-
-        <li>Signature électronique du bail via Odoo Sign</li>
-
-        <li>Alerte d''échéance de bail (J-90)</li>
-
-        </ul>'
-    - icon: monitoring-icon.svg
+      descriptionPoints: '<p>Génération mensuelle des fiches de paiement.</p><ul><li>Indexation annuelle des loyers à l''anniversaire du bail (indice santé belge)</li><li>Signature électronique du bail via Odoo Sign</li><li>Alerte d''échéance de bail (J-90)</li></ul>'
+    - logo: monitoring-icon.svg
       heading: Impayés & garantie locative
-      subHeading: Rappels automatiques en cas de non-paiement.
-      description: '<ul>
-
-        <li>Suivi de la garantie locative : statut, compte bloqué, restitution</li>
-
-        </ul>'
-    - icon: network-icon.svg
+      descriptionPoints: '<p>Rappels automatiques en cas de non-paiement.</p><ul><li>Suivi de la garantie locative : statut, compte bloqué, restitution</li></ul>'
+    - logo: network-icon.svg
       heading: Charges & finances
-      subHeading: Charges datées et charges récurrentes (précompte, appel de fonds syndic...).
-      description: '<ul>
-
-        <li>Emprunts avec tableau d''amortissement</li>
-
-        <li>Décompte annuel de charges : provisions vs charges réelles</li>
-
-        <li>Revenu cadastral indexé (coefficients SPF Finances)</li>
-
-        </ul>'
-    - icon: python-icon.svg
+      descriptionPoints: '<p>Charges datées et charges récurrentes (précompte, appel de fonds syndic...).</p><ul><li>Emprunts avec tableau d''amortissement</li><li>Décompte annuel de charges : provisions vs charges réelles</li><li>Revenu cadastral indexé (coefficients SPF Finances)</li></ul>'
+    - logo: python-icon.svg
       heading: Rentabilité & patrimoine
-      subHeading: Suivi de la rentabilité locative, brute et nette.
-      description: '<ul>
-
-        <li>Tableau de bord patrimoine : valeur brute, dettes, valeur nette</li>
-
-        <li>Évolution mensuelle, par bien ou par immeuble</li>
-
-        </ul>'
-    - icon: offer-icon.svg
+      descriptionPoints: '<p>Suivi de la rentabilité locative, brute et nette.</p><ul><li>Tableau de bord patrimoine : valeur brute, dettes, valeur nette</li><li>Évolution mensuelle, par bien ou par immeuble</li></ul>'
+    - logo: offer-icon.svg
       heading: Sinistres & incidents
-      subHeading: Gestion des sinistres et des incidents techniques par bien.
-      description: '<ul>
-
-        <li>Liaison des incidents avec les tickets Helpdesk</li>
-
-        <li>Fiche locataire enrichie : baux liés, bien loué actuellement</li>
-
-        </ul>'
+      descriptionPoints: '<p>Gestion des sinistres et des incidents techniques par bien.</p><ul><li>Liaison des incidents avec les tickets Helpdesk</li><li>Fiche locataire enrichie : baux liés, bien loué actuellement</li></ul>'
+- discriminant: applicationsUsed
+  value:
+    title: Applications implémentées
+    discoverCta:
+      label: Découvrir Odoo ERP
+      url: /odoo-erp/
+    logos:
+    - logo: icon-23-1.svg
+      title: Tableau de bord
+    - logo: Compta-1.svg
+      title: Comptabilité
+    - logo: icon-3-1.svg
+      title: CRM
+    - logo: icon-9-1.svg
+      title: Document
+    - logo: icon-17-1.svg
+      title: Email marketing
+    - logo: icon-14-1.svg
+      title: Helpdesk
 - discriminant: talkToUs
   value:
-    bgClass: white-bg
+    bgClass: light-gray-bg
     image: sam-profile.jpg
     title: Parlez de votre projet avec Sam
     subTitle: Pas de commercial chez Agitech, on se parle directement entre patron de PME.
