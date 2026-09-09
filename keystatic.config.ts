@@ -346,9 +346,10 @@ const blocksField = fields.array(
       openPositions: fields.object({
         title: fields.text({ label: 'Titre' }),
         subTitle: fields.text({ label: 'Sous-titre' }),
+        iframeUrl: fields.text({ label: 'URL du portail recrutement (iframe, prioritaire sur la liste ci-dessous)', description: 'Ex: https://agitech-19.cloudpepper.site/jobs' }),
         jobs: fields.array(
           fields.object({ jobTitle: fields.text({ label: 'Intitulé du poste' }), link: fields.text({ label: 'Lien' }) }),
-          { label: 'Postes', itemLabel: props => props.fields.jobTitle.value || 'Poste' },
+          { label: 'Postes (repli si pas d\'iframe)', itemLabel: props => props.fields.jobTitle.value || 'Poste' },
         ),
       }, { label: 'Postes ouverts' }),
       selectionProcess: fields.object({
