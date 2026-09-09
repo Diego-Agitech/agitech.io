@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/simulateur/static/css/main.d8cb6cf0.css",
+    "main.js": "/simulateur/static/js/main.dcb63401.js",
+    "index.html": "/simulateur/index.html",
+    "main.d8cb6cf0.css.map": "/simulateur/static/css/main.d8cb6cf0.css.map",
+    "main.dcb63401.js.map": "/simulateur/static/js/main.dcb63401.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d8cb6cf0.css",
+    "static/js/main.dcb63401.js"
+  ]
+}
