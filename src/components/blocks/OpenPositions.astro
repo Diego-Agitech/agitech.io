@@ -1,12 +1,17 @@
 ---
-// Ported from template-parts/block/open-positions.php
+// Ported from template-parts/block/open-positions.php.
+// The live job list lives on the Odoo recruitment portal (its own domain).
+// `portalUrl` renders one prominent button straight to that list — fastest
+// path for a candidate. `jobs` is the older per-role link list, kept as a
+// fallback for any page still using it.
 export interface Props {
   title?: string;
   subTitle?: string;
   jobs?: { jobTitle?: string; link?: string }[];
-  iframeUrl?: string;
+  portalUrl?: string;
+  portalLabel?: string;
 }
-const { title, subTitle, jobs = [], iframeUrl } = Astro.props;
+const { title, subTitle, jobs = [], portalUrl, portalLabel } = Astro.props;
 ---
 <section class="open-positions-section dark-bg">
   <div class="container-sm">
@@ -15,37 +20,17 @@ const { title, subTitle, jobs = [], iframeUrl } = Astro.props;
       <div class="col-lg-6 col-md-6 col-sm-12 col-12">
         <div class="left-content">{subTitle && <h3>{subTitle}</h3>}</div>
       </div>
-      {!iframeUrl && (
-        <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-          <div class="right-content">
-            {jobs.length > 0 && (
-              <ul>{jobs.map(j => <li><a href={j.link} target="_blank" rel="noopener">{j.jobTitle}</a></li>)}</ul>
-            )}
-          </div>
+      <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+        <div class="right-content">
+          {portalUrl ? (
+            <div class="primary-btn">
+              <a href={portalUrl} target="_blank" rel="noopener">{portalLabel || 'Voir tous nos postes ouverts'}</a>
+            </div>
+          ) : jobs.length > 0 && (
+            <ul>{jobs.map(j => <li><a href={j.link} target="_blank" rel="noopener">{j.jobTitle}</a></li>)}</ul>
+          )}
         </div>
-      )}
-    </div>
-    {iframeUrl && (
-      <div class="jobs-iframe-wrap">
-        <iframe src={iframeUrl} title="Postes ouverts" loading="lazy"></iframe>
       </div>
-    )}
+    </div>
   </div>
 </section>
-
-<style>
-  /* Live job list pulled straight from the Odoo recruitment portal — postes
-     change over time there, so this stays an iframe rather than hardcoded copy. */
-  .jobs-iframe-wrap {
-    margin-top: 2.5rem;
-    border-radius: 16px;
-    overflow: hidden;
-    background: var(--white, #fff);
-  }
-  .jobs-iframe-wrap iframe {
-    display: block;
-    width: 100%;
-    height: 900px;
-    border: 0;
-  }
-</style>
