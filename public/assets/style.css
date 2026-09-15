@@ -535,6 +535,8 @@
   .content .address h6 { font-family: var(--font-body); font-size: 0.9rem; margin-bottom: 0.4rem; font-weight: 500; }
   .address p { color: var(--muted-onDark); font-size: 0.88rem; margin: 0; }
   .address p + p { margin-top: 0.15rem; }
+  .other-offices-link { display: inline-block; margin-top: 0.75rem; color: var(--violet-light); font-size: 0.85rem; font-weight: 500; }
+  .other-offices-link:hover { text-decoration: underline; }
   .tnp-subscription form { display: flex; border-bottom: 1px solid var(--border-onDark); max-width: 280px; }
   .tnp-email { background: none; border: none; color: var(--white); font-family: var(--font-body); padding: 0.6rem 0; flex: 1; font-size: 0.9rem; }
   .tnp-email::placeholder { color: var(--muted-onDark); }

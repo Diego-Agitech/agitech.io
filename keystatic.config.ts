@@ -38,6 +38,7 @@ const blocksField = fields.array(
         { label: 'Méthodologie', value: 'methodologies' },
         { label: 'Key features (3 points numérotés)', value: 'keyFeatures' },
         { label: 'Section contact (formulaire)', value: 'contactUsSection' },
+        { label: 'Nos bureaux', value: 'officesSection' },
         { label: 'Expertise (liste)', value: 'expertise' },
         { label: 'Pourquoi nous rejoindre', value: 'whyJoin' },
         { label: 'Postes ouverts', value: 'openPositions' },
@@ -314,6 +315,18 @@ const blocksField = fields.array(
         profileImage: imageField('Photo', 'blocks'),
         cta: fields.object(ctaFields, { label: 'CTA' }),
       }, { label: 'Section contact' }),
+      officesSection: fields.object({
+        title: fields.text({ label: 'Titre' }),
+        subTitle: fields.text({ label: 'Sous-titre' }),
+        mapLabel: fields.text({ label: 'Texte du lien carte', defaultValue: 'Voir sur la carte' }),
+        offices: fields.array(
+          fields.object({
+            city: fields.text({ label: 'Ville' }),
+            address: fields.text({ label: 'Adresse' }),
+          }),
+          { label: 'Bureaux', itemLabel: props => props.fields.city.value || 'Bureau' },
+        ),
+      }, { label: 'Nos bureaux' }),
       expertise: fields.object({
         bgClass: fields.text({ label: 'Classe fond (optionnel)' }),
         customList: fields.checkbox({ label: 'Liste personnalisée', defaultValue: false }),
