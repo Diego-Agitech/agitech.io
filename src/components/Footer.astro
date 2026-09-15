@@ -2,10 +2,10 @@
 // Ported from the live WP footer (footer.php via get_footer()) — newsletter signup,
 // tagline, real company address, ShiftingPact partner badge, social icons, nav, legal.
 export interface Props {
-  lang: 'fr' | 'en';
+  lang: 'fr' | 'en' | 'nl';
 }
 const { lang } = Astro.props;
-const base = lang === 'en' ? '/en' : '';
+const base = lang === 'fr' ? '' : `/${lang}`;
 const strings = {
   fr: {
     newsletter: 'Abonnez-vous à notre newsletter', emailPlaceholder: 'Entrez votre email',
@@ -25,6 +25,15 @@ const strings = {
     privacy: 'Privacy Policy', terms: 'Terms & Conditions',
     otherOffices: 'See our 3 offices',
   },
+  nl: {
+    newsletter: 'Schrijf u in op onze nieuwsbrief', emailPlaceholder: 'Vul uw e-mail in',
+    tagline: 'Betrouwbare IT-oplossingen, voor performante KMO\'s.',
+    nav: 'Navigatie',
+    odoo: 'Odoo ERP', dev: 'Ontwikkeling', infra: 'IT-infrastructuur', cases: 'Realisaties', recruitment: 'Vacatures',
+    rights: `© ${new Date().getFullYear()} Agitech. Alle rechten voorbehouden.`,
+    privacy: 'Privacybeleid', terms: 'Algemene Voorwaarden',
+    otherOffices: 'Bekijk onze 3 kantoren',
+  },
 }[lang];
 ---
 <div class="brand-bar"></div>
@@ -32,7 +41,7 @@ const strings = {
   <div class="container">
     <div class="row main-row">
       <div class="item logo-sub">
-        <a class="ft-logo" href={lang === 'en' ? '/en/' : '/'}>
+        <a class="ft-logo" href={lang === 'fr' ? '/' : `${base}/`}>
           <img src="/assets/img/blocks/Agitech_LogoWhite_footer.svg" alt="Agitech">
         </a>
         <div class="content">

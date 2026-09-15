@@ -1,6 +1,6 @@
 ---
 export interface Props {
-  lang: 'fr' | 'en';
+  lang: 'fr' | 'en' | 'nl';
   title: string;
   description: string;
   canonical?: string;
@@ -15,9 +15,10 @@ export interface Props {
   includeContactScripts?: boolean;
 }
 
+const localeMap = { fr: 'fr_BE', en: 'en_US', nl: 'nl_BE' };
 const {
   lang, title, description,
-  canonical, ogLocale = lang === 'fr' ? 'fr_BE' : 'en_US',
+  canonical, ogLocale = localeMap[lang],
   jsonLd,
   // Site not live yet — agitech.io (WP) is still the indexed site. Defaults to noindex
   // everywhere so this preview never competes with it in search. Flip to false (or set
@@ -27,12 +28,23 @@ const {
   includeContactScripts = false,
 } = Astro.props;
 
-const rdvThankYouPath = lang === 'en' ? '/en/thank-you-meeting/' : '/merci-rdv/';
+const rdvThankYouPath = lang === 'en' ? '/en/thank-you-meeting/' : lang === 'nl' ? '/nl/thank-you-meeting/' : '/merci-rdv/';
 
-// FR = default locale (no prefix), EN under /en/ — matches current WP/Polylang URLs.
-const altPath = canonical
-  ? (lang === 'fr' ? canonical.replace('https://agitech.io', 'https://agitech.io/en') : canonical.replace('/en', ''))
+// FR = default locale (no prefix), EN and NL under /en/ and /nl/ — matches current
+// WP/Polylang URL shape for FR/EN, NL added the same way. hreflang needs every
+// language's URL for the same page, so strip whichever prefix this page has, then
+// rebuild all three.
+const SITE = 'https://agitech.io';
+const barePath = canonical
+  ? canonical.replace(SITE, '').replace(/^\/(en|nl)(\/|$)/, '/')
   : undefined;
+const altLinks = barePath
+  ? [
+      { hreflang: 'fr', href: `${SITE}${barePath}` },
+      { hreflang: 'en', href: `${SITE}/en${barePath}` },
+      { hreflang: 'nl', href: `${SITE}/nl${barePath}` },
+    ]
+  : [];
 ---
 <!DOCTYPE html>
 <html lang={lang}>
@@ -45,7 +57,7 @@ const altPath = canonical
 {canonical && (
   <>
     <link rel="canonical" href={canonical}>
-    {altPath && <link rel="alternate" hreflang={lang === 'fr' ? 'en' : 'fr'} href={altPath}>}
+    {altLinks.map(a => <link rel="alternate" hreflang={a.hreflang} href={a.href}>)}
     <link rel="alternate" hreflang="x-default" href="https://agitech.io/">
     <meta property="og:type" content="website">
     <meta property="og:locale" content={ogLocale}>

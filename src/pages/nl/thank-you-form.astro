@@ -1,0 +1,27 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+---
+<Layout
+  lang="nl"
+  title="Bedankt — Agitech"
+  description="Uw bericht is verzonden naar Agitech. We nemen snel contact met u op."
+  robotsNoIndex
+>
+  <Header slot="header" lang="nl" />
+  <main>
+    <section class="thank-you-section">
+      <div class="container-sm">
+        <div class="thank-you-box">
+          <div class="thank-you-icon">&#10003;</div>
+          <h1>Bedankt, uw bericht is verzonden</h1>
+          <p>Een lid van het Agitech-team neemt snel contact met u op. Ondertussen kan u ook meteen een moment boeken bij een expert.</p>
+          <a class="btn btn-violet" href="/nl/#contact">Boek een moment</a>
+          <a class="btn btn-outline" href="/nl/">Terug naar de homepage</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer slot="footer" lang="nl" />
+</Layout>

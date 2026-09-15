@@ -1,0 +1,126 @@
+---
+// NL mirror of src/pages/[...slug].astro and src/pages/en/[...slug].astro — same merge
+// of `pages` + `blog` collections, filtered to lang 'nl', served under the /nl/ prefix.
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import BlockRenderer from '../../components/BlockRenderer.astro';
+import { createReader } from '@keystatic/core/reader';
+import keystaticConfig from '../../../keystatic.config';
+import Markdoc from '@markdoc/markdoc';
+import { addTocIds } from '../../lib/toc';
+
+export async function getStaticPaths() {
+  const reader = createReader(process.cwd(), keystaticConfig);
+
+  // The `pages` collection is one flat folder shared by every language — when an NL
+  // page's natural URL slug collides with an existing FR file (e.g. both want
+  // "industries"), the NL entry is stored under a disambiguated filename and mapped
+  // back to its real URL here. Every NL page mirrors an FR slug, so every one needs
+  // an entry (unlike EN, which only overrides the subset that actually collide).
+  const NL_SLUG_URL_OVERRIDES: Record<string, string> = {
+    'contact-us-nl': 'contact-us',
+    'development-nl': 'development',
+    'erp-sea-nl': 'erp-sea',
+    'formation-nl': 'formation',
+    'industries-associations-internationales-nl': 'industries-associations-internationales',
+    'industries-construction-batiment-nl': 'industries-construction-batiment',
+    'industries-e-commerce-nl': 'industries-e-commerce',
+    'industries-grossiste-vente-b2b-nl': 'industries-grossiste-vente-b2b',
+    'industries-services-aux-entreprises-nl': 'industries-services-aux-entreprises',
+    'industries-nl': 'industries',
+    'infrastructure-it-nl': 'infrastructure-it',
+    'jobs-nl': 'jobs',
+    'landing-page-sea-pb-nl': 'landing-page-sea-pb',
+    'migration-nl': 'migration',
+    'mise-a-niveau-version-nl': 'mise-a-niveau-version',
+    'odoo-erp-nl': 'odoo-erp',
+    'privacy-policy-nl': 'privacy-policy',
+    'recruitment-nl': 'recruitment',
+    'solution-auto-ecole-nl': 'solution-auto-ecole',
+    'solution-gestion-immobiliere-nl': 'solution-gestion-immobiliere',
+    'solution-transport-logistique-nl': 'solution-transport-logistique',
+    'support-nl': 'support',
+    'terms-conditions-nl': 'terms-conditions',
+    'why-odoo-nl': 'why-odoo',
+  };
+
+  const pageSlugs = await reader.collections.pages.list();
+  const pageEntries = await Promise.all(
+    pageSlugs
+      .filter((slug) => slug !== 'accueil-nl')
+      .map(async (slug) => ({ slug, entry: await reader.collections.pages.read(slug) }))
+  );
+  const pagePaths = pageEntries
+    .filter(({ entry }) => entry && entry.lang === 'nl')
+    .map(({ slug, entry }) => ({ params: { slug: NL_SLUG_URL_OVERRIDES[slug] ?? slug }, props: { kind: 'page', entry } }));
+
+  const blogSlugs = await reader.collections.blog.list();
+  const blogEntries = await Promise.all(
+    blogSlugs.map(async (slug) => ({ slug, entry: await reader.collections.blog.read(slug) }))
+  );
+  const blogPaths = blogEntries
+    .filter(({ entry }) => entry && entry.lang === 'nl')
+    .map(({ slug, entry }) => ({ params: { slug }, props: { kind: 'blog', entry } }));
+
+  return [...pagePaths, ...blogPaths];
+}
+
+const { kind, entry } = Astro.props;
+
+let bodyHtml = '';
+let toc: { id: string; text: string }[] = [];
+if (kind === 'blog') {
+  const { node } = await entry.body();
+  const rendered = Markdoc.renderers.html(Markdoc.transform(node));
+  const withToc = addTocIds(rendered);
+  bodyHtml = withToc.html;
+  toc = withToc.toc;
+}
+---
+{kind === 'page' ? (
+  <Layout
+    lang="nl"
+    title={entry.seoTitle || entry.title}
+    description={entry.seoDescription ?? ''}
+    canonical={`https://agitech.io/nl/${Astro.params.slug}/`}
+  >
+    <Header slot="header" lang="nl" />
+    <main><BlockRenderer blocks={entry.blocks} /></main>
+    <Footer slot="footer" lang="nl" />
+  </Layout>
+) : (
+  <Layout
+    lang="nl"
+    title={entry.title}
+    description={entry.excerpt ?? ''}
+    canonical={`https://agitech.io/nl/${Astro.params.slug}/`}
+  >
+    <Header slot="header" lang="nl" />
+    <main>
+      <section class="blog-details-section">
+        <div class="container-sm">
+          <div class="row header-area">
+            <div class="col-12">
+              {entry.category && <div class="categories-btn"><span class="purple-text">{entry.category}</span></div>}
+              <h1>{entry.title}</h1>
+              {entry.publishedAt && <div class="name-date"><p>{entry.publishedAt}</p></div>}
+            </div>
+          </div>
+          <div class="row content-area">
+            {toc.length > 1 && (
+              <aside class="col-lg-3 toc-sidebar">
+                <nav>
+                  <h6>Inhoud</h6>
+                  <ol>{toc.map(t => <li><a href={`#${t.id}`}>{t.text}</a></li>)}</ol>
+                </nav>
+              </aside>
+            )}
+            <div class={toc.length > 1 ? 'col-lg-9' : 'col-lg-12'} set:html={bodyHtml} />
+          </div>
+        </div>
+      </section>
+    </main>
+    <Footer slot="footer" lang="nl" />
+  </Layout>
+)}

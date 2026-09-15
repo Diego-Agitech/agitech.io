@@ -1,0 +1,26 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+---
+<Layout
+  lang="nl"
+  title="Afspraak bevestigd — Agitech"
+  description="Uw afspraak met een Agitech-expert is bevestigd. U ontvangt een bevestigingsmail."
+  robotsNoIndex
+>
+  <Header slot="header" lang="nl" />
+  <main>
+    <section class="thank-you-section">
+      <div class="container-sm">
+        <div class="thank-you-box">
+          <div class="thank-you-icon">&#10003;</div>
+          <h1>Bedankt, uw afspraak is bevestigd</h1>
+          <p>U ontvangt een bevestigingsmail met de details van het videogesprek. Tot snel!</p>
+          <a class="btn btn-outline" href="/nl/">Terug naar de homepage</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer slot="footer" lang="nl" />
+</Layout>

@@ -448,6 +448,7 @@ export default config({
           options: [
             { label: 'Français', value: 'fr' },
             { label: 'English', value: 'en' },
+            { label: 'Nederlands', value: 'nl' },
           ],
           defaultValue: 'fr',
         }),
@@ -475,6 +476,7 @@ export default config({
           options: [
             { label: 'Français', value: 'fr' },
             { label: 'English', value: 'en' },
+            { label: 'Nederlands', value: 'nl' },
           ],
           defaultValue: 'fr',
         }),
@@ -500,6 +502,7 @@ export default config({
           options: [
             { label: 'Français', value: 'fr' },
             { label: 'English', value: 'en' },
+            { label: 'Nederlands', value: 'nl' },
           ],
           defaultValue: 'fr',
         }),
