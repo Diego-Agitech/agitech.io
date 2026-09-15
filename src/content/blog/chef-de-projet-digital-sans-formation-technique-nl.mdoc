@@ -1,0 +1,508 @@
+---
+title: "Digitaal projectleider zonder technische opleiding?"
+lang: "nl"
+publishedAt: "2025-05-20"
+category: "Tips, Digital Project Management"
+excerpt: ""
+---
+## Inhoud
+
+* [Inleiding](#h-inleiding)
+* [Hoe internet werkt: de server als een medewerker van een McDonald's drive-in](#h-hoe-internet-werkt-de-server-als-een-medewerker-van-een-mcdonald-s-drive-in)
+* [Databases: waar uw gegevens worden opgeslagen](#h-databases-waar-uw-gegevens-worden-opgeslagen)
+  + [Tabellen en relaties](#h-tabellen-en-relaties)
+  + [SQL-query's](#h-sql-query-s)
+* [Het databaseschema](#h-het-databaseschema)
+* [Cloudservers: servers op aanvraag](#h-cloudservers-servers-op-aanvraag)
+  + [Fysieke servers versus cloud](#h-fysieke-servers-versus-cloud)
+  + [Voordelen van de cloud](#h-voordelen-van-de-cloud)
+* [API's: de tussenpersoon tussen client en server](#h-api-s-de-tussenpersoon-tussen-client-en-server)
+  + [Soorten API-verzoeken](#h-soorten-api-verzoeken)
+  + [Rechten en beveiliging](#h-rechten-en-beveiliging)
+* [Front-end versus back-end](#h-front-end-versus-back-end)
+  + [Back-end](#h-back-end)
+  + [Front-end](#h-front-end)
+* [Productiepijplijn en CI/CD](#h-productiepijplijn-en-ci-cd)
+* [UX/UI](#h-ux-ui)
+* [Besluit](#h-besluit)
+
+
+
+
+## Inleiding
+
+
+
+De afgelopen zes jaar heb ik het grootste deel van mijn professionele tijd besteed aan het lanceren van software en het analyseren van hoe technologie de prestaties van bedrijven kan verbeteren. Met een opleiding in rechten, ver van de wereld van engineering, heb ik me geleidelijk een plaats verworven in de sector van de "digitale transformatie", naast mensen met zeer uiteenlopende achtergronden.
+
+
+
+Veel mensen in onze sector (die al tien jaar sterk in trek is en dat waarschijnlijk nog tien jaar zal blijven) zijn autodidact en hebben geen technisch diploma. Deze realiteit heeft twee interessante gevolgen:
+
+
+
+* Generaties Y en Z hebben toegang tot stimulerende en veelbelovende beroepen zonder specifiek diploma (de meeste digitale beroepen hebben geen eigen academisch traject), maar vereisen echte motivatie, zelfstudie en 1 tot 3 jaar professionele ervaring. Deze vaardigheden kunnen op tal van toegankelijke manieren worden verworven, wat ik in een ander artikel zal uitwerken.
+* Veel mensen zonder technische opleiding aarzelen of voelen zich ongemakkelijk bij termen als "SQL", "API-call" of "instance". Omgekeerd gebruiken sommigen bewust jargon om indruk te maken op hun collega's. Er bestaat geen duidelijk referentiekader dat vastlegt wat een professional in digitale transformatie zou moeten weten over softwareontwikkeling — dat is precies het doel van dit artikel.
+
+
+
+**WAARSCHUWING I:** De hier gepresenteerde concepten zijn, naar mijn mening, de fundamentele begrippen. Een selectie was noodzakelijk, en ik zal het technische jargon bewust beperken.
+
+
+
+**WAARSCHUWING II:** Ik ben zelf voortdurend aan het bijleren. Als sommige informatie onnauwkeurig of onduidelijk is, bied ik daarvoor bij voorbaat mijn excuses aan en sta ik open voor constructieve feedback.
+
+
+
+**WAARSCHUWING III:** Dit artikel is kort in verhouding tot de rijkdom van de behandelde onderwerpen. Ik moedig alle digitale projectleiders aan om de begrippen die hen nuttig lijken verder te verdiepen.
+
+
+
+
+---
+
+
+
+
+## Hoe internet werkt: de server als een medewerker van een McDonald's drive-in
+
+
+
+Een goede analogie om internet te begrijpen is die van een klant die bestelt bij een McDonald's drive-in.
+
+
+
+Een **server** is een gecentraliseerd programma dat via een netwerk (zoals internet) communiceert om te antwoorden op verzoeken van clients. Er bestaan verschillende soorten servers, maar laten we ons richten op webapplicaties, waarbij twee hoofdservers betrokken zijn:
+
+
+
+* de **webserver**, die het verzoek ontvangt;
+* de **databaseserver**, die de gegevens levert.
+
+
+
+In onze analogie is de medewerker die uw bestelling opneemt de webserver, en degene die uw Big Mac in de keuken haalt de databaseserver.
+
+
+
+Een **client** is een programma (zoals Chrome of Firefox) dat informatie opvraagt bij een server. In dit geval bent u de client die bestelt.
+
+
+
+De client kan meerdere verzoeken uitvoeren: vragen stellen, bestellen, een bestelling wijzigen, enzovoort.
+
+
+
+Wanneer u een webpagina opent, stuurt uw browser (client) een verzoek naar de webserver, die op zijn beurt de databaseserver kan raadplegen om de informatie op te halen.
+
+
+
+Bijvoorbeeld, "Napoleon" opzoeken op Wikipedia komt er technisch op neer alle gegevens die aan dit trefwoord gekoppeld zijn op te vragen bij de servers van Wikipedia.
+
+
+
+Het is belangrijk op te merken dat een server ook client kan worden van een andere server. In de keten: client → webserver → databaseserver, treedt de webserver op als client van de databaseserver.
+
+
+
+
+---
+
+
+
+
+## Databases: waar uw gegevens worden opgeslagen
+
+
+
+De belangrijkste reden waarom we internet gebruiken, is om toegang te krijgen tot informatie. De database is voor een website wat de keuken is voor een restaurant: de plaats waar de gegevens worden opgeslagen.
+
+
+
+De meeste moderne databases zijn **relationele SQL-databases**, wat betekent:
+
+
+
+* dat ze onderling gekoppelde tabellen gebruiken;
+* dat ze de taal SQL gebruiken om gegevens op te vragen.
+
+
+
+### Tabellen en relaties
+
+
+
+Een SQL-database is georganiseerd in tabellen. Elke tabel bevat objecten die worden geïdentificeerd door een unieke ID.
+
+
+
+Een restaurant zou bijvoorbeeld kunnen hebben:
+
+
+
+* een tabel "Menu's"
+* een tabel "Gerechten"
+
+
+
+Elk menu kan via hun respectieve ID's aan meerdere gerechten worden gekoppeld.
+
+
+
+### SQL-query's
+
+
+
+SQL is de taal die wordt gebruikt om met een database te communiceren.
+
+
+
+Bijvoorbeeld:
+
+
+
+```
+SELECT * FROM Menu
+```
+
+
+
+Dit verzoek vraagt de database om alle menu's terug te geven.
+
+
+
+
+---
+
+
+
+
+## Het databaseschema
+
+
+
+Het schema definieert de structuur van de database.
+
+
+
+Een slecht schema kan toekomstige functionaliteiten beperken of evoluties complex en risicovol maken.
+
+
+
+Dit wordt **technische schuld** genoemd: beslissingen uit het verleden die toekomstige evoluties vertragen.
+
+
+
+De meest gebruikte SQL-databases zijn:
+
+
+
+* PostgreSQL
+* MySQL
+
+
+
+
+---
+
+
+
+
+## Cloudservers: servers op aanvraag
+
+
+
+Een server bestaat uit twee hoofdelementen:
+
+
+
+**CPU (processor)**
+Voert de programma's uit en verricht de berekeningen.
+
+
+
+**Opslag**
+Maakt het mogelijk gegevens te bewaren.
+
+
+
+
+---
+
+
+
+
+### Fysieke servers versus cloud
+
+
+
+Vroeger gebruikten bedrijven fysieke servers ("on-premise").
+
+
+
+Vandaag bieden leveranciers zoals:
+
+
+
+* AWS
+* Google Cloud
+* Microsoft Azure
+
+
+
+cloudservers aan die op aanvraag toegankelijk zijn.
+
+
+
+
+---
+
+
+
+
+### Voordelen van de cloud
+
+
+
+* Snelle implementatie
+* Verminderd onderhoud
+* Schaalbaarheid (verhogen of verlagen van middelen)
+* Betalen naar gebruik (OPEX)
+
+
+
+Ondanks een soms hogere initiële kost biedt de cloud een betere flexibiliteit en betrouwbaarheid.
+
+
+
+
+---
+
+
+
+
+## API's: de tussenpersoon tussen client en server
+
+
+
+Een **API** stelt software in staat om met andere software te communiceren.
+
+
+
+Bijvoorbeeld:
+
+
+
+* inloggen met Google
+* betalen met Stripe
+* kaarten met Google Maps
+
+
+
+Een API fungeert als tussenpersoon.
+
+
+
+
+---
+
+
+
+
+### Soorten API-verzoeken
+
+
+
+Er bestaan vier hoofdtypes:
+
+
+
+* **POST / PUT** → een gegeven aanmaken
+* **GET** → een gegeven lezen
+* **PATCH** → een gegeven wijzigen
+* **DELETE** → een gegeven verwijderen
+
+
+
+Deze acties worden **CRUD** genoemd:
+
+
+
+* Create
+* Read
+* Update
+* Delete
+
+
+
+
+---
+
+
+
+
+### Rechten en beveiliging
+
+
+
+API's gebruiken **tokens** om de identiteit en de rechten van gebruikers te verifiëren.
+
+
+
+Dit garandeert dat alleen geautoriseerde gebruikers bepaalde acties kunnen uitvoeren.
+
+
+
+
+---
+
+
+
+
+## Front-end versus back-end
+
+
+
+### Back-end
+
+
+
+De back-end komt overeen met de serverlogica en de databases.
+
+
+
+Veelgebruikte talen:
+
+
+
+* Python
+* PHP
+* Node.js
+* .NET
+
+
+
+
+---
+
+
+
+
+### Front-end
+
+
+
+De front-end komt overeen met wat de gebruiker in zijn browser ziet.
+
+
+
+Belangrijkste talen:
+
+
+
+* HTML
+* CSS
+* JavaScript
+
+
+
+De front-end maakt het mogelijk om:
+
+
+
+* pagina's weer te geven
+* interacties te creëren
+* gegevens van de server weer te geven
+
+
+
+
+---
+
+
+
+
+## Productiepijplijn en CI/CD
+
+
+
+Softwareontwikkeling doorloopt meerdere fasen:
+
+
+
+**1. Lokale omgeving**
+De ontwikkelaar werkt op zijn eigen machine.
+
+
+
+**2. Staging (pre-productie)**
+Testomgeving.
+
+
+
+**3. Productie**
+Versie die door gebruikers wordt gebruikt.
+
+
+
+Tools zoals:
+
+
+
+* GitHub
+* GitLab
+* Bitbucket
+
+
+
+maken het mogelijk de codeversies te beheren.
+
+
+
+**CI/CD** automatiseert de deployment van de code.
+
+
+
+
+---
+
+
+
+
+## UX/UI
+
+
+
+Vóór de ontwikkeling ontwerpen UX/UI-designers:
+
+
+
+* de gebruikersinterface
+* de mockups
+* de gebruikerservaring
+
+
+
+Deze ontwerpen worden vervolgens door front-end ontwikkelaars omgezet in code.
+
+
+
+
+---
+
+
+
+
+## Besluit
+
+
+
+Ik hoop dat dit artikel u heeft geholpen de basis van de werking van software en internet beter te begrijpen.
+
+
+
+Ook al vervangt niets ervaring, het begrijpen van deze fundamentele concepten zal u helpen om beter samen te werken met technische teams en uw digitale projecten efficiënt te sturen.
+
+
+
+En nu u dit allemaal begrijpt, hebt u deze burger wel verdiend 😉

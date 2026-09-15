@@ -1,0 +1,321 @@
+---
+title: "Configureer uw e-mails in Odoo"
+lang: "nl"
+publishedAt: "2025-05-20"
+category: "Tips, Software Development, Digital Transformation"
+excerpt: ""
+---
+## Hoe u uw e-mails correct configureert in uw Odoo ERP
+
+
+
+
+|  |  |  |  |
+| --- | --- | --- | --- |
+| NIVEAU | Laag | Gemiddeld | Hoog |
+| Vereiste technische vaardigheden |  | X |  |
+| Businesswaarde |  |  | X |
+
+
+
+
+U bent bedrijfsleider of u hebt uw bedrijf overtuigd om Odoo te gebruiken. Proficiat!
+
+
+
+Een van de eerste dingen die u zult willen configureren, is het versturen van e-mails vanuit Odoo met **uw eigen domeinnaam**, om professioneler te communiceren met uw klanten en leveranciers. U hebt ook die geweldige **Odoo-aliassen** ontdekt waarmee u tal van zaken kunt automatiseren… En ten slotte bent u misschien op de Odoo-instellingen gestoten om een **externe e-mailserver** te configureren, en hebt u gemerkt dat het niet zo eenvoudig was.
+
+
+
+Geen zorgen: e-mailconfiguratie is een van de meest voorkomende onderwerpen bij de Odoo-support, en het is gemakkelijk om de verschillende instellingen door elkaar te halen.
+
+
+
+We onderscheiden **3 e-mailconfiguraties** in Odoo, met hun gebruikscases. Merk op dat deze drie configuraties met elkaar verbonden zijn: als u de eerste doet, is de kans groot dat u uiteindelijk ook de twee andere doet (**DISCLAIMER:** als u zich technisch niet op uw gemak voelt, stop dan hier en blijf bij de standaardinstellingen van Odoo!):
+
+
+
+1. **@mijndomein.com** configureren als afzender in plaats van **@mijndomein.odoo.com**
+2. **Odoo-aliassen** gebruiken zoals invoices@mijndomein.com, sales@mijndomein.com, job@mijndomein.com om acties in Odoo te automatiseren
+3. Een **externe e-mailserver** configureren om te vermijden dat door Odoo verstuurde e-mails in SPAM belanden, en eventueel massale e-mailcampagnes te kunnen versturen
+
+
+
+
+## STAP 1: @mijndomein.com configureren als afzender in plaats van @mijndomein.odoo.com
+
+
+
+**Gebruikscase:** De e-mails die Odoo naar klanten en leveranciers stuurt, komen aan vanaf @mijndomein.odoo.com. U wilt dat ze er professioneler uitzien door uw eigen domein te gebruiken.
+
+
+
+Deze eerste stap is heel eenvoudig! Ga als admin naar:
+**Odoo > Instellingen > Algemene instellingen > Discussies**
+Vermeld vervolgens bij **"Aangepaste e-mail"** uw domein.
+
+
+
+En dat is het! U kunt testen: u zult zien dat de e-mails ontvangen vanuit uw Odoo-instantie voortaan **@mijndomein.com** gebruiken.
+
+
+![](/wp-content/uploads/2025/05/configure-email-1024x570-1.png)
+
+
+
+Het is echter zeer waarschijnlijk dat deze e-mails in **SPAM** belanden. Om dit te verhelpen, zie stap 3 en/of de stappen 2 + 3.
+
+
+
+
+## STAP 2: Odoo-aliassen gebruiken (invoices@mijndomein.com, sales@mijndomein.com, job@mijndomein.com) om acties in Odoo te automatiseren
+
+
+
+**Gebruikscase:** U wilt Odoo-aliassen gebruiken met uw domeinnaam. Bijvoorbeeld, facturen verwerken door een e-mail te sturen naar **invoices@mijndomein.com** in plaats van **invoices@mijndomein.odoo.com**. Hetzelfde voor sollicitaties (job@mijndomein.com), enzovoort.
+
+
+
+En u wilt niet telkens een alias of e-mailadres aanmaken in uw tenant (Outlook, Exchange, Gmail…) wanneer u een Odoo-alias aanmaakt.
+
+
+
+Deze stap is wellicht de meest ingewikkelde… maar geen zorgen: **geen code**, alleen configuratie.
+
+
+
+### Het concept: slechts 2 dingen op te zetten (in de praktijk 3 acties)
+
+
+
+**1) Een "catchall"-adres aanmaken** dat alle e-mails ontvangt die naar **niet-bestaande** adressen op uw domein worden gestuurd.
+Kort gezegd, u zegt tegen uw e-mailprovider:
+
+
+
+* Als een e-mail aankomt op *@mijndomein.com*
+* En het adres niet bestaat
+* Dan moet die e-mail terechtkomen in **catchall@mijndomein.com**
+
+
+
+Dus als iemand een e-mail stuurt naar een Odoo-aliasadres dat "eigenlijk" niet bestaat in uw tenant (bv. invoices@mijndomein.com, jobs@mijndomein.com…), komt dit terecht in **catchall@mijndomein.com**.
+
+
+
+**2) catchall@mijndomein.com laten doorsturen naar catchall@mijndomein.odoo.com**
+Dit is het catchall-adres aan Odoo-zijde.
+
+
+
+**3) En daarna… doet Odoo de rest**
+Zodra Odoo een e-mail ontvangt bestemd voor een alias in **catchall@mijndomein.odoo.com**, weet het automatisch aan welke module deze moet worden gekoppeld (boekhouding, CRM, HR, projecten…).
+Daar gebeurt de "magie" — u hoeft verder niets te doen (en het is niet nodig om de interne werking in detail te begrijpen om de configuratie te laten slagen). Veel mensen verdwalen omdat ze het werk van Odoo zelf proberen te doen.
+
+
+
+### catchall@mijndomein.com aanmaken om e-mails naar onbekende adressen te ontvangen
+
+
+
+Als u met deze uitleg niet precies ziet hoe u te werk moet gaan, volg dan een tutorial gebaseerd op deze principes (bijvoorbeeld voor Outlook). Hieronder leg ik de logica uit voor **Gmail (Google Workspace)**, een van de meest gebruikte providers bij KMO's.
+
+
+
+Log in op uw Google Workspace-account met de admin-gebruiker en open vervolgens de **Admin Console** (rechtsboven: Instellingen > Admin console).
+
+
+![](/wp-content/uploads/2025/05/agile.png)
+
+
+
+Ga naar **Gebruikers** en maak een nieuwe gebruiker aan met het e-mailadres **catchall@mijndomein.com** (eenvoudige procedure, ik ga hier niet in detail).
+
+
+
+Open in de Admin Console de Gmail-instellingen en zoek het tabblad **"Routing"**.
+
+
+![](/wp-content/uploads/2025/05/graph-1024x430-1.png)
+
+
+
+Maak in "Routing" een nieuwe regel aan voor uw catchall@mijndomein.com door te klikken op het aanmaken van een nieuwe regel.
+
+
+![](/wp-content/uploads/2025/05/data-1024x358-1.png)
+
+
+
+Zorg ervoor dat u alle juiste parameters toevoegt in de configuratie.
+
+
+![](/wp-content/uploads/2025/05/tab-768x858-1.png)
+
+
+![](/wp-content/uploads/2025/05/setting.png)
+
+
+![](/wp-content/uploads/2025/05/gmail-setting.png)
+
+
+
+Vanaf dat moment zal elke e-mail die aankomt voor een onherkend adres terechtkomen in de mailbox **catchall@mijndomein.com**. We zijn er bijna!
+
+
+
+### Alle e-mails van catchall@mijndomein.com doorsturen naar catchall@mijndomein.odoo.com
+
+
+
+Ga naar de Gmail-instellingen met uw admin-gebruiker. Ga terug naar de Admin Console, en vervolgens **Gmail > Routing** (zoals hierboven).
+
+
+![](/wp-content/uploads/2025/05/agile.png)
+
+
+![](/wp-content/uploads/2025/05/graph-1024x430-1.png)
+
+
+
+Scroll helemaal naar beneden tot **"Email forwarding using recipient address"** (niet te verwarren met "Routing": dit is een andere configuratie, op een andere plaats 🙂).
+
+
+![](/wp-content/uploads/2025/05/Gmail_Routing_2ndstep-1-1024x543-1.png)
+
+
+
+Maak een nieuwe regel aan en voeg de nodige parameters toe.
+
+
+![](/wp-content/uploads/2025/05/Gmail_Routing_2ndstep-2.png)
+
+
+
+En daar hebt u het: uw Odoo-aliassen met uw domein zijn klaar! U kunt zoveel aliassen aanmaken als u wilt (boekhouding, rekrutering, onkostennota's, projecten, CRM…): alles staat al klaar.
+
+
+
+Wanneer iemand een e-mail stuurt naar een alias:
+
+
+
+* komt de e-mail aan in **catchall@mijndomein.com**
+* wordt hij vervolgens doorgestuurd naar **catchall@mijndomein.odoo.com**
+* verwerkt Odoo hem automatisch volgens de alias (boekhouding, HR, CRM, projecten…)
+
+
+
+Bravo!
+
+
+
+
+## STAP 3: Een externe e-mailserver configureren om te vermijden dat uitgaande e-mails van Odoo in SPAM belanden (en om campagnes te versturen)
+
+
+
+De twee belangrijkste zakelijke doelen om uw eigen e-mailserver te gebruiken in plaats van die van Odoo:
+
+
+
+**Gebruikscase 1:** Een server gebruiken die **uw domein authenticeert** om te vermijden dat uw e-mails in SPAM belanden bij uw klanten.
+**Gebruikscase 2:** Als u aan e-mailmarketing doet via Odoo, hebt u een server nodig die **duizenden e-mails per dag** kan versturen (wat een klassieke Outlook- of Gmail-server niet toelaat).
+
+
+
+Hier is het proces stap voor stap om een externe server te configureren:
+
+
+
+1. Registreer bij een e-mailserverprovider (hier kiezen we voor **Mailgun**, marktleider, met een gratis plan).
+2. Bevestig uw domein bij deze provider (u hebt toegang nodig tot de **DNS** van uw domein).
+3. Configureer deze server in Odoo.
+
+
+
+### 1) Een Mailgun-account aanmaken
+
+
+
+Maak een account aan op Mailgun.com. Ga na het inloggen naar:
+**Sending > Domains > Add a new domain**
+
+
+![](/wp-content/uploads/2025/05/Mailgun2-1024x426-1.png)
+
+
+
+### 2) Uw domein verifiëren via DNS
+
+
+
+Zodra het domein is aangemaakt, zal Mailgun u vragen het te verifiëren door DNS-records toe te voegen.
+
+
+![](/wp-content/uploads/2025/05/Mailgun1-1024x378-1.png)
+
+
+
+U vindt deze informatie via:
+**Sending > Domains > (uw domein) > Domain settings > DNS Records**
+
+
+
+Ga naar uw domeinprovider en voeg de **eerste twee Mailgun DNS-records** toe (type TXT: hostname + value).
+
+
+
+Vernieuw vervolgens de Mailgun-pagina: na 3-4 minuten zou uw domein geverifieerd moeten zijn. Proficiat, uw e-mailserver is klaar!
+
+
+
+### 3) De SMTP-inloggegevens ophalen
+
+
+
+Ga naar **SMTP credentials** en noteer zorgvuldig de inloggegevens.
+De eerste keer wordt het wachtwoord niet weergegeven: klik op **Reset password** om een nieuw wachtwoord te genereren dat u kunt kopiëren.
+
+
+
+### 4) De uitgaande server configureren in Odoo
+
+
+
+Ga in uw Odoo-database naar:
+**Instellingen > Algemene instellingen > Discussies > Uitgaande mailserver**
+
+
+![](/wp-content/uploads/2025/05/Odoo_settings-1024x385-1.png)
+
+
+
+Maak een nieuwe server aan en vul de SMTP-inloggegevens van Mailgun in.
+
+
+![](/wp-content/uploads/2025/05/Odoo_externalemailserversetup-1024x365-1.png)
+
+
+
+Rond af door te klikken op **Verbinding testen**: Odoo zou moeten bevestigen dat de test geslaagd is. Sla op.
+
+
+
+## Besluit
+
+
+
+Proficiat! Dit was een volledig traject, maar u kunt nu:
+
+
+
+* e-mails versturen vanuit Odoo met **uw eigen domein**
+* grote hoeveelheden e-mails versturen voor marketing
+* vermijden dat uw e-mails in **SPAM** belanden
+* zoveel **Odoo-aliassen** gebruiken als u wilt
+* profiteren van de inkomende e-mailfunctionaliteiten van Odoo (chatter, enz.)
+
+
+
+Aarzel niet om ons te contacteren als u hulp nodig hebt of vragen hebt! 🙂

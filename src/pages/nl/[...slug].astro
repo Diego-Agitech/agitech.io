@@ -61,7 +61,9 @@ export async function getStaticPaths() {
   );
   const blogPaths = blogEntries
     .filter(({ entry }) => entry && entry.lang === 'nl')
-    .map(({ slug, entry }) => ({ params: { slug }, props: { kind: 'blog', entry } }));
+    // Blog files are named "<slug>-nl.mdoc" (unlike EN posts, which each have their
+    // own distinct translated filename) — strip the suffix back off for the URL.
+    .map(({ slug, entry }) => ({ params: { slug: slug.replace(/-nl$/, '') }, props: { kind: 'blog', entry } }));
 
   return [...pagePaths, ...blogPaths];
 }

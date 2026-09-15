@@ -29,7 +29,7 @@ const posts = (
         <div class="row items-wrap blog-wrap">
           {posts.map(({ slug, entry }) => (
             <div class="item">
-              <a href={`/nl/${slug}/`}>
+              <a href={`/nl/${slug.replace(/-nl$/, '')}/`}>
                 <div class="field">
                   <div class="content">
                     {entry.category && <div class="case_types"><span class="green-text">{entry.category}</span></div>}
