@@ -319,6 +319,7 @@ const blocksField = fields.array(
         title: fields.text({ label: 'Titre' }),
         subTitle: fields.text({ label: 'Sous-titre' }),
         mapLabel: fields.text({ label: 'Texte du lien carte', defaultValue: 'Voir sur la carte' }),
+        showMap: fields.checkbox({ label: 'Afficher une carte intégrée par bureau', defaultValue: false }),
         offices: fields.array(
           fields.object({
             city: fields.text({ label: 'Ville' }),

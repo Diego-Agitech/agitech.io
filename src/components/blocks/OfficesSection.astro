@@ -5,9 +5,10 @@ export interface Props {
   title?: string;
   subTitle?: string;
   mapLabel?: string;
+  showMap?: boolean;
   offices?: { city?: string; address?: string }[];
 }
-const { title, subTitle, mapLabel = 'Voir sur la carte', offices = [] } = Astro.props;
+const { title, subTitle, mapLabel = 'Voir sur la carte', showMap = false, offices = [] } = Astro.props;
 ---
 <section class="offices-section" id="bureaux">
   <div class="container">
@@ -16,19 +17,28 @@ const { title, subTitle, mapLabel = 'Voir sur la carte', offices = [] } = Astro.
       {subTitle && <p>{subTitle}</p>}
     </div>
     {offices.length > 0 && (
-      <div class="offices-grid">
-        {offices.map(o => (
-          <a
-            class="office-card"
-            href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${o.address}, ${o.city}`)}`}
-            target="_blank"
-            rel="noopener"
-          >
-            {o.city && <h5>{o.city}</h5>}
-            {o.address && <p>{o.address}</p>}
-            <span class="office-map-link">{mapLabel}</span>
-          </a>
-        ))}
+      <div class={`offices-grid ${showMap ? 'has-map' : ''}`}>
+        {offices.map(o => {
+          const fullAddress = `${o.address}, ${o.city}`;
+          const mapsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(fullAddress)}`;
+          return (
+            <div class="office-card">
+              {showMap && (
+                <div class="office-map-embed">
+                  <iframe
+                    src={`https://www.google.com/maps?q=${encodeURIComponent(fullAddress)}&output=embed`}
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    title={`Kaart — ${o.city}`}
+                  ></iframe>
+                </div>
+              )}
+              {o.city && <h5>{o.city}</h5>}
+              {o.address && <p>{o.address}</p>}
+              <a class="office-map-link" href={mapsHref} target="_blank" rel="noopener">{mapLabel}</a>
+            </div>
+          );
+        })}
       </div>
     )}
   </div>
@@ -79,9 +89,22 @@ const { title, subTitle, mapLabel = 'Voir sur la carte', offices = [] } = Astro.
     margin-bottom: 1.25rem;
   }
   .office-map-link {
+    display: inline-block;
     color: var(--violet, #984895);
     font-weight: 600;
     font-size: 0.88rem;
+  }
+  .office-map-embed {
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 1.25rem;
+    aspect-ratio: 4 / 3;
+  }
+  .office-map-embed iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
   }
   @media (max-width: 900px) {
     .offices-grid { grid-template-columns: 1fr; }
