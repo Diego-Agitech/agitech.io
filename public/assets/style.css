@@ -152,7 +152,7 @@
   .banner-sec.inner-pages-banner { padding: 4.5rem 0; }
 
   /* Experts */
-  .certified-experts-section { padding: 5rem 0; background: var(--white); }
+  .certified-experts-section { padding: 5.5rem 0; background: var(--white); }
   .certified-experts-section h6 { color: var(--violet); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; margin-bottom: 0.6rem; }
   .certified-experts-section h3 { font-size: 1.9rem; margin-bottom: 2.5rem; }
   .experts-slider { display: flex; gap: 1.5rem; overflow-x: auto; padding-bottom: 0.5rem; }
@@ -162,7 +162,7 @@
   .expert-info h6 { color: var(--muted); font-size: 0.85rem; font-weight: 400; }
 
   /* Why section */
-  .why-section { padding: 5rem 0; background: var(--offwhite); }
+  .why-section { padding: 5.5rem 0; background: var(--offwhite); }
   .why-section .row { display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; align-items: center; }
   .why-title { grid-column: 1 / -1; }
   .why-title h3 { font-size: 1.9rem; margin-bottom: 2.5rem; max-width: 640px; }
@@ -186,7 +186,7 @@
   .badge-oodo-img .img-odoo img { max-width: 120px; height: auto; width: auto; }
 
   /* Odoo expertise / ideas */
-  .odoo-expertise-section { padding: 5rem 0; background: var(--white); }
+  .odoo-expertise-section { padding: 5.5rem 0; background: var(--white); }
   .odoo-expertise-section h3 { font-size: 1.9rem; margin-bottom: 2.75rem; text-align: center; }
   .odoo-expertise-content { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.75rem; }
   .odoo-expertise-content .item { padding: 2rem; border: 1px solid var(--border); border-radius: 16px; transition: border-color 0.25s, transform 0.25s; }
@@ -201,7 +201,7 @@
   /* Services */
   .our-services-section { padding: 5.5rem 0; background: var(--black); color: var(--white); }
   .our-services-section .title { text-align: center; max-width: 620px; margin: 0 auto 3rem; }
-  .our-services-section .title h2 { font-size: 2rem; margin-bottom: 0.9rem; }
+  .our-services-section .title h2 { font-size: 1.9rem; margin-bottom: 0.9rem; }
   .our-services-section .title h6 { color: var(--muted-onDark); font-weight: 400; font-size: 1rem; }
   .our-services-content { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
   .our-services-content .item-wrap { display: block; background: var(--card-dark); border: 1px solid var(--border-onDark); border-radius: 18px; padding: 2.25rem; height: 100%; transition: border-color 0.25s, transform 0.25s; }
@@ -474,7 +474,7 @@
   .odoo-intro-section .left-img img { border-radius: 16px; width: 100%; height: 380px; object-fit: cover; }
   .odoo-intro-section .left-img.black-overlay::after { content:''; position:absolute; inset:0; background: rgba(20,20,20,0.15); border-radius: 16px; }
   .odoo-intro-content { display: flex; flex-direction: column; justify-content: center; }
-  .odoo-intro-content h3 { font-size: 1.6rem; margin: 0 0 1.75rem; }
+  .odoo-intro-content h3 { font-size: 1.9rem; margin: 0 0 1.75rem; }
   .odoo-intro-content .primary-btn { align-self: flex-start; }
 
   /* Methodology */
