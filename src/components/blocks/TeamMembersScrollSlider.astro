@@ -2,12 +2,14 @@
 // Ported from template-parts/block/team-members-scroll-slider.php.
 // Simplified: static scroll row (owl-carousel JS deferred).
 import { blockImg } from '../../lib/img';
+import Cta from './Cta.astro';
 export interface Props {
   subHeading?: string;
   mainHeading?: string;
   teamMembers?: { image?: string; name?: string; role?: string }[];
+  cta?: { label?: string; url?: string; newTab?: boolean };
 }
-const { subHeading, mainHeading, teamMembers = [] } = Astro.props;
+const { subHeading, mainHeading, teamMembers = [], cta } = Astro.props;
 ---
 <section class="certified-experts-section">
   <div class="container">
@@ -26,5 +28,6 @@ const { subHeading, mainHeading, teamMembers = [] } = Astro.props;
         ))}
       </div>
     )}
+    {cta && <Cta label={cta.label} url={cta.url} newTab={cta.newTab} />}
   </div>
 </section>

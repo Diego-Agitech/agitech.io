@@ -5,9 +5,9 @@ export interface Props {
 const { lang } = Astro.props;
 
 const strings = {
-  fr: { odoo: 'Odoo ERP', industries: 'Solutions', services: 'Services', cases: 'Réalisations', blog: 'Blog', team: 'Équipe', contact: 'Contact', allIndustries: 'Toutes les solutions' },
-  en: { odoo: 'Odoo ERP', industries: 'Solutions', services: 'Services', cases: 'Case Studies', blog: 'Blog', team: 'Team', contact: 'Contact', allIndustries: 'All solutions' },
-  nl: { odoo: 'Odoo ERP', industries: 'Oplossingen', services: 'Diensten', cases: 'Realisaties', blog: 'Blog', team: 'Team', contact: 'Contact', allIndustries: 'Alle oplossingen' },
+  fr: { odoo: 'Odoo ERP', industries: 'Solutions', services: 'Services', cases: 'Réalisations', blog: 'Blog', team: 'Jobs', contact: 'Contact', allIndustries: 'Toutes les solutions' },
+  en: { odoo: 'Odoo ERP', industries: 'Solutions', services: 'Services', cases: 'Case Studies', blog: 'Blog', team: 'Jobs', contact: 'Contact', allIndustries: 'All solutions' },
+  nl: { odoo: 'Odoo ERP', industries: 'Oplossingen', services: 'Diensten', cases: 'Realisaties', blog: 'Blog', team: 'Jobs', contact: 'Contact', allIndustries: 'Alle oplossingen' },
 }[lang];
 
 const base = lang === 'fr' ? '' : `/${lang}`;
@@ -58,6 +58,7 @@ const services = {
     { label: 'Mise à niveau de version', href: '/mise-a-niveau-version/' },
     { label: 'Réseau et IoT', href: '/infrastructure-it/' },
     { label: 'Développement', href: '/development/' },
+    { label: 'Développement au forfait (IA)', href: '/developpement-odoo-forfait/' },
   ],
   en: [
     { label: 'Accounting (AgiFid)', href: 'https://agifid.be', external: true },
@@ -68,6 +69,7 @@ const services = {
     { label: 'Version Upgrade', href: '/en/mise-a-niveau-version/' },
     { label: 'Network & IoT', href: '/en/infrastructure-it/' },
     { label: 'Development', href: '/en/development/' },
+    { label: 'Fixed-Price Development (AI)', href: '/en/developpement-odoo-forfait/' },
   ],
   nl: [
     { label: 'Boekhouding (AgiFid)', href: 'https://agifid.be', external: true },
@@ -78,6 +80,7 @@ const services = {
     { label: 'Versie-upgrade', href: '/nl/mise-a-niveau-version/' },
     { label: 'Netwerk & IoT', href: '/nl/infrastructure-it/' },
     { label: 'Ontwikkeling', href: '/nl/development/' },
+    { label: 'Ontwikkeling met vaste prijs (AI)', href: '/nl/developpement-odoo-forfait/' },
   ],
 }[lang];
 ---

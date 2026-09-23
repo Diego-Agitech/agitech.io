@@ -3,7 +3,7 @@
 export interface Props {
   title?: string;
   subTitle?: string;
-  services?: { title?: string; price?: string; link?: string; linkLabel?: string; features?: { included?: boolean; text?: string }[] }[];
+  services?: { title?: string; price?: string; link?: string; linkLabel?: string; features?: { included?: boolean; text?: string; href?: string }[] }[];
 }
 const { title, subTitle, services = [] } = Astro.props;
 ---
@@ -18,10 +18,12 @@ const { title, subTitle, services = [] } = Astro.props;
         <div class="row our-services-content">
           {services.map(s => (
             <div class="col-lg-4 col-md-4 col-sm-12 col-12 item">
-              <a href={s.link ?? '#'} class="item-wrap">
+              <div class="item-wrap">
                 {s.title && <h4>{s.title}</h4>}
                 {s.features && s.features.length > 0 && (
-                  <ul class="p-0">{s.features.map(f => <li>{f.included ? '✓' : '✗'} {f.text}</li>)}</ul>
+                  <ul class="p-0">{s.features.map(f => (
+                    <li>{f.href ? <a href={f.href}>{f.included ? '✓' : '✗'} {f.text}</a> : <>{f.included ? '✓' : '✗'} {f.text}</>}</li>
+                  ))}</ul>
                 )}
                 {s.price && (
                   <div class="tier-price">
@@ -29,8 +31,8 @@ const { title, subTitle, services = [] } = Astro.props;
                     {s.price.includes('€') && <span class="price-vat">HTVA</span>}
                   </div>
                 )}
-                <span class="light-page-link">{s.linkLabel}</span>
-              </a>
+                <a href={s.link ?? '#'} class="light-page-link">{s.linkLabel}</a>
+              </div>
             </div>
           ))}
         </div>

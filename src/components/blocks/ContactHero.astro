@@ -12,6 +12,8 @@ export interface Props {
   formAction?: string;
   formSubject?: string;
   thankYouPath?: string;
+  offices?: string[];
+  officeLabel?: string;
 }
 const {
   titleBefore, titleHighlight, trustList = [],
@@ -20,6 +22,8 @@ const {
   formAction = 'https://formspree.io/f/xeajdqgr',
   formSubject = 'Nouvelle demande de contact - Agitech',
   thankYouPath = '/merci-formulaire/',
+  offices = [],
+  officeLabel = 'Bureau à contacter (optionnel)',
 } = Astro.props;
 ---
 <section class="contact-hero" id="contact">
@@ -49,6 +53,15 @@ const {
           <div class="form-field"><label for="ch-email">Email*</label><input type="email" id="ch-email" name="email" required></div>
           <div class="form-field"><label for="ch-phone">Téléphone*</label><input type="tel" id="ch-phone" name="phone" required></div>
         </div>
+        {offices.length > 0 && (
+          <div class="form-field form-field-full">
+            <label for="ch-office">{officeLabel}</label>
+            <select id="ch-office" name="office">
+              <option value=""></option>
+              {offices.map(o => <option value={o}>{o}</option>)}
+            </select>
+          </div>
+        )}
         <div class="form-field form-field-full">
           <label for="ch-message">Comment pouvons-nous vous aider ? (optionnel)</label>
           <textarea id="ch-message" name="message" rows="4"></textarea>

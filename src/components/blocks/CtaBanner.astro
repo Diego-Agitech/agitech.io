@@ -1,0 +1,28 @@
+---
+// Simple title + single button banner — final CTA for the développement-au-forfait page.
+import Cta from './Cta.astro';
+export interface Props {
+  title?: string;
+  ctaLabel?: string;
+  ctaUrl?: string;
+}
+const { title, ctaLabel, ctaUrl } = Astro.props;
+---
+<section class="forfait-cta-banner">
+  <div class="container-sm">
+    {title && <h3>{title}</h3>}
+    <Cta label={ctaLabel} url={ctaUrl} wrapClass="primary-btn" />
+  </div>
+</section>
+
+<style>
+  .forfait-cta-banner {
+    padding: 4.5rem 0;
+    text-align: center;
+    background: var(--offwhite, #f7f7f7);
+  }
+  .forfait-cta-banner h3 {
+    font-size: clamp(1.4rem, 3vw, 1.8rem);
+    margin-bottom: 1.5rem;
+  }
+</style>

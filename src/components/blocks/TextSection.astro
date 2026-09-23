@@ -1,0 +1,43 @@
+---
+// Generic H2 + HTML body section for the développement-au-forfait dedicated page.
+// title always renders as h2 (never h1 — the page's own hero owns the single h1).
+// `emphasis` gives the "limites" section a visually distinct, unsoftened treatment.
+export interface Props {
+  title?: string;
+  content?: string;
+  emphasis?: boolean;
+}
+const { title, content, emphasis = false } = Astro.props;
+---
+<section class={`forfait-text-section ${emphasis ? 'is-emphasis' : ''}`}>
+  <div class="container-sm">
+    {title && <h2>{title}</h2>}
+    {content && <div class="forfait-text-body" set:html={content} />}
+  </div>
+</section>
+
+<style>
+  .forfait-text-section {
+    padding: 4rem 0;
+  }
+  .forfait-text-section h2 {
+    font-size: clamp(1.5rem, 3vw, 1.9rem);
+    margin-bottom: 1.25rem;
+  }
+  .forfait-text-body {
+    color: var(--muted, #6b6b6b);
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+  .forfait-text-body :global(p) {
+    margin-bottom: 1rem;
+  }
+  .is-emphasis {
+    background: var(--offwhite, #f7f7f7);
+    border-left: 3px solid var(--violet, #984895);
+  }
+  .is-emphasis .forfait-text-body {
+    color: var(--ink, #1d1d1d);
+    font-weight: 500;
+  }
+</style>

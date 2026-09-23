@@ -43,6 +43,7 @@ export async function getStaticPaths() {
     'support-nl': 'support',
     'terms-conditions-nl': 'terms-conditions',
     'why-odoo-nl': 'why-odoo',
+    'developpement-odoo-forfait-nl': 'developpement-odoo-forfait',
   };
 
   const pageSlugs = await reader.collections.pages.list();
@@ -79,6 +80,20 @@ if (kind === 'blog') {
   bodyHtml = withToc.html;
   toc = withToc.toc;
 }
+const hasContactHero = kind === 'page' && entry.blocks?.some((b: { discriminant: string }) => b.discriminant === 'contactHero');
+
+const pageFaqBlock = kind === 'page' ? entry.blocks?.find((b: any) => b.discriminant === 'faq') : undefined;
+const pageJsonLd = pageFaqBlock
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: (pageFaqBlock.value.items ?? []).map((item: any) => ({
+        '@type': 'Question',
+        name: item.question,
+        acceptedAnswer: { '@type': 'Answer', text: item.answer },
+      })),
+    }
+  : undefined;
 ---
 {kind === 'page' ? (
   <Layout
@@ -86,9 +101,14 @@ if (kind === 'blog') {
     title={entry.seoTitle || entry.title}
     description={entry.seoDescription ?? ''}
     canonical={`https://agitech.io/nl/${Astro.params.slug}/`}
+    includeContactScripts={hasContactHero}
+    jsonLd={pageJsonLd}
   >
     <Header slot="header" lang="nl" />
-    <main><BlockRenderer blocks={entry.blocks} /></main>
+    <main>
+      {Astro.params.slug === 'developpement-odoo-forfait' && <h1 class="visually-hidden-h1">{entry.title}</h1>}
+      <BlockRenderer blocks={entry.blocks} />
+    </main>
     <Footer slot="footer" lang="nl" />
   </Layout>
 ) : (
@@ -126,3 +146,10 @@ if (kind === 'blog') {
     <Footer slot="footer" lang="nl" />
   </Layout>
 )}
+
+<style>
+  .visually-hidden-h1 {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+  }
+</style>

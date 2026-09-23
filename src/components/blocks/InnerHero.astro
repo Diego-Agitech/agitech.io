@@ -7,11 +7,12 @@ export interface Props {
   title?: string;
   subTitle?: string;
   cta?: { label?: string; url?: string; newTab?: boolean };
+  cta2?: { label?: string; url?: string; newTab?: boolean };
   image?: string;
   bottomLine?: boolean;
   logoAtBottom?: boolean;
 }
-const { logo, title, subTitle, cta, image, bottomLine = false, logoAtBottom = false } = Astro.props;
+const { logo, title, subTitle, cta, cta2, image, bottomLine = false, logoAtBottom = false } = Astro.props;
 ---
 <section class={`banner-sec inner-pages-banner dark-bg ${bottomLine ? 'bottom-line-img' : ''}`}>
   <div class="container">
@@ -21,7 +22,12 @@ const { logo, title, subTitle, cta, image, bottomLine = false, logoAtBottom = fa
           {logo && <div class="at-odoo-logo"><img src={blockImg(logo)} alt=""></div>}
           {title && <h6>{title}</h6>}
           {subTitle && <h2 set:html={subTitle} />}
-          {cta && <Cta label={cta.label} url={cta.url} newTab={cta.newTab} wrapClass="light-btn" />}
+          {(cta || cta2) && (
+            <div class="hero-cta-group">
+              {cta && <Cta label={cta.label} url={cta.url} newTab={cta.newTab} wrapClass="light-btn" />}
+              {cta2 && <Cta label={cta2.label} url={cta2.url} newTab={cta2.newTab} wrapClass="hero-cta-secondary" />}
+            </div>
+          )}
         </div>
       </div>
     </div>
